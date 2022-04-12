@@ -3,13 +3,6 @@
 
 name: Deploy
 
-# env:
-#   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#   AWS_DEFAULT_REGION: 'ap-northeast-1'
-#   super_secret: ${{ secrets.SUPERSECRET }}
-    
-
 on:
   push:
     branches: [ main ]
@@ -34,10 +27,13 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
       env:
-        SUPER_SECRET: ${{ secrets.SUPER_SECRET }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: 'ap-northeast-1'
+        SUPER_SECRET: ${{ secrets.SUPERSECRET }}
       run: |
-        example-command "$env:SUPER_SECRET"
-    - run: npm ci
+        example-command "$SUPER_SECRET"
+    # - run: npm ci
     # - run: npm run build --if-present
     # - run: aws s3 sync --delete --acl public-read ./build s3://summerjs
 
