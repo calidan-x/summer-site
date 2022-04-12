@@ -3,11 +3,6 @@
 
 name: Deploy
 
-env:
-  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  AWS_DEFAULT_REGION: 'ap-northeast-1'
-
 on:
   push:
     branches: [ main ]
@@ -34,4 +29,8 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: aws s3 sync --delete --acl public-read ./build s3://summerjs
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: 'ap-northeast-1'
 
