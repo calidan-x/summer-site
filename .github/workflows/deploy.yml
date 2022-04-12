@@ -32,8 +32,9 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-        super_secret: ${{ secrets.SUPERSECRET }}
         cache: 'npm'
+      env:
+        super_secret: ${{ secrets.SUPERSECRET }}
     - run: npm ci
     # - run: npm run build --if-present
     # - run: aws s3 sync --delete --acl public-read ./build s3://summerjs
