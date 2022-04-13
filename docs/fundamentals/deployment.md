@@ -14,6 +14,13 @@ export const SERVER_CONFIG: ServerConfig = {
 };
 ```
 
+```ts title="使用前缀路径"
+export const SERVER_CONFIG: ServerConfig = {
+  basePath: '/my-service',
+  port: [端口号]
+};
+```
+
 ### 编译与打包
 Summer使用esbuild打包，最终程序会被打包成一个可执行文件和一份source map文件和一个资源文件夹
 
@@ -32,7 +39,7 @@ build/index.js.map
 ```
 
 :::note 关于打包生成的文件
-Summer生成的最终执行文件相当简洁，不再有node_modules目录让部署变得更方便，同时编译打包出的执行文件能够直接检测执行环境，可以通过 ``node --enable-source-maps index.js`` 执行，也可以直接传到 AWS Lambda 等无服务器上执行，不需要再做额外配置
+Summer生成的最终执行文件相当简洁，不再有node_modules目录让部署变得更方便，同时编译打包出的执行文件能够直接检测执行环境，可以通过 ``node --enable-source-maps index.js`` 执行，也可以直接传到 AWS Lambda 阿里云函数FC 等无服务器上执行，不需要再做额外配置
 :::
 
 ### 使用资源文件
