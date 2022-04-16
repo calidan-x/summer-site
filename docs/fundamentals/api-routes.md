@@ -35,7 +35,8 @@ export class TodoController {
 | @Put | Put请求 |
 | @Patch | Patch请求 |
 | @Delete | Delete请求 |
-| @Request | 所有类型的请求 |
+| @Request | 所有类型的请求<br/>(如果有相同路径的其他精确请求方法，<br/>会优先匹配精确请求方法) |
+| @Options | 跨域需求的请求 |
 
 
 ### 接收请求数据
@@ -66,7 +67,7 @@ export class TodoController {
 | @Ctx  | 获取请求上下文 |
 | @RequestPath  | 获取请求路径 |
 | @Cookie  | 获取Cookie值 |
-| @Session  | 获取Session值 |
+| @Session  | 获取当前Session对象 |
 
 
 ### 请求参数类型转换

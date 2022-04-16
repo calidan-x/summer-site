@@ -18,12 +18,12 @@ npm install @summer-js/swagger
 import { SwaggerConfig } from '@summer-js/swagger';
 
 export const SWAGGER_CONFIG: SwaggerConfig = {
-  swaggerDocPath: '/swagger',
+  docPath: '/swagger',
   info: { title: 'Summer' }
 }
 ```
 
-`swaggerDocPath` 是配置的swagger访问路径
+`docPath` 是配置的swagger访问路径
 
 :::tip
 使用 @ApiDocGroup 标记Controller<br/>

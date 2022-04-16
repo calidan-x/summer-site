@@ -70,3 +70,9 @@ export class TodoController {
   }
 }
 ```
+
+### 获取可注入实例
+
+```ts
+const todoService = getInjectable(TodoService)
+```

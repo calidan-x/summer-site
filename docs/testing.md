@@ -28,7 +28,7 @@ describe('Test Movie Controller', () => {
 
 ### 测试Service
 ```ts
-import { getLocInstance } from '@summer-js/summer'
+import { getInjectable } from '@summer-js/summer'
 import { initTest, endTest } from '@summer-js/test'
 
 import { PersonService } from './../service/person-service'
@@ -39,7 +39,7 @@ describe('Test Movie Service', () => {
   beforeAll(async () => {
     await initTest()
     // 必须在 initTest() 之后获取
-    personService = getLocInstance(PersonService)
+    personService = getInjectable(PersonService)
   })
 
   afterAll(async () => {
