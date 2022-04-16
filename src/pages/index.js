@@ -36,3 +36,9 @@ export default function Home() {
     </Layout>
   );
 }
+
+console.log(location.href.indexOf("www.summerjs.dev"))
+alert(123)
+if(location.href.indexOf("www.summerjs.dev")>0){
+  location.href = location.href.replace("www.summerjs.dev","summerjs.dev");
+}
