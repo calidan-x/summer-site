@@ -27,6 +27,7 @@ function HomepageHeader() {
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
+
   return (
     <Layout title="Summer" description="Efficient NodeJs Beckend Framework">
       <HomepageHeader />
@@ -35,10 +36,4 @@ export default function Home() {
       </main>
     </Layout>
   );
-}
-
-console.log(location.href.indexOf("www.summerjs.dev"))
-alert(123)
-if(location.href.indexOf("www.summerjs.dev")>0){
-  location.href = location.href.replace("www.summerjs.dev","summerjs.dev");
 }
