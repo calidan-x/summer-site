@@ -14,6 +14,8 @@ authors: [Calidan]
 
 也开始琢磨着能不能自己写一套类似Spring Boot的NodeJS后端框架。在利用上NodeJS程序内存使用少，更适用于无服务和编写代码更灵活的特点的基础上提高代码类型判断的严谨性，Summer框架就此开始....
 
+之后我把很多工程开发上的具体问题的解决方案都融入到了框架中
+
 框架还在不停的改进中，各种建议和功能需求可以提在Github的 ISSUES 页面
 
 [https://github.com/calidan-x/summer/issues](https://github.com/calidan-x/summer/issues)
