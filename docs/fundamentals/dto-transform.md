@@ -4,17 +4,20 @@ sidebar_position: 50
 
 # DTO 转换
 
-DTO转换是后端开发重要环节，通常一个数据库系统从。。。。。
 
-Summer为DTO转换提供了2个便利方法
+通常而言DTO转换是后端处理必不可少的环节，会占据后端大量代码
 
-通常一个请求DTO是数据库的一部分
+一个请求结构，需要转换成与数据相同的模型字段才可以存入，从数据库读取出来的内容也需要做一定的裁切拼装才以接口形式输出给前端
+
+Summer专门为DTO转换提供了2个便利方法
+
+
 
 ### 数据类型转换
 ```ts
 convertData(instance:T,class) => T
 ```
-
+该函数可以把前一个实例的字段赋值到新类型实例中，多余的字段会被忽略，字段类型不一致会报错
 
 ```ts
 import { Controller, Post, Body, Required, convertData } from '@summer-js/summer';
@@ -49,8 +52,7 @@ export class BookController {
 ```
 
 
-:::tip
-为什么不使用 Object.assign()？
+:::tip 为什么不使用 Object.assign()
 Object.assign()确实也可以达到类似的效果，但是在赋值过程中无法法判断类型，并且有可能给目标对象添加额外属性
 :::
 
@@ -61,7 +63,7 @@ Object.assign()确实也可以达到类似的效果，但是在赋值过程中�
 ```ts
 fillData(instance:T,data:T);
 ```
-
+该函数可以把一段数据灌入前一个实例中，多余的字段会被忽略，类型不相同会报错
 
 ```ts
 
