@@ -4,11 +4,11 @@ sidebar_position: 90
 
 # 服务器部署
 
-### 修改端口号
+### 修改服务器配置
 
 在 config.default.ts 或对应环境配置修改
 
-```ts
+```ts title="修改端口号"
 export const SERVER_CONFIG: ServerConfig = {
   port: [端口号]
 };
@@ -22,7 +22,11 @@ export const SERVER_CONFIG: ServerConfig = {
 ```
 
 ### 编译与打包
-Summer使用esbuild打包，最终程序会被打包成一个可执行文件和一份source map文件和一个资源文件夹
+Summer使用esbuild打包，最终程序会被打包成:
+
+- 一个可执行文件 /build/index.js
+- 一个source map文件  /build/index.js.map  
+- 一个资源文件夹 /resource (可选)
 
 执行命令
 ```
@@ -39,12 +43,14 @@ build/index.js.map
 ```
 
 :::note 关于打包生成的文件
-Summer生成的最终执行文件相当简洁，不再有node_modules目录让部署变得更方便，同时编译打包出的执行文件能够直接检测执行环境，可以通过 ``node --enable-source-maps index.js`` 执行，也可以直接传到 AWS Lambda 阿里云函数FC 等无服务器上执行，不需要再做额外配置
+Summer生成的最终执行文件相当简洁，不再有node_modules目录让部署变得更方便，同时编译打包出的执行文件能够直接检测执行环境<br/>
+可以通过 ``node --enable-source-maps index.js`` 执行，<br/>
+也可以直接传到 AWS Lambda 阿里云函数FC 等无服务器上执行，不需要再做额外配置<br/>
 :::
 
 ### 使用资源文件
-创建 src/resouce 文件夹放入资源文件<br/>
-src/resouce 目录会自动被打包到 build/resouce 
+创建 ./resource 文件夹放入资源文件<br/>
+./resource 目录会自动被拷贝到 build/resource 
 
 ### 在Linux系统机器部署
 
@@ -92,5 +98,6 @@ CMD [ "node", "--enable-source-maps", "server.js" ]
 :::note Serverless 服务器限制：
 * 无法保留程序状态，每次执行完立即销毁<br/>
 * 无法使用定时任务(可以用过其他定时器触碰实现)<br/>
-* 硬盘文件读写操作受限
+* 硬盘文件读写操作受限<br/>
+* 静态服务返回文件大小受限
 :::

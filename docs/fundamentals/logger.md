@@ -4,7 +4,7 @@ sidebar_position: 72
 
 # 日志
 
-简单的日志记录
+简单的日志记录格式化输出
 
 ```ts
 import { Controller, Get, Logger } from '@summer-js/summer';

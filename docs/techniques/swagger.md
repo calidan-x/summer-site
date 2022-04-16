@@ -25,7 +25,11 @@ export const SWAGGER_CONFIG: SwaggerConfig = {
 
 `docPath` 是配置的swagger访问路径
 
-:::tip
+:::tip 更多信息配置
+SwaggerConfig 的 info 中还可以配置更多内容
+:::
+
+:::tip 如何标注
 使用 @ApiDocGroup 标记Controller<br/>
 使用 @ApiDoc 标记接口方法<br/>
 :::

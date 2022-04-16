@@ -31,7 +31,7 @@ export const [DecoratorName] = createParamDecorator((ctx?, paramName?, arg1?, ar
 
 
 
-```ts title="获取头部AppVersion信息"
+```ts title="例子：获取头部 AppVersion 信息"
 import { Controller, createParamDecorator, Get } from '@summer-js/summer';
 
 export const AppVersion = createParamDecorator((ctx) => ctx.request.headers['AppVersion']);
@@ -45,7 +45,7 @@ export class AppController {
 }
 ```
 
-```ts title="解析获取JWT Token中的uid"
+```ts title="例子：解析获取JWT Token中的uid"
 import { Controller, createParamDecorator, Get } from '@summer-js/summer';
 import jwt from 'jsonwebtoken';
 
@@ -88,7 +88,7 @@ export const [DecoratorName] = createClassAndMethodDecorator((ctx?, invokeMethod
 在class层级写Decorator是对class中的所有方法进行拦截
 :::
 
-```ts
+```ts title="例子：开发 @RequireLogin 拦截未登录请求"
 import { Controller, createClassAndMethodDecorator, Get } from '@summer-js/summer';
 import jwt from 'jsonwebtoken';
 
@@ -133,7 +133,7 @@ export const [DecoratorName] = createPropertyDecorator((config?, propertyName? ,
 ``propertyName`` 是定义的属性变量名字
 ``arg1, arg2...`` 为自定义参数，在之后调用时候使用 @DecoratorName(arg1,arg2,...)<br/>
 
-```ts title="从环境变量中读取MySQL的配置"
+```ts title="例子：从环境变量中读取MySQL的配置"
 import { Controller, createPropertyDecorator, Get } from '@summer-js/summer';
 
 export const MySQLConfig = createPropertyDecorator((config) => {
@@ -152,7 +152,7 @@ export class AppController {
 }
 ```
 
-```ts title="获取城市列表"
+```ts title="例子：获取城市列表"
 import { Controller, createPropertyDecorator, Get } from '@summer-js/summer';
 
 export const CityList = createPropertyDecorator(() => {
@@ -191,7 +191,7 @@ export class AppController {
 }
 ```
 
-### 缓存返回值
+### 返回值缓存
 ```ts
 import { Controller, createMethodDecorator, Get } from '@summer-js/summer';
 

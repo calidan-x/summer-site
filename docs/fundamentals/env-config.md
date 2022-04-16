@@ -7,12 +7,11 @@ sidebar_position: 60
 Summer支持多环境配置
 
 ### 配置环境变量
-在config目录下创建配置文件
-[环境名].config.ts
+在config目录下创建配置文件 **[环境名].config.ts**
 
-default.config.ts 是所有环境都会读取的配置
+**default.config.ts** 是所有环境都会读取的配置
 
-最终配置信息是通过 default.config.ts 与 [环境名].config.ts 叠加得到的结果
+最终配置是通过 **default.config.ts** 与 **[环境名].config.ts** 叠加混合得到的结果
 
 例如在 default.config.ts 加入
 
@@ -31,7 +30,7 @@ export const MY_CONFIG = {
 }
 ```
 
-那么最终获取的结果就是
+那么local环境最终获取的结果就是
 ```ts
 {
   var1: 'VAR1',
@@ -62,11 +61,13 @@ export class ConfigController {
 
 ### 程序启动环境指定
 
-指定环境名是一个可选参数，如果不指定则只读取 default.config.ts
-
 ```
 summer -s --env [环境名]
 ```
+
+:::note
+指定环境名是一个可选参数，如果不指定则只读取 default.config.ts
+:::
 
 常见的环境名
 

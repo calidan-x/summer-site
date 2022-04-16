@@ -52,15 +52,15 @@ export class BookController {
 
 
 :::info 整形校验
-int型不是TypeScript支持的基础数据类型，是Summer额外补充仅用于请求参数的类型，在非校验代码中int型等同于number
+int型不是TypeScript支持的基础数据类型，是Summer额外补充仅用于请求参数校验的类型，在非校验代码中int型等同于number
 :::
 
 :::info 枚举校验
-enum型请求数据使用string型，Summer会自动转换成枚举值，便于后续的数据库存储
+使用数字作为枚举值的enum，Summer会自动转换成枚举值(string转数字)，便于后续的数据库存储
 :::
 
 :::info 布尔型校验
-布尔型如果是使用在 @Query 上，字符串 'ture' 'false' '0' '1' 会被转换成布尔型 true/false 
+布尔型如果是使用在 @Query 上，请求url中的字符串 'ture' 'false' '0' '1' 会被识别成布尔型 true/false<br/>
 :::
 
 ```ts
@@ -86,7 +86,7 @@ will output: boolean false
 ```
 
 
-### 数据长度格式等校验
+### 数据长度格式可选等校验
 
 ```ts
 import { Controller, Post, Body, Min, MaxLen  } from '@summer-js/summer';
