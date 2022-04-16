@@ -105,6 +105,6 @@ const config = {
 
 module.exports = config;
 
-if (location.href.indexOf('www.summerjs.dev') > 0) {
-  location.href = location.href.replace('www.summerjs.dev', 'summerjs.dev');
+if (window.location.href.indexOf('www.summerjs.dev') > 0) {
+  window.location.href = window.location.href.replace('www.summerjs.dev', 'summerjs.dev');
 }
