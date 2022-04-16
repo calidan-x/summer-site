@@ -5,6 +5,8 @@ sidebar_position: 30
 # 服务与实例注入
 
 
+Summer 框架会将标注 `@Injectable` 或 `@Service` 的对象实例储存到一个公共容器中，再使用 `@Inject` 注入到对象属性上
+
 ```ts
 import { Service } from '@summer-js/summer';
 

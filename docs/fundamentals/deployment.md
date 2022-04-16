@@ -14,7 +14,7 @@ export const SERVER_CONFIG: ServerConfig = {
 };
 ```
 
-```ts title="使用前缀路径"
+```ts title="使用前缀路径，可在同一域名下通过路径区分部署多个服务"
 export const SERVER_CONFIG: ServerConfig = {
   basePath: '/my-service',
   port: [端口号]
