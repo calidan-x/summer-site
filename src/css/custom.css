@@ -41,6 +41,7 @@
 * {
   font-size: 14px;
   font-family: Tahoma;
+  --doc-sidebar-width: 220px;
 }
 
 .prism-code .token {
@@ -73,7 +74,7 @@
 }
 
 .table-of-contents__left-border {
-  border: none;
+  border-color: #efefef;
 }
 
 .menu__link,
