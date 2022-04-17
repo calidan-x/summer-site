@@ -44,7 +44,6 @@
 
 .markdown h1:first-child {
   font-size: 30px;
-  margin-top: 20px;
 }
 
 .markdown > h2 {
@@ -57,4 +56,35 @@
 
 .navbar--fixed-top * {
   font-size: 16px;
+}
+
+.theme-doc-sidebar-container {
+  border: none !important;
+}
+
+.navbar {
+  box-shadow: none;
+  border-bottom: 1px solid #efefef;
+}
+
+.table-of-contents__left-border {
+  border: none;
+}
+
+.menu__link,
+.menu__link--active,
+.menu__list-item-collapsible {
+  background-color: transparent !important;
+}
+
+.menu__link:hover {
+  opacity: 0.7;
+}
+
+.breadcrumbsItemLink_node_modules-\@docusaurus-theme-classic-lib-next-theme-DocBreadcrumbs-styles-module {
+  background-color: transparent !important;
+}
+
+.breadcrumbs {
+  display: none;
 }
