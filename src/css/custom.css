@@ -64,7 +64,7 @@
 }
 
 .theme-doc-sidebar-container {
-  border: none !important;
+  border-right: 1px solid #efefef !important;
 }
 
 .navbar {
