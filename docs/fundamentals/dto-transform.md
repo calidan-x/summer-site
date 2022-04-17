@@ -20,11 +20,10 @@ convertData(instance,Class)
 该函数可以把前一个实例的字段赋值到新类型实例中，多余的字段会被忽略，字段类型不一致会报错
 
 ```ts
-import { Controller, Post, Body, Required, convertData } from '@summer-js/summer';
+import { Controller, Post, Body, convertData } from '@summer-js/summer';
 
 // request DTO
 class AddBookRequest {
-  @Required()
   title: string;
   author: string;
 }
