@@ -40,6 +40,11 @@
 
 * {
   font-size: 14px;
+  font-family: Tahoma;
+}
+
+.prism-code .token {
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
 }
 
 .markdown h1:first-child {
