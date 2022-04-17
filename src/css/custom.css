@@ -37,3 +37,23 @@
 [data-theme='dark'] .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.3);
 }
+
+* {
+  font-size: 14px;
+}
+
+.markdown h1:first-child {
+  font-size: 30px;
+}
+
+.markdown > h2 {
+  font-size: 20px;
+}
+
+.markdown > h3 {
+  font-size: 20px;
+}
+
+.navbar--fixed-top * {
+  font-size: 16px;
+}
