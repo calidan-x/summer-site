@@ -65,16 +65,16 @@
 }
 
 .theme-doc-sidebar-container {
-  border-right: 1px solid #efefef !important;
+  border-right: 1px solid rgba(128, 128, 128, 0.2) !important;
 }
 
 .navbar {
   box-shadow: none;
-  border-bottom: 1px solid #efefef;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
 }
 
 .table-of-contents__left-border {
-  border-color: #efefef;
+  border-color: rgba(128, 128, 128, 0.2);
 }
 
 .menu__link,
