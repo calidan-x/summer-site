@@ -8,6 +8,8 @@ sidebar_position: 1
 
 ```
 npm install @summer-js/typeorm
+npm install typeorm
+npm install mysql
 ```
 
 ### MySQL
