@@ -22,9 +22,10 @@ export const TYPEORM_CONFIG: TypeORMConfig = {
   DATA_SOURCE: {
     type: 'mysql',
     host: 'localhost',
-    database: 'summer-db',
+    database: 'dbname',
     username: 'root',
     password: 'root'
+    // 不需要添加 entities summer会自动收集
   }
 }
 ```
@@ -58,7 +59,7 @@ export const getRepository = <T>(entity: EntityTarget<T>) => {
 ```
 
 在Service中获取Repository并实现增删改查
-```ts
+```ts title="service/TodoService.ts"
 import { Service } from '@summer-js/summer'
 import { getRepository } from './DataSource.ts'
 
