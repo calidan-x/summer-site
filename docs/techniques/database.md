@@ -8,7 +8,6 @@ sidebar_position: 1
 
 ```
 npm install @summer-js/typeorm
-npm install typeorm
 npm install mysql
 ```
 
@@ -17,16 +16,17 @@ npm install mysql
 在 default.config.ts 配置（亦可以在不同环境配置）
 
 ```ts title="config/default.config.ts"
-import { ServerConfig } from '@summer-js/summer';
+import { TypeORMConfig } from '@summer-js/typeorm'
 
-// MYSQL_CONFIG 是固定命名不能修改
-export const MYSQL_CONFIG: MySQLConfig = {
-  host: 'localhost',
-  database: 'dbname',
-  username: 'root',
-  password: 'root'
-  // 不需要定义 entities, summer 会自动收集 @Entity 
-};
+export const TYPEORM_CONFIG: TypeORMConfig = {
+  DATA_SOURCE: {
+    type: 'mysql',
+    host: 'localhost',
+    database: 'summer-db',
+    username: 'root',
+    password: 'root'
+  }
+}
 ```
 配置好之后服务器启动会自动链接上数据库
 
@@ -47,12 +47,22 @@ export class Todo {
 }
 ```
 
-在Service中获取Repository并实现增删改查
-```ts title="service/TodoController.ts"
-import { Service } from '@summer-js/summer'
-import { getRepository } from 'typeorm'
+定义repository获取方式
+```ts title="DataSource.ts"
+import { EntityTarget } from 'typeorm'
+import { getDataSource } from '@summer-js/typeorm'
 
-import { Todo } from '../entity/todo'
+export const getRepository = <T>(entity: EntityTarget<T>) => {
+  return getDataSource('DATA_SOURCE').getRepository(entity)
+}
+```
+
+在Service中获取Repository并实现增删改查
+```ts
+import { Service } from '@summer-js/summer'
+import { getRepository } from './DataSource.ts'
+
+import { Todo } from '../entity/Todo'
 
 @Service
 export class TodoService {
