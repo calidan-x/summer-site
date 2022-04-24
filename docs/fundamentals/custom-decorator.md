@@ -129,7 +129,7 @@ export const [DecoratorName] = createPropertyDecorator((config?, propertyName? ,
 ```
 
 ``DecoratorName`` 是定义的装饰器名字<br/>
-``ctx`` 是请求的上下文，里面包含请求的所有信息<br/>
+``config`` 当前环境的配置<br/>
 ``propertyName`` 是定义的属性变量名字
 ``arg1, arg2...`` 为自定义参数，在之后调用时候使用 @DecoratorName(arg1,arg2,...)<br/>
 
