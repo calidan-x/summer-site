@@ -36,7 +36,6 @@ export class TodoController {
 | @Patch | Patch请求 |
 | @Delete | Delete请求 |
 | @Request | 所有类型的请求<br/>(如果有相同路径的其他精确请求方法，<br/>会优先匹配精确请求方法) |
-| @Options | 跨域需求的请求 |
 
 
 ### 接收请求数据
