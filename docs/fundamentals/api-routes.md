@@ -67,6 +67,7 @@ export class TodoController {
 | @RequestPath  | 获取请求路径 |
 | @Cookie  | 获取Cookie值 |
 | @Session  | 获取当前Session对象 |
+| @File  | 获取上传文件 |
 
 
 ### 请求参数类型转换
