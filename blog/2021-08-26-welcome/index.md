@@ -18,6 +18,6 @@ authors: [Calidan]
 
 框架还在不停的改进中，各种建议和功能需求可以提在Github的 ISSUES 页面
 
-联系我: lichao.huang@thoughtworks.com
+联系我: calidan@foxmail.com
 
 [https://github.com/calidan-x/summer/issues](https://github.com/calidan-x/summer/issues)
