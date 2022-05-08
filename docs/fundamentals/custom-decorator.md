@@ -8,13 +8,13 @@ Summer 提供了轻松自建 Decorator 的能力
 
 ### 相关创建方法
 
-|方法|说明|
-|----|----|
-|createParamDecorator|创建标记在方法参数前的Decorator|
-|createMethodDecorator|创建标记在method层级的Decorator|
-|createClassDecorator|创建标记在class层级的Decorator|
-|createClassAndMethodDecorator|创建标记在class和method层级的Decorator|
-|createPropertyDecorator|创建标记在类属性上的Decorator|
+|方法|说明|用途|
+|----|----|----|
+|createParamDecorator|创建标记在方法参数前的Decorator|获取请求数据|
+|createMethodDecorator|创建标记在method层级的Decorator|拦截方法，修改结果|
+|createClassDecorator|创建标记在class层级的Decorator|拦截Controller的所有方法，修改结果|
+|createClassAndMethodDecorator|创建标记在class和method层级的Decorator|拦截Controller的所有方法或单个方法，修改结果|
+|createPropertyDecorator|创建标记在类属性上的Decorator|注入配置|
 
  
 
