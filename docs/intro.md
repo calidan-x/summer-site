@@ -21,7 +21,7 @@ Summer 的目标是提供一个简单快捷的适用于微服务与无服务（S
   除内置的 Decorator 外，Summer还提供了简易的 Decorator 创建方法，让你轻松写出 @RequireLogin 之类的功能，让你的代码更优雅。
 
 - **一次编译部署多种类型服务器**<br/>
-  Summer 使用 ESBuild 打包，一次性打包成一个可执行文件，让部署变得更简单。这个兼容的可执行文件不仅可以使用 node 命令启动运行在Linux服务器或 K8S 集群，还可以直接放到 Serverless 平台(AWS Lambda/阿里云FC)，不需要修改任何配置。
+  Summer 使用 ESBuild 打包，一次性打包成一个可执行文件，让部署变得更简单。这个兼容的可执行文件不仅可以使用 node 命令启动运行在Linux服务器或 K8S 集群，还可以直接部署到 Serverless 平台(AWS Lambda/阿里云FC)，不需要修改任何配置。
 
 
 
