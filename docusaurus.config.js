@@ -1,8 +1,8 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const lightCodeTheme = require('prism-react-renderer/themes/github')
+const darkCodeTheme = require('prism-react-renderer/themes/dracula')
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -52,10 +52,33 @@ const config = {
       })
     ]
   ],
-
+  // themes: ['@docusaurus/theme-search-algolia'],
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     {
+      algolia: {
+        // The application ID provided by Algolia
+        appId: 'XLUUUIJIDV',
+
+        // Public API key: it is safe to commit it
+        apiKey: '2fc0cd2a0d1472025068bbee35a37409',
+
+        indexName: 'summerjs',
+
+        // Optional: see doc section below
+        contextualSearch: true,
+
+        // Optional: Specify domains where the navigation should occur through window.location instead on history.push. Useful when our Algolia config crawls multiple documentation sites and we want to navigate with window.location.href to them.
+        // externalUrlRegex: 'external\\.com|domain\\.com',
+
+        // Optional: Algolia search parameters
+        searchParameters: {},
+
+        // Optional: path for search page that enabled by default (`false` to disable it)
+        searchPagePath: 'search'
+
+        //... other Algolia params
+      },
       navbar: {
         title: 'Summer',
         logo: {
@@ -101,6 +124,6 @@ const config = {
         darkTheme: darkCodeTheme
       }
     }
-};
+}
 
-module.exports = config;
+module.exports = config
