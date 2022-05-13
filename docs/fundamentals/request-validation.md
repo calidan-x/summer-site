@@ -123,12 +123,13 @@ export class BookController {
 |  写法   | 作用  |
 |  ----  | ----  |
 | ? | 选传值 |
-| @Min  | 在 number/int/bigint 类型中使用，限制最小值 |
-| @Max  | 在 number/int/bigint 类型中使用，限制最大值 |
+| @Min  | 在 number/int/bigint 类型使用，限制最小值 |
+| @Max  | 在 number/int/bigint 类型使用，限制最大值 |
 | @MinLen  | 在string型使用，限制字符串最小长度 |
 | @MaxLen  | 在string型使用，限制字符串最大长度 |
 | @Email  | 在string型使用，限定格式为email格式 |
-| @Match  | 在string型使用，限定匹配正则表达式 |
+| @Pattern  | 在string型使用，限定匹配正则表达式 |
+| @Validate  | 在所有类型使用，使用一个判断函数，传入值返回是否验证通过 |
 
 ### 必传参数与选传参数
 
