@@ -42,6 +42,7 @@
   font-size: 14px;
   font-family: Tahoma, Arial;
   --doc-sidebar-width: 220px;
+  --ifm-heading-font-family: Tahoma, Arial;
 }
 
 .prism-code .token {
