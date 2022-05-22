@@ -15,6 +15,7 @@ import { Body, createRequestClientDecorator, Send } from '@summer-js/summer'
 const SendGrid = createRequestClientDecorator((config) => ({
   baseUrl: 'https://api.sendgrid.com',
   headers: {
+    // <<API_KEY>> 可以从传入的环境 config 获取
     Authorization: 'Bearer <<API_KEY>>',
     'Content-Type': 'application/json'
   }
