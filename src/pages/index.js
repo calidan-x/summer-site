@@ -29,7 +29,7 @@ export default function Home() {
   const { siteConfig } = useDocusaurusContext()
 
   return (
-    <Layout title="Summer" description="Efficient NodeJs Beckend Framework">
+    <Layout title="Summer" description="Efficient NodeJs Backend Framework">
       <HomepageHeader />
       <main>
         <HomepageFeatures />
