@@ -11,7 +11,7 @@ const FeatureList = [
   {
     title: 'Extensible',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
-    description: <>Custom decorators</>
+    description: <>Custom decorators，plugins</>
   },
   {
     title: 'Programmer Friendly',
