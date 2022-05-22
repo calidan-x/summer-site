@@ -9,13 +9,11 @@ Summer 提供了一种简单的远程调用 Service 的方法，RPC调用可以�
 ### 服务端
 
 ```ts title="src/default.config.ts"
-
 export const RPC_CONFIG: RpcConfig = {
   server: {
     accessKey: 'xxxxx'
   }
 }
-
 ```
 
 ```ts  
@@ -33,14 +31,12 @@ export class UserRpcService {
     ]
   }
 }
-
 ```
 
 
 ### 调用端
 
 ```ts title="src/default.config.ts"
-
 export const RPC_CONFIG: RpcConfig = {
   client: {
     RPC_SOURCE: {
@@ -49,11 +45,9 @@ export const RPC_CONFIG: RpcConfig = {
     }
   }
 }
-
 ```
 
 ```ts
-
 import { Rpc } from '@summer-js/summer'
 
 class User {
@@ -66,8 +60,6 @@ export class UserRpcService {
   getUser: (id: number) => Promise<User>
   getUsers: () => Promise<User[]>
 }
-
-
 ```
 
 :::tip
@@ -75,7 +67,6 @@ export class UserRpcService {
 :::
 
 ```ts
-
 // 若调用方class名字无法与服务端不一致，可以在Rpc第二个参数指定服务端的class名字
 @Rpc('RPC_SOURCE','UserRpcService')
 export class UserRpcClient {
