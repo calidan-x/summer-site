@@ -13,7 +13,7 @@ import { Controller, Get, Logger } from '@summer-js/summer';
 export class LoggerController {
   @Get('/log')
   add() {
-    Logger.log('警告');
+    Logger.log('日志');
     Logger.info('信息');
     Logger.error('错误');
     Logger.warning('警告');
@@ -22,6 +22,7 @@ export class LoggerController {
 ```
 
 ```
+[2022-04-06 07:22:25][LOG] 日志
 [2022-04-06 07:22:25][INFO] 信息
 [2022-04-06 07:22:25][ERROR] 错误
 [2022-04-06 07:22:25][WARNING] 警告

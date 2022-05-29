@@ -164,6 +164,36 @@ export class BookController {
 }
 ```
 
+### 枚举校验与接口返回
+
+```ts
+import { Controller, Post, Body } from '@summer-js/summer';
+
+
+enum Gender {
+  Female = 1,
+  Male = 2
+}
+
+class Person {
+  name: string;
+  gender: Gender;
+}
+
+@Controller
+export class PersonController {
+  @Post('/persons')
+  addBooks(@Body person: Person) {
+    // 输出 number型 1 或 2 为 Gender.Male or Gender.Female
+    // 数据库存入数字型数据
+    console.log(person.gender);
+    return person
+    // 返回的 person 对象枚举部分会被转换成 Gender 的key值 Male/Female
+  }
+}
+```
+
+
 ### 复杂对象校验
 
 ```ts
