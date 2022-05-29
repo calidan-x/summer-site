@@ -19,7 +19,7 @@ import { SwaggerConfig } from '@summer-js/swagger';
 
 export const SWAGGER_CONFIG: SwaggerConfig = {
   docPath: '/swagger',
-  info: { title: 'Summer' }
+  info: { title: 'Summer', version:"0.0.1" }
 }
 ```
 
