@@ -44,6 +44,8 @@ export class BookController {
 | number | 数字型，包括整数和小数 |
 | string | 字符串 |
 | int/bigint | 整数 |
+| Date | 日期字符串 |
+| TimeStamp | 数字时间戳 |
 | enum | 枚举（包括数字值枚举，字符串值枚举） |
 | 't1' \| 't2' | 字符串联合类型 |
 | {object} | 对象 |
@@ -57,6 +59,10 @@ int型不是TypeScript支持的基础数据类型，是Summer额外补充仅用�
 
 :::info 枚举校验
 使用数字作为枚举值的enum，Summer会自动转换成枚举值(string转数字)，便于后续的数据库存储
+:::
+
+:::info 日期校验
+Date / TimeStamp 在校验格式后最终会转为Date型
 :::
 
 :::info 布尔型校验
