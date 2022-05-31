@@ -32,6 +32,7 @@ SwaggerConfig 的 info 中还可以配置更多内容
 :::tip 如何标注
 使用 @ApiDocGroup 标记Controller<br/>
 使用 @ApiDoc 标记接口方法<br/>
+使用 @PropDoc 标记属性名字与样例值<br/>
 :::
 
 
@@ -88,7 +89,10 @@ import { Body, Controller, Get, Query, PathParam, Header, Post } from '@summer-j
 import { ApiDoc, ApiDocGroup } from '@summer-js/swagger'
 
 class AddMovieRequest {
+  @PropDoc("电影名字", "电影名字")
   name: string
+
+  @PropDoc("电影年份", 1987)
   year: string
 }
 
