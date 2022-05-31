@@ -86,7 +86,7 @@ export class MovieController {
 
 ```ts
 import { Body, Controller, Get, Query, PathParam, Header, Post } from '@summer-js/summer'
-import { ApiDoc, ApiDocGroup } from '@summer-js/swagger'
+import { ApiDoc, ApiDocGroup, PropDoc } from '@summer-js/swagger'
 
 class AddMovieRequest {
   @PropDoc("电影名字", "电影名字")
