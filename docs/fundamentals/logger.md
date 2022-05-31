@@ -17,6 +17,7 @@ export class LoggerController {
     Logger.info('信息');
     Logger.error('错误');
     Logger.warning('警告');
+    Logger.debug('调试');
   }
 }
 ```
@@ -26,4 +27,5 @@ export class LoggerController {
 [2022-04-06 07:22:25][INFO] 信息
 [2022-04-06 07:22:25][ERROR] 错误
 [2022-04-06 07:22:25][WARNING] 警告
+[2022-04-06 07:22:25][DEBUG] 警告
 ```
