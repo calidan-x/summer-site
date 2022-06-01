@@ -5,12 +5,12 @@ import styles from './styles.module.css'
 const FeatureList = [
   {
     title: 'Enterprise',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: <>Runtime typescript check</>
   },
   {
     title: 'Extensible',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: <>Custom decorators，plugins</>
   },
   {
