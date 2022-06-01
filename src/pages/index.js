@@ -11,7 +11,7 @@ import Translate, { translate } from '@docusaurus/Translate'
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext()
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
+    <header className={clsx('hero', styles.heroBanner)} style={{ backgroundColor: 'var(--ifm-color-banner-bg)' }}>
       <div className="container">
         <img width="100px" src="/img/logo.svg" />
         <h1 className="hero__title">{siteConfig.title}</h1>
