@@ -38,7 +38,7 @@ export class BookController {
 ```
 
 ### 支持的校验的类型
-|  Decorator   | 类型  |
+|  类型   | 说明  |
 |  ----  | ----  |
 | boolean | 布尔型 |
 | number | 数字型，包括整数和小数 |

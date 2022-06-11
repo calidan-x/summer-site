@@ -2,36 +2,35 @@
 sidebar_position: 1
 ---
 
-# 介绍
+# Introduction
 
-Summer 的目标是提供一个简单快捷的适用于微服务与无服务（Serverless）的高质量企业级框架。
+Summer is aim to provide a high quality, easy fast, micro-service/serviceless enterprise backend framework
 
-## 主要特点
+## Main Features
 
-- **愉快的编程体验**<br/>
-  Summer 关心程序员的代码编写体验，将学习难度和编码难度降低，让你轻松完成开发工作。
+- **Pleasure of Programming**<br/>
+  Summer care about coding experience, always easy to learn and easy to do.
 
-- **运行时 TypeScript 请求验证**<br/>
-  TypeScript在编译后会消去类型变成 JavaScript 代码，API数据请求的类型判断在其他 NodeJS 后端框架通常需要在请求的DTO上做额外标注，Summer在编译时可以读取并自动标注请求结构类型，省去了类型的重复标注。
+- **Runtime TypeScript Validation**<br/>
+  TypeScript can be used for runtime request validation, save a lot duplicated code for request DTO.
 
-- **简单 DTO 转换**<br/>
-  后端开发会有大量的代码在做 DTO 转换，类似Java这样的开发语言碰到大对象常常要做大量的赋值，Summer提供了简单DTO转换方法。
+- **Simply DTO Conversion**<br/>
+  Backend programming always deal with lots of DTO conversion, Summer provide 2 easy and safe apis for conversion.
 
-- **自定义 Decorator**<br/>
-  除内置的 Decorator 外，Summer还提供了简易的 Decorator 创建方法，让你轻松写出 @RequireLogin 之类的功能，让你的代码更优雅。
+- **Custom Decorators**<br/>
+  Custom decorators in Summer can do extract request params, do auth, method interception, modify request result and a lots powerful jobs.
 
-- **一次编译部署多种类型服务器**<br/>
-  Summer 使用 ESBuild 打包，一次性打包成一个可执行文件，让部署变得更简单。这个兼容的可执行文件不仅可以使用 node 命令启动运行在Linux服务器或 K8S 集群，还可以直接部署到 Serverless 平台(AWS Lambda/阿里云FC)，不需要修改任何配置。
+- **One Complied Code, Deploy Everywhere**<br/>
+  Summer use esbuild to pack code into ONE runnable js file. This compiled code is compatible to deploy in Kubernetes cluster or Serverless without changing any configuration.
 
 
-
-## 创建项目
+## Create Project
 
 ```bash
 npm create summer@latest
 ```
 
-## 启动
+## Start Dev Server
 
 ```bash
 cd [ProjectName]

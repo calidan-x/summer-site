@@ -2,19 +2,17 @@
 sidebar_position: 1
 ---
 
-# Cors
+# 跨域
 
-Set to support cors
+在 config/default.config.ts 或其他配置环境加入 cors
 
-```ts title='config/default.config.ts'
+```ts
 import { SERVER_CONFIG } from '@summer-js/summer';
 
 export const SERVER_CONFIG: ServerConfig = {
   port: 8801,
-  // highlight-next-line
   cors: true
 }
 ```
 
-
-
+浏览器的 OPTIONS 请求即可返回 200

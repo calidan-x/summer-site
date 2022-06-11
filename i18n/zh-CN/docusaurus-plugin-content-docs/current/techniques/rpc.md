@@ -2,11 +2,11 @@
 sidebar_position: 8
 ---
 
-# RPC
+# RPC调用
 
-To avoid developing controllers and restful APIs, summer provides a RPC module let service methods can be called between micro-services.
+Summer 提供了一种简单的远程调用 Service 的方法，RPC调用可以省去开发controller接口层，实现不同微服务 service 到 service 的直接调用。
 
-### Server
+### 服务端
 
 ```ts title="src/default.config.ts"
 export const RPC_CONFIG: RpcConfig = {
@@ -34,7 +34,7 @@ export class UserRpcService {
 ```
 
 
-### Client
+### 调用端
 
 ```ts title="src/default.config.ts"
 export const RPC_CONFIG: RpcConfig = {
@@ -63,13 +63,11 @@ export class UserRpcService {
 ```
 
 :::tip
-Both server/client class names should be same.<br/>
-The return type must be a Promise type for the client.
+服务端与调用端的class名字方法要一致，调用方的返回值需要定义成Promise泛型
 :::
 
 ```ts
-// If the client cannot define a same name class, the second param for @Rpc can setup server class name
-// highlight-next-line
+// 若调用方class名字无法与服务端不一致，可以在Rpc第二个参数指定服务端的class名字
 @Rpc('RPC_SOURCE','UserRpcService')
 export class UserRpcClient {
   getUser: (id: number) => Promise<User>
@@ -78,10 +76,15 @@ export class UserRpcClient {
 
 ```
 
+:::tip
+rpc 调用可以对远程端返回的结果进行类型校验，需要将返回 Promise 泛型定义成class类型<br/>
+若不校验可以定义成interface
+:::
 
-### Decorators
 
-|  Decorators   | Usage  |
+### 相关 Decorators
+
+|  Decorator   | 作用  |
 |  ----  | ----  |
-| @RpcProvider | Rpc Provider |
-| @Rpc | Rpc Client | 
+| @RpcProvider | 提供RPC服务（可被注入） |
+| @Rpc | 调用RPC服务 | 

@@ -61,7 +61,7 @@ export const Uid = createParamDecorator((ctx) => {
 @Controller
 export class AppController {
   @Get('/userinfo')
-  version(@Uid uid: number) {
+  userinfo(@Uid uid: number) {
     console.log(uid);
   }
 }

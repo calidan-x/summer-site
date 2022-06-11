@@ -15,22 +15,22 @@ const config = {
   favicon: 'img/favicon.ico',
   organizationName: 'facebook', // Usually your GitHub org/user name.
   projectName: 'docusaurus', // Usually your repo name.
-  // i18n: {
-  //   defaultLocale: 'en',
-  //   locales: ['en', 'zh-CN'],
-  //   localeConfigs: {
-  //     en: {
-  //       label: 'English',
-  //       direction: 'ltr',
-  //       htmlLang: 'en-US'
-  //     },
-  //     'zh-CN': {
-  //       label: '中文',
-  //       direction: 'ltr',
-  //       htmlLang: 'zh-CN'
-  //     }
-  //   }
-  // },
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'zh-CN'],
+    localeConfigs: {
+      en: {
+        label: 'English',
+        direction: 'ltr',
+        htmlLang: 'en-US'
+      },
+      'zh-CN': {
+        label: '中文',
+        direction: 'ltr',
+        htmlLang: 'zh-CN'
+      }
+    }
+  },
   presets: [
     [
       'classic',
@@ -93,10 +93,10 @@ const config = {
             label: 'Docs'
           },
           { to: '/blog', label: 'Blog', position: 'left' },
-          // {
-          //   type: 'localeDropdown',
-          //   position: 'right'
-          // },
+          {
+            type: 'localeDropdown',
+            position: 'right'
+          },
           {
             href: 'https://github.com/calidan-x/summer',
             label: 'GitHub',

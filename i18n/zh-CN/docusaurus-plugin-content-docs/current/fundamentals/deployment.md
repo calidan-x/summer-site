@@ -6,7 +6,7 @@ sidebar_position: 90
 
 ### 修改服务器配置
 
-在 config.default.ts 或对应环境配置修改
+在 default.config.ts 或对应环境配置修改
 
 ```ts title="修改端口号"
 export const SERVER_CONFIG: ServerConfig = {
@@ -93,11 +93,5 @@ CMD [ "node", "--enable-source-maps", "server.js" ]
 ### 在 阿里云 函数计算 FC 上部署
 ![](/img/alifc1.jpg)
 ![](/img/alifc2.jpg)
-直接将打包好的 build/index.js 压缩成zip文件上传到Lambda服务器即可
-
-:::note Serverless 服务器限制：
-* 无法保留程序状态，每次执行完立即销毁<br/>
-* 无法使用定时任务(可以用过其他定时器触碰实现)<br/>
-* 硬盘文件读写操作受限<br/>
-* 静态服务返回文件大小受限
-:::
+直接将打包好的 build/index.js 压缩成zip文件上传到FC服务器即可
+ 

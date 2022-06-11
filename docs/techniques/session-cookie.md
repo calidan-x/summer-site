@@ -4,36 +4,37 @@ sidebar_position: 40
 
 # Session & Cookie
 
-用过 `@Cookie` 获取 Cookie
+Use `@Cookie` to get Cookie in controller methods.
 
-设置cookie或清除cookie
+
+set cookie value and clear cookie
 
 ```ts
 import { setCookie, clearCookie } from '@summer-js/summer'
 
-// 设值cookie
+// set cookie
 setCookie({ name: 'my-cookie', value: 'val', httpOnly: true })
 
-// 清除cookie
+// clear cookie
 clearCookie('my-cookie')
 ```
 
 
-在default.config.ts 配置Session，expireIn 单位为秒
+config session
 
 ```ts
 import { SessionConfig } from '@summer-js/summer'
 
 export const SESSION_CONFIG: SessionConfig = {
-  // 设值10分钟的session过期时间
-  expireIn: 60 * 10,
-  // 可选，修改session的cookie key值，默认为 SUMMER_SESSION
-  cookieName:"APP_SESSION"
+  // highlight-next-line
+  // set expire time to 10 mins
+  // highlight-next-line
+  expireIn: 60 * 10
 }
 
 ```
 
-使用 `@Session` 获取session对象，然后给session设值，session对每个用户是独立的存储
+Use `@Session` to get session object
 
 ```ts
 
@@ -45,9 +46,9 @@ addSession(@Session session: any) {
 ```
 
 :::note
-Session配置中的过期时间是session一直不访问的时间，不是首次访问的时间，也就是说每次访问都会续期，直到长时间访问才会过期
+Session will extend expiration time with each request.
 :::
 
 :::caution
-当前的Session还不支持分布式服务器！
+Session not supported by multi-server deploy.
 :::

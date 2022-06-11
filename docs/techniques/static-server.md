@@ -2,16 +2,17 @@
 sidebar_position: 20
 ---
 
-# 静态服务器
+# Static Server
 
-### 配置 静态服务器
+### Config
 
-在 config/default.config.ts 或其他配置环境加入
+in config/default.config.ts or other env config
 ```ts
 import { SERVER_CONFIG } from '@summer-js/summer';
 
 export const SERVER_CONFIG: ServerConfig = {
   port: 8801,
+  // highlight-start
   static: [
     {
       requestPathRoot: '/static',
@@ -19,14 +20,15 @@ export const SERVER_CONFIG: ServerConfig = {
       indexFiles: ['index.html']
     }
   ]
+  // highlight-end
 }
 ```
 
-`requestPathRoot` 为请求的根节点<br/>
-`resource` 为对应文件系统的目录<br/>
-`indexFiles` 索引文件列表
+**requestPathRoot** static path access root<br/>
+**destPathRoot** server-side access folder<br/>
+**indexFiles** index files list
 
-编写一个简单的HTML代码
+Write a simple html
 ```html
 <html>
   <body>
@@ -34,8 +36,8 @@ export const SERVER_CONFIG: ServerConfig = {
   </body>
 </html>
 ```
-将 index.html 放入 ./resource/index.html 即可通过浏览器访问 http://127.0.0.1:8801/static/ 
+Put index.html to ./resource/index.html, access by browser http://127.0.0.1:8801/static/ 
 
 :::caution
-./resource 目录是Summer框架默认的资源目录，配置目标目录的时候需要配置在这个文件目录或其次级目录
+./resource is the default resource folder for summer framework destPathRoot should be set to this folder or subfolder
 :::

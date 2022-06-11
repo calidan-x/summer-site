@@ -4,12 +4,50 @@ sidebar_position: 1
 
 # Auth
 
-请求认证可以通过以下2种方式实现
+Auth can be done in the following 2 ways.
 
-### 使用中间件拦截
+
+### By Custom Decorator
+
+```ts title="Develop a @RequireLogin decorator"
+import { Controller, createClassAndMethodDecorator, Get } from '@summer-js/summer';
+import jwt from 'jsonwebtoken';
+
+export const RequireLogin = createClassAndMethodDecorator(async (ctx, invokeMethod?) => {
+  const token = ctx.request.headers['authentication'];
+  try {
+    jwt.verify(token, 'xxxxxxxx');
+    await invokeMethod()
+  } catch (e) {
+     throw new Error('Not Login');
+  }
+});
+
+@Controller
+@RequireLogin
+export class AppController {
+  @Get('/userinfo')
+  userInfo() {}
+}
+
+
+@Controller
+export class UserController {
+  @Get('/users/:id')
+  userInfo() {}
+
+  @RequireLogin
+  @Put('/userinfo')
+  userInfo() {}
+}
+```
+
+
+### By Middleware
 
 ```ts
 import { Middleware, Context } from '@summer-js/summer';
+import jwt from 'jsonwebtoken';
 
 @Middleware({ order: 0 })
 export class ErrorMiddleware {
@@ -25,10 +63,6 @@ export class ErrorMiddleware {
 ```
 
 
-### 使用自定义Decorator处理
 
-详细参考
 
-[创建classmethod-decorator](/docs/fundamentals/custom-decorator#创建classmethod-decorator)
-
-[创建方法参数-decorator](/docs/fundamentals/custom-decorator#创建方法参数-decorator)
+ 

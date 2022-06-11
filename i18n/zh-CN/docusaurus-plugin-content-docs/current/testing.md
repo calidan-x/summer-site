@@ -2,9 +2,9 @@
 sidebar_position: 5
 ---
 
-# Testing
+# 测试
 
-### Test Controller
+### 测试Controller
 
 ```ts
 import { initTest, endTest, request } from '@summer-js/test'
@@ -26,7 +26,7 @@ describe('Test Movie Controller', () => {
 })
 ```
 
-### Test Service
+### 测试Service
 ```ts
 import { getInjectable } from '@summer-js/summer'
 import { initTest, endTest } from '@summer-js/test'

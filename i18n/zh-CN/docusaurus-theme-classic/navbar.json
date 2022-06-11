@@ -1,0 +1,14 @@
+{
+  "title": {
+    "message": "Summer"
+  },
+  "item.label.Docs": {
+    "message": "文档"
+  },
+  "item.label.Blog": {
+    "message": "博客"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub"
+  }
+}

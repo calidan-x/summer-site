@@ -1,0 +1,14 @@
+{
+  "version.label": {
+    "message": "Next"
+  },
+  "sidebar.tutorialSidebar.category.基础能力": {
+    "message": "基础能力"
+  },
+  "sidebar.tutorialSidebar.category.安全与认证": {
+    "message": "安全与认证"
+  },
+  "sidebar.tutorialSidebar.category.其他技术": {
+    "message": "其他技术"
+  }
+}

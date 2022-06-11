@@ -31,7 +31,4 @@ summer -t --env [环境名]
     "start": "node --enable-source-maps ./build/index.js"
   }
 ```
-执行 ``npm run dev``
-
-或在项目目录下使用npx命令执行
-``npx summer -s --env local``
+ 
