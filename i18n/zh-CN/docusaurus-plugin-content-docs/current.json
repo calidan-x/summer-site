@@ -2,13 +2,13 @@
   "version.label": {
     "message": "Next"
   },
-  "sidebar.tutorialSidebar.category.基础能力": {
+  "sidebar.tutorialSidebar.category.Fundamentals": {
     "message": "基础能力"
   },
-  "sidebar.tutorialSidebar.category.安全与认证": {
+  "sidebar.tutorialSidebar.category.Security": {
     "message": "安全与认证"
   },
-  "sidebar.tutorialSidebar.category.其他技术": {
+  "sidebar.tutorialSidebar.category.Technique": {
     "message": "其他技术"
   }
 }
