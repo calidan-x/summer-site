@@ -48,6 +48,7 @@ export class BookController {
 | TimeStamp | TimeStamp type |
 | enum | Enum（including Numeric Enum and String Enum) |
 | 't1' \| 't2' | String Union type |
+| File | upload file |
 | {object} | Object |
 | array[] | Array |
 

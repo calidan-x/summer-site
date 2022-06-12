@@ -48,6 +48,7 @@ export class BookController {
 | TimeStamp | 数字时间戳 |
 | enum | 枚举（包括数字值枚举，字符串值枚举） |
 | 't1' \| 't2' | 字符串联合类型 |
+| File | 上传文件 |
 | {object} | 对象 |
 | array[] | 数组 |
 
