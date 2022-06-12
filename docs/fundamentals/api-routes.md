@@ -67,7 +67,7 @@ export class TodoController {
 | @RequestPath  | get request path |
 | @Cookie  | get request cookie |
 | @Session  | get session object |
-| @File  | get uploaded file |
+
 
 
 ### Request Param Type Conversion

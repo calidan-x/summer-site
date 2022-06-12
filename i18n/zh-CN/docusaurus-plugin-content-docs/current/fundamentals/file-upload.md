@@ -9,17 +9,18 @@ sidebar_position: 71
 
 
 ```ts
-import { Controller, Post, UploadedFile, Body, File } from '@summer-js/summer'
+import { Controller, Post, Body, File } from '@summer-js/summer'
 
 class Request {
   field1: string
   field2?: int
+  file: File
 }
 
 @Controller('/upload')
 export class FileUploadController {
   @Post
-  hello(@File file: UploadedFile, @Body body: Request) {
+  hello(@Body body: Request) {
     console.log('body', body)
     return file
   }

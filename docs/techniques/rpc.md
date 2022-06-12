@@ -10,7 +10,7 @@ To avoid developing controllers and restful APIs, summer provides a RPC module l
 
 ```ts title="src/default.config.ts"
 export const RPC_CONFIG: RpcConfig = {
-  server: {
+  provider: {
     accessKey: 'xxxxx'
   }
 }
@@ -48,14 +48,14 @@ export const RPC_CONFIG: RpcConfig = {
 ```
 
 ```ts
-import { Rpc } from '@summer-js/summer'
+import { RpcClient } from '@summer-js/summer'
 
 class User {
   id: number
   name: string
 }
 
-@Rpc('RPC_SOURCE')
+@RpcClient('RPC_SOURCE')
 export class UserRpcService {
   getUser: (id: number) => Promise<User>
   getUsers: () => Promise<User[]>
@@ -68,9 +68,9 @@ The return type must be a Promise type for the client.
 :::
 
 ```ts
-// If the client cannot define a same name class, the second param for @Rpc can setup server class name
+// If the client cannot define a same name class, the second param for @RpcClient can setup server class name
 // highlight-next-line
-@Rpc('RPC_SOURCE','UserRpcService')
+@RpcClient('RPC_SOURCE','UserRpcService')
 export class UserRpcClient {
   getUser: (id: number) => Promise<User>
   getUsers: () => Promise<User[]>
@@ -84,4 +84,4 @@ export class UserRpcClient {
 |  Decorators   | Usage  |
 |  ----  | ----  |
 | @RpcProvider | Rpc Provider |
-| @Rpc | Rpc Client | 
+| @RpcClient | Rpc Client | 

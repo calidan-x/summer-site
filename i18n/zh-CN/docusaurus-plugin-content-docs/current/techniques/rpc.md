@@ -10,7 +10,7 @@ Summer 提供了一种简单的远程调用 Service 的方法，RPC调用可以�
 
 ```ts title="src/default.config.ts"
 export const RPC_CONFIG: RpcConfig = {
-  server: {
+  provider: {
     accessKey: 'xxxxx'
   }
 }
@@ -48,14 +48,14 @@ export const RPC_CONFIG: RpcConfig = {
 ```
 
 ```ts
-import { Rpc } from '@summer-js/summer'
+import { RpcClient } from '@summer-js/summer'
 
 class User {
   id: number
   name: string
 }
 
-@Rpc('RPC_SOURCE')
+@RpcClient('RPC_SOURCE')
 export class UserRpcService {
   getUser: (id: number) => Promise<User>
   getUsers: () => Promise<User[]>
@@ -68,7 +68,7 @@ export class UserRpcService {
 
 ```ts
 // 若调用方class名字无法与服务端不一致，可以在Rpc第二个参数指定服务端的class名字
-@Rpc('RPC_SOURCE','UserRpcService')
+@RpcClient('RPC_SOURCE','UserRpcService')
 export class UserRpcClient {
   getUser: (id: number) => Promise<User>
   getUsers: () => Promise<User[]>
@@ -87,4 +87,4 @@ rpc 调用可以对远程端返回的结果进行类型校验，需要将返回 
 |  Decorator   | 作用  |
 |  ----  | ----  |
 | @RpcProvider | 提供RPC服务（可被注入） |
-| @Rpc | 调用RPC服务 | 
+| @RpcClient | 调用RPC服务 | 

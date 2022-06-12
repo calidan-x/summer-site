@@ -8,18 +8,19 @@ File upload should use multipart/form-data form format, the uploaded file will b
 
 
 ```ts
-import { Controller, Post, UploadedFile, Body, File } from '@summer-js/summer'
+import { Controller, Post, Body, File } from '@summer-js/summer'
 
 class Request {
   field1: string
   field2?: int
+  file: File
 }
 
 @Controller('/upload')
 export class FileUploadController {
   @Post
-  hello(@File file: UploadedFile, @Body body: Request) {
-    return file
+  hello(@Body body: Request) {
+    return body.file
   }
 }
 
