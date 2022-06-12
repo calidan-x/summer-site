@@ -14,6 +14,7 @@ import { Controller, Post, Body, File } from '@summer-js/summer'
 class Request {
   field1: string
   field2?: int
+  // highlight-next-line
   file: File
 }
 

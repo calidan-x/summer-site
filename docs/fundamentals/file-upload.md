@@ -4,7 +4,7 @@ sidebar_position: 71
 
 # File Upload
 
-File upload should use multipart/form-data form format, the uploaded file will be saved in a tmp path that can be read by @File.
+File upload should use multipart/form-data form format, the uploaded file will be saved in a tmp path that can be read in body.
 
 
 ```ts
@@ -13,6 +13,7 @@ import { Controller, Post, Body, File } from '@summer-js/summer'
 class Request {
   field1: string
   field2?: int
+  // highlight-next-line
   file: File
 }
 
