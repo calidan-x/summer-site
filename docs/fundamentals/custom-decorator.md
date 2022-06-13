@@ -2,9 +2,9 @@
 sidebar_position: 40
 ---
 
-# Custom Decorators
+# Custom Decorator
 
-Custom Decorators is a powerful function in Summer that can let you extract request params, do auth, method interception, modify request results, and more...
+Custom Decorator is a powerful function in Summer that can let you extract request params, do auth, method interception, modify request results, and more...
 
 ### Create APIs
 
