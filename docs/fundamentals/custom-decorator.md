@@ -32,37 +32,39 @@ export const [DecoratorName] = createParamDecorator((ctx?, paramName?, arg1?, ar
 
 
 ```ts title="Get the AppVersion value in request header"
-import { Controller, createParamDecorator, Get } from '@summer-js/summer';
+import { Controller, createParamDecorator, Get } from '@summer-js/summer'
 
-export const AppVersion = createParamDecorator((ctx) => ctx.request.headers['AppVersion']);
+export const AppVersion = createParamDecorator((ctx) => {
+  return ctx.request.headers['AppVersion']
+})
 
 @Controller
-export class AppController {
-  @Get('/version')
-  version(@AppVersion version: string) {
-    console.log(version);
+export class AppVersionController {
+  @Get('/app/version')
+  async version(@AppVersion version) {
+    return version
   }
 }
 ```
 
 ```ts title="parse uid in JWT token"
-import { Controller, createParamDecorator, Get } from '@summer-js/summer';
-import jwt from 'jsonwebtoken';
+import { Controller, createParamDecorator, Get } from '@summer-js/summer'
+import jwt from 'jsonwebtoken'
 
 export const Uid = createParamDecorator((ctx) => {
-  const token = ctx.request.headers['authentication'];
+  const token = ctx.request.headers['authentication']
   try {
-    const decoded = jwt.verify(token, 'xxxxxxxx');
-    return decoded.uid;
+    const decoded = jwt.verify(token, 'xxxxxxxx')
+    return decoded.uid
   } catch (e) {}
-  return null;
-});
+  return null
+})
 
 @Controller
-export class AppController {
+export class JWTController {
   @Get('/userinfo')
   userinfo(@Uid uid: number) {
-    console.log(uid);
+    return uid
   }
 }
 ```
@@ -89,35 +91,40 @@ Write a class decorator means intercept all methods
 :::
 
 ```ts title="Develop a @RequireLogin decorator"
-import { Controller, createClassAndMethodDecorator, Get } from '@summer-js/summer';
-import jwt from 'jsonwebtoken';
+import { Controller, createClassAndMethodDecorator, Get, Put } from '@summer-js/summer'
+import jwt from 'jsonwebtoken'
 
 export const RequireLogin = createClassAndMethodDecorator(async (ctx, invokeMethod?) => {
-  const token = ctx.request.headers['authentication'];
+  const token = ctx.request.headers['authentication']
   try {
-    jwt.verify(token, 'xxxxxxxx');
-    await invokeMethod()
+    jwt.verify(token, 'xxxxxxxx')
+    return await invokeMethod(ctx.invocation.params)
   } catch (e) {
-     throw new Error('Not Login');
+    ctx.response.statusCode = 401
+    ctx.response.body = 'Unauthorized'
   }
-});
+})
 
 @Controller
+// highlight-next-line
 @RequireLogin
-export class AppController {
-  @Get('/userinfo')
-  userInfo() {}
+export class LoginController {
+  @Get('/me')
+  info() {}
+
+  @Put('/me')
+  update() {}
 }
 
-
 @Controller
-export class UserController {
+export class LoginController2 {
   @Get('/users/:id')
   userInfo() {}
 
+  // highlight-next-line
   @RequireLogin
   @Put('/userinfo')
-  userInfo() {}
+  update() {}
 }
 ```
 
@@ -132,40 +139,40 @@ export const [DecoratorName] = createPropertyDecorator((config?, propertyName? ,
 **propertyName** property name<br/>
 **arg1, arg2...** custom param used in this decorator like @DecoratorName(arg1,arg2,...)<br/>
 
-```ts title="ead mysql config"
-import { Controller, createPropertyDecorator, Get } from '@summer-js/summer';
+```ts title="read mysql config"
+import { Controller, createPropertyDecorator, Get } from '@summer-js/summer'
 
 export const MySQLConfig = createPropertyDecorator((config) => {
-  return config['MySQL'];
-});
+  return config['MySQL']
+})
 
 @Controller
-export class AppController {
+export class ConfigInjectController {
   @MySQLConfig
-  mysqlConfig;
+  mysqlConfig
 
-  @Get('/user')
-  userInfo() {
-    console.log(this.mysqlConfig);
+  @Get('/mysql-host')
+  host() {
+    return this.mysqlConfig.host
   }
 }
 ```
 
 ```ts title="read city list"
-import { Controller, createPropertyDecorator, Get } from '@summer-js/summer';
+import { Controller, createPropertyDecorator, Get } from '@summer-js/summer'
 
 export const CityList = createPropertyDecorator(() => {
-  return ["Shanghai", "Tokyo", "New York"];
-});
+  return ['Shanghai', 'Tokyo', 'New York City']
+})
 
 @Controller
-export class CityController {
+export class CityListController {
   @CityList
-  cityList;
+  cityList
 
   @Get('/cities')
   list() {
-    console.log(this.cityList);
+    return this.cityList
   }
 }
 ```
@@ -174,60 +181,79 @@ export class CityController {
 
 ### Alter Response Http Code
 ```ts
+import { Controller, createMethodDecorator, Get } from '@summer-js/summer'
+
 export const ResponseCode = createMethodDecorator(async (ctx, invokeMethod, code: number) => {
-  await invokeMethod();
-  ctx.response.statusCode = code;
-});
+  ctx.response.statusCode = code
+  return await invokeMethod(ctx.invocation.params)
+})
 
 @Controller
-export class AppController {
- 
-  @ResponseCode(400)
-  @Get('/user')
+export class ResponseCodeController {
+  @ResponseCode(404)
+  @Get('/dog')
   userInfo() {
-      return ""
+    return 'dog not exist'
   }
 }
 ```
 
 ### Cache Return Value
 ```ts
-import { Controller, createMethodDecorator, Get } from '@summer-js/summer';
+import { AutoInject, Controller, createMethodDecorator, Get, PathParam, Service } from '@summer-js/summer'
+import md5 from 'md5'
 
-const CACHE = {};
-export const Cache = createMethodDecorator(async (ctx, invokeMethod, key: string) => {
-  if (CACHE[key] === undefined) {
-    CACHE[key] = await invokeMethod();
+const CACHE = {}
+export const Cache = createMethodDecorator(async (ctx, invokeMethod) => {
+  const callParamHash = md5(JSON.stringify(ctx.invocation))
+  if (CACHE[callParamHash] === undefined) {
+    CACHE[callParamHash] = await invokeMethod(ctx.invocation.params)
   }
-  return CACHE[key];
-});
+  return CACHE[callParamHash]
+})
+
+@Service
+export class CacheService {
+  @Cache()
+  async cache(id) {
+    return id + ':' + Date.now()
+  }
+}
 
 @Controller
-export class TodoController {
-  @Cache('TodoList')
-  @Get('/todos')
-  userInfo() {
-    return ['Task 1', 'Task 2', 'Task '+ Math.ceil(Math.random()*10)];
+@AutoInject
+export class CacheController {
+  cacheService: CacheService
+
+  @Get('/cache/:id')
+  @Cache()
+  async api(@PathParam id) {
+    return id + ':' + Date.now()
+  }
+
+  @Get('/cache2/:id')
+  async api2(@PathParam id) {
+    return this.cacheService.cache(id)
   }
 }
 ```
 
 ### Download File
 ```ts
-import { Controller, createMethodDecorator, Get } from '@summer-js/summer';
+import { Controller, createMethodDecorator, Get } from '@summer-js/summer'
 
 export const DownLoadFile = createMethodDecorator(async (ctx, invokeMethod, fileName: string) => {
-  await invokeMethod();
-  ctx.response.headers['Content-Type'] = 'application/octet-stream';
-  ctx.response.headers['Content-Type'] = `attachment; filename="${fileName}"`;
-});
+  ctx.response.headers['Content-Type'] = 'application/octet-stream'
+  ctx.response.headers['Content-Disposition'] = `attachment; filename="${fileName}"`
+  return await invokeMethod(ctx.invocation.params)
+})
 
 @Controller
-export class AppController {
+export class DownloadController {
   @DownLoadFile('hello.txt')
   @Get('/download')
   download() {
-    return 'Hello Summer';
+    return 'Hello Summer'
   }
 }
 ```

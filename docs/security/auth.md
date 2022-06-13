@@ -10,35 +10,40 @@ Auth can be done in the following 2 ways.
 ### By Custom Decorator
 
 ```ts title="Develop a @RequireLogin decorator"
-import { Controller, createClassAndMethodDecorator, Get } from '@summer-js/summer';
-import jwt from 'jsonwebtoken';
+import { Controller, createClassAndMethodDecorator, Get, Put } from '@summer-js/summer'
+import jwt from 'jsonwebtoken'
 
 export const RequireLogin = createClassAndMethodDecorator(async (ctx, invokeMethod?) => {
-  const token = ctx.request.headers['authentication'];
+  const token = ctx.request.headers['authentication']
   try {
-    jwt.verify(token, 'xxxxxxxx');
-    await invokeMethod()
+    jwt.verify(token, 'xxxxxxxx')
+    return await invokeMethod(ctx.invocation.params)
   } catch (e) {
-     throw new Error('Not Login');
+    ctx.response.statusCode = 401
+    ctx.response.body = 'Unauthorized'
   }
-});
+})
 
 @Controller
+// highlight-next-line
 @RequireLogin
-export class AppController {
-  @Get('/userinfo')
-  userInfo() {}
+export class LoginController {
+  @Get('/me')
+  info() {}
+
+  @Put('/me')
+  update() {}
 }
 
-
 @Controller
-export class UserController {
+export class LoginController2 {
   @Get('/users/:id')
   userInfo() {}
 
+  // highlight-next-line
   @RequireLogin
   @Put('/userinfo')
-  userInfo() {}
+  update() {}
 }
 ```
 
