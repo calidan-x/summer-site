@@ -124,7 +124,13 @@ export class MovieController {
     example: {
       response: { id: 1, name: 'Titanic', year: '1997' }
     },
-    errors: { 404: 'Not Found' }
+    errors: [
+      { 
+        statusCode: 404,
+        description: 'Not Found',
+        example: '404 Not Found',
+      }
+    ]
   })
   @Get('/movies/:id')
   detail(@PathParam id: string) {
