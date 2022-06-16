@@ -26,7 +26,7 @@ Summer use esbuild to pack code, the final build folder including:
 
 - an executable file **/build/index.js**
 - a source map file  **/build/index.js.map**  
-- a resource folder (copy from ./resource) **/resource** (optional)
+- a resource folder (copy from ./resource) **/build/resource** (optional)
 
 run script to build
 ``` title="check package.json"

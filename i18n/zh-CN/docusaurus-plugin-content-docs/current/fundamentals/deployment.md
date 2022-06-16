@@ -26,7 +26,7 @@ Summer使用esbuild打包，最终程序会被打包成:
 
 - 一个可执行文件 /build/index.js
 - 一个source map文件  /build/index.js.map  
-- 一个资源文件夹 /resource (可选)
+- 一个资源文件夹 /build/resource (可选)
 
 执行命令
 ```
