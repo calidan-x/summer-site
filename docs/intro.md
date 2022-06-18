@@ -14,7 +14,7 @@ Summer aims to provide a high-quality, easy fast, micro-service/serviceless ente
   TypeScript can be used for runtime request validation, and save a lot of duplicated code for request DTO.
 
 - **Simply DTO Conversion**<br/>
-  Backend programming always deals with lots of DTO conversion, Summer provide 2 easy and safe functions for conversion.
+  Backend programming always deals with lots of DTO conversion, Summer provides 2 easy and safe functions for conversion.
 
 - **Custom Decorator**<br/>
   Custom decorator in Summer can extract request params, do auth, method interception, modify request results and lots of powerful jobs.
