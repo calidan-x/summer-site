@@ -40,7 +40,7 @@ export class SendGridClient {
 ```ts title="调用其他微服务接口"
 import { createRequestClientDecorator, PathParam, Query, Send } from '@summer-js/summer'
 
-const App = createRequestClientDecorator((config) => ({
+const BookApp = createRequestClientDecorator((config) => ({
   baseUrl: 'https://api.example.com'
 }))
 
@@ -49,8 +49,8 @@ class Book{
   name: string
 }
 
-@App
-export class AppClient {
+@BookApp
+export class BookAppClient {
   @Send('GET', '/v1/books/:id')
   getBookById(@PathParam id: number): Promise<Book> { return }
 
