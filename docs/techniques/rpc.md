@@ -6,6 +6,8 @@ sidebar_position: 8
 
 To avoid developing controllers and restful APIs, summer provides a RPC module let service methods can be called between micro-services.
 
+![](/img/rpc.svg)
+
 ### Server
 
 ```ts title="src/default.config.ts"

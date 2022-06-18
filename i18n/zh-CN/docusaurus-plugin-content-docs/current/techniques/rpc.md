@@ -6,6 +6,8 @@ sidebar_position: 8
 
 Summer 提供了一种简单的远程调用 Service 的方法，RPC调用可以省去开发controller接口层，实现不同微服务 service 到 service 的直接调用。
 
+![](/img/rpc.svg)
+
 ### 服务端
 
 ```ts title="src/default.config.ts"
