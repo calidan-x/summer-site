@@ -28,7 +28,7 @@ interface SendMailData {
 export class SendGridClient {
   @Send('POST', '/v3/mail/send')
   sendEmail(@Body data: SendMailData) {
-    // 此处不需要写任何实现
+    // You don't need to do any implement
     return
   }
 }
@@ -65,7 +65,7 @@ The return type must be a Promise type.
 :::
 
 
-### 相关 Api/Decorator
+### Api/Decorators
 
 
 |  Api/Decorator   | Usage  |
