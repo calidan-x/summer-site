@@ -152,6 +152,26 @@ class PersonRequest{
 }
 ```
 
+```ts
+// '?' 也可以标记在请求入口方法的参数上，同样是标记可选参数
+@Get(/books)
+addBooks(@Query keyword?: string){
+  // you code
+}
+
+:::tip 非空字符串或数组
+使用 ! 标记字符串或者数组不能为空
+:::
+
+
+```ts
+class BlogRequest{
+  // 标题必须输入文字，不能是空字符串
+  title!: string
+  context: string
+}
+```
+
 
 ### 数组型校验
 
