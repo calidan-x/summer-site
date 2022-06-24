@@ -131,7 +131,8 @@ export class BookController {
 ### Data Restriction Decorators
 |  Decorators   | Usage  |
 |  ----  | ----  |
-| ? | Optional Key |
+| ? | optional |
+| ! | use in string/array[] not empty |
 | @Min  | use in number/int/bigint minimum |
 | @Max  | use in number/int/bigint maximum |
 | @MinLen  | use in string/array[] minimum length |
@@ -146,10 +147,32 @@ export class BookController {
 use ? to mark the param is an optional param, optional param can set a default value<br/>
 :::
 
+
 ```ts
 class PersonRequest{
   name: string
   age?: number = 12
+}
+```
+
+```ts
+// notice the '?' optional token also work in method params
+@Get(/books)
+addBooks(@Query keyword?: string){
+  // you code
+}
+```
+
+:::tip Not Empty Param
+use ! to mark the param is an not empty param
+:::
+
+
+```ts
+class BlogRequest{
+  // title cannot post as empty string
+  title!: string
+  context: string
 }
 ```
 
@@ -257,4 +280,73 @@ export class AnimalController {
     console.log(typeof dog, dog);
   }
 }
+```
+
+### Simple Generic Type Validation
+```ts
+import { Controller, Post, Body } from '@summer-js/summer';
+
+class Dog {
+  name: string
+  weight: number
+}
+
+class Cat {
+  name: string
+  tailLength: number
+}
+
+class AnimalRequest<T>{
+  obj: T
+  count: number
+}
+
+@Controller
+export class AnimalController {
+  @Post('/dogs')
+  addDog(@Body dog: AnimalRequest<Dog>) { 
+    // your code
+  }
+
+  @Post('/cats')
+  addDog(@Body dog: AnimalRequest<Cat>) {
+    // your code
+  }
+}
+```
+
+:::caution Generic Type in Summer
+Summer only supports simple generic type in runtime.<br/>
+Complicated generic type is unsupported.
+:::
+
+```ts
+
+class TObj<T>{
+  a: T
+}
+
+class PObj{
+  a: number
+}
+
+class Obj<T, K, G> {
+  field1: T
+  field2: K
+  field3: G
+  filed4: TObj<int>
+}
+
+// work
+@Post
+api(@Body body: Obj<int[], string, boolean>) { }
+
+// work
+@Post
+api(@Body body: Obj<int[], string, PObj>) { }
+
+// not work, may cause error
+@Post
+api(@Body body: Obj<int[], string, TObj<TObj<TObj<number>>>>) { }
+
 ```

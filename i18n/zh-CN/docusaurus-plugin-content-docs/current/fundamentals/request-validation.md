@@ -130,6 +130,7 @@ export class BookController {
 |  写法   | 作用  |
 |  ----  | ----  |
 | ? | 选传值 |
+| ! | 在 string/array[] 中使用非空字符串或非空数组 |
 | @Min  | 在 number/int/bigint 类型使用，限制最小值 |
 | @Max  | 在 number/int/bigint 类型使用，限制最大值 |
 | @MinLen  | 在string型使用，限制字符串最小长度<br/>在array[]型使用限制数组最小长度 |
@@ -253,4 +254,74 @@ export class AnimalController {
     console.log(typeof dog, dog);
   }
 }
+```
+
+
+
+### 基础 Generic Type 验证
+```ts
+import { Controller, Post, Body } from '@summer-js/summer';
+
+class Dog {
+  name: string
+  weight: number
+}
+
+class Cat {
+  name: string
+  tailLength: number
+}
+
+class AnimalRequest<T>{
+  obj: T
+  count: number
+}
+
+@Controller
+export class AnimalController {
+  @Post('/dogs')
+  addDog(@Body dog: AnimalRequest<Dog>) { 
+    // your code
+  }
+
+  @Post('/cats')
+  addDog(@Body dog: AnimalRequest<Cat>) {
+    // your code
+  }
+}
+```
+
+:::caution Summer 中使用 Generic Type
+Summer 仅支持简单的泛型验证和推断，复杂的或多层嵌套泛型不支持
+:::
+
+```ts
+
+class TObj<T>{
+  a: T
+}
+
+class PObj{
+  a: number
+}
+
+class Obj<T, K, G> {
+  field1: T
+  field2: K
+  field3: G
+  filed4: TObj<int>
+}
+
+// 可用
+@Post
+api(@Body body: Obj<int[], string, boolean>) { }
+
+// 可用
+@Post
+api(@Body body: Obj<int[], string, PObj>) { }
+
+// 不可用，还可能导致出错
+@Post
+api(@Body body: Obj<int[], string, TObj<TObj<TObj<number>>>>) { }
+
 ```
