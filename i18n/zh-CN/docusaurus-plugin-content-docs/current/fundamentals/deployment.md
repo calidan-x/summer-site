@@ -72,7 +72,7 @@ FROM node:14
 
 WORKDIR /usr/src/app
 
-COPY . .
+COPY ./build .
 
 EXPOSE 8801
 CMD [ "node", "--enable-source-maps", "server.js" ]
