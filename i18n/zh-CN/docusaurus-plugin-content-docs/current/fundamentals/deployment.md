@@ -75,7 +75,7 @@ WORKDIR /usr/src/app
 COPY ./build .
 
 EXPOSE 8801
-CMD [ "node", "--enable-source-maps", "server.js" ]
+CMD [ "node", "--enable-source-maps", "index.js" ]
 ```
 
 2. 执行docker打包
