@@ -5,7 +5,7 @@ sidebar_position: 20
 # Request Validation
 
 ### Validate Request Data
-:::tip Runtime TypeScript Validation
+:::tip Runtime TypeScript Type Validation
 Summer can validate TypeScript type in runtime, so everything just as simple as writing normal code, the request DTO must be a class.
 :::
 
