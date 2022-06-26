@@ -30,7 +30,7 @@ Summer use esbuild to pack code, the final build folder including:
 
 run script to build
 ``` title="check package.json"
-npm run build or npx summer -b --env prod
+npm run build or npx summer build --env prod
 ```
 :::note
 prod is the ENV_NAME

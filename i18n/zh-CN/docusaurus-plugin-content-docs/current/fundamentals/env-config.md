@@ -62,7 +62,7 @@ export class ConfigController {
 ### 程序启动环境指定
 
 ```
-summer -s --env [环境名]
+summer serve --env [环境名]
 ```
 
 :::note

@@ -4,30 +4,30 @@ sidebar_position: 100
 
 # Cli
 
-start a local dev server -s serve
+start a local dev server
 
 ```
-summer -s --env [ENV_NAME]
+summer serve --env [ENV_NAME]
 ```
 
-build -b build
+run test cases
 
 ```
-summer -b --env [ENV_NAME]
+summer test --env [ENV_NAME] -- [JEST_OPTIONS]
 ```
 
-test -t test
+build
 
 ```
-summer -t --env [ENV_NAME]
+summer build --env [ENV_NAME] -- [ESBUILD_OPTIONS]
 ```
 
 
 ```js title="package.json"
   "scripts": {
-    "dev": "summer -s --env local",
-    "test": "summer -t --env test",
-    "build": "summer -b --env prod",
+    "serve": "summer serve --env local",
+    "test": "summer test --env test",
+    "build": "summer build --env prod",
     "start": "node --enable-source-maps ./build/index.js"
   }
 ```

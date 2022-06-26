@@ -61,7 +61,7 @@ export class ConfigController {
 ### Specify an Env
 
 ``` title="package.json"
-summer -s --env [ENV_NAME]
+summer serve --env [ENV_NAME]
 ```
 
 :::note

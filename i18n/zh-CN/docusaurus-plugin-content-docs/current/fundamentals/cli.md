@@ -4,30 +4,30 @@ sidebar_position: 100
 
 # 命令行
 
-本地启动调试命令 -s serve
+start a local dev server
 
 ```
-summer -s --env [环境名]
+summer serve --env [ENV_NAME]
 ```
 
-打包命令 -b build
+run test cases
 
 ```
-summer -b --env [环境名]
+summer test --env [ENV_NAME] -- [JEST_OPTIONS]
 ```
 
-测试命令 -t test
+build
 
 ```
-summer -t --env [环境名]
+summer build --env [ENV_NAME] -- [ESBUILD_OPTIONS]
 ```
 
 
-```js title="在package.json中配置"
+```js title="package.json"
   "scripts": {
-    "dev": "summer -s --env local",
-    "test": "summer -t --env test",
-    "build": "summer -b --env prod",
+    "serve": "summer serve --env local",
+    "test": "summer test --env test",
+    "build": "summer build --env prod",
     "start": "node --enable-source-maps ./build/index.js"
   }
 ```

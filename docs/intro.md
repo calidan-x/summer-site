@@ -34,5 +34,9 @@ npm create summer@latest
 ```bash
 cd [ProjectName]
 npm install
-npm run dev
+npm run serve
 ```
+
+:::note
+Summer require Nodejs 16+
+:::

@@ -30,7 +30,7 @@ Summer使用esbuild打包，最终程序会被打包成:
 
 执行命令
 ```
-npm run build 或 npx summer -b --env prod
+npm run build 或 npx summer build --env prod
 ```
 :::note
 这里的prod是环境名，可以根据命名需求配置生产环境的环境名
