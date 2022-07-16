@@ -55,7 +55,7 @@ import { Middleware, Context } from '@summer-js/summer';
 import jwt from 'jsonwebtoken';
 
 @Middleware({ order: 0 })
-export class ErrorMiddleware {
+export class AuthMiddleware {
   async process(ctx: Context, next: any) {
   const token = ctx.request.headers['authentication'];
   try {

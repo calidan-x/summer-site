@@ -12,7 +12,7 @@ Middleware is used to intercept every request before and after controllers.
 import { Middleware, Context } from '@summer-js/summer';
 
 @Middleware({ order: 0 })
-export class ErrorMiddleware {
+export class AuthMiddleware {
   async process(ctx: Context, next: any) {
     try {
       await next();
