@@ -31,15 +31,15 @@ describe('Test Movie Controller', () => {
 import { getInjectable } from '@summer-js/summer'
 import { initTest, endTest } from '@summer-js/test'
 
-import { PersonService } from './../service/person-service'
+import { MovieService } from './../service/person-service'
 
 describe('Test Movie Service', () => {
-  let personService: PersonService
+  let movieService: MovieService
 
   beforeAll(async () => {
     await initTest()
-    // 必须在 initTest() 之后获取
-    personService = getInjectable(PersonService)
+    // 必须在 initTest() 中获取
+    movieService = getInjectable(MovieService)
   })
 
   afterAll(async () => {
@@ -47,8 +47,8 @@ describe('Test Movie Service', () => {
   })
 
   test('should return movie list', async () => {
-    const persons = await personService.getPersons()
-    expect(persons.length).toBe(0)
+    const movies = await movieService.getMovies()
+    expect(movies.length).toBe(12)
   })
 })
 ```
