@@ -43,6 +43,7 @@ export class TodoController {
 | @Injectable | 标记为可注入组件 |
 | @Inject | 注入实例 |
 | @AutoInject | 自动注入（推荐使用） |
+| @PostConstruct | 在构造函数完成后调用的初始化方法 |
 
 
 ### 自动注入

@@ -43,7 +43,7 @@ export class TodoController {
 | @Service / @Injectable | Injectable class |
 | @Inject | Inject to property |
 | @AutoInject | Auto Injection |
-
+| @PostConstruct | Init method after construction |
 
 ### Auto Injection
 
