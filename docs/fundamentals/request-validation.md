@@ -132,7 +132,6 @@ export class BookController {
 |  Decorators   | Usage  |
 |  ----  | ----  |
 | ? | optional |
-| ! | use in string/array[] not empty |
 | @Min  | use in number/int/bigint minimum |
 | @Max  | use in number/int/bigint maximum |
 | @MinLen  | use in string/array[] minimum length |
@@ -162,10 +161,6 @@ addBooks(@Query keyword?: string){
   // you code
 }
 ```
-
-:::tip Not Empty Param
-use ! to mark the param is an not empty param
-:::
 
 
 ```ts

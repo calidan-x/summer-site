@@ -130,7 +130,6 @@ export class BookController {
 |  写法   | 作用  |
 |  ----  | ----  |
 | ? | 选传值 |
-| ! | 在 string/array[] 中使用非空字符串或非空数组 |
 | @Min  | 在 number/int/bigint 类型使用，限制最小值 |
 | @Max  | 在 number/int/bigint 类型使用，限制最大值 |
 | @MinLen  | 在string型使用，限制字符串最小长度<br/>在array[]型使用限制数组最小长度 |
@@ -159,9 +158,6 @@ addBooks(@Query keyword?: string){
   // you code
 }
 
-:::tip 非空字符串或数组
-使用 ! 标记字符串或者数组不能为空
-:::
 
 
 ```ts
