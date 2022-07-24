@@ -35,7 +35,7 @@ export const [DecoratorName] = createParamDecorator((ctx?, paramName?, arg1?, ar
 import { Controller, createParamDecorator, Get } from '@summer-js/summer'
 
 export const AppVersion = createParamDecorator((ctx) => {
-  return ctx.request.headers['AppVersion']
+  return ctx.request.headers['app-version']
 })
 
 @Controller
