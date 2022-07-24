@@ -45,7 +45,6 @@ export class BookController {
 | string | 字符串 |
 | int/bigint | 整数 |
 | Date | 日期字符串 |
-| TimeStamp | 数字时间戳 |
 | enum | 枚举（包括数字值枚举，字符串值枚举） |
 | 't1' \| 't2' | 字符串联合类型 |
 | File | 上传文件 |
@@ -63,7 +62,7 @@ int型不是TypeScript支持的基础数据类型，是Summer额外补充仅用�
 :::
 
 :::info 日期校验
-Date / TimeStamp 在校验格式后最终会转为Date型
+Date 在校验格式后最终会从string型（"2022-04-01"）转为Date型
 :::
 
 :::info 布尔型校验

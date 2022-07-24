@@ -45,7 +45,6 @@ export class BookController {
 | string | String type |
 | int/bigint | Integer type |
 | Date | Date type |
-| TimeStamp | TimeStamp type |
 | enum | Enum（including Numeric Enum and String Enum) |
 | 't1' \| 't2' | String Union type |
 | File | upload file |
@@ -64,8 +63,6 @@ Enum validate the pass in param is a string key of enum. The final value of the 
 
 :::info Date Validation
 Date validate the pass in param is a date/datetime format like 2022-10-01 or 2022-10-01 12:00:00<br/>
-TimeStamp validation a timestamp format like 1654777515 or 1654777515000
-Both of then will finally convert into a Date object.
 :::
 
 :::info Boolean Validation

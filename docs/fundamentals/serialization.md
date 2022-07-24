@@ -4,9 +4,9 @@ sidebar_position: 55
 
 # Serialization
 
-Summer can serialize enum and Date types automatically.
+Summer can serialize enum automatically.
 
-There are two new *types* named **DateTime** / **TimeStamp** which can be marked as the output string format.
+ 
 
 ```ts
 import { Controller, Get } from '@summer-js/summer'
@@ -18,10 +18,7 @@ enum Direction {
   RIGHT = 3
 }
 
-class Resource {
-  date: Date
-  dateTime: DateTime
-  timeStamp: TimeStamp
+class Resource { 
   direction: Direction
 }
 
@@ -30,9 +27,6 @@ export class SerializationController {
   @Get('/serialize')
   async serialize() {
     const r = new Resource()
-    r.date = new Date()
-    r.dateTime = new Date()
-    r.timeStamp = new Date()
     r.direction = Direction.LEFT
     return r
   }
@@ -41,9 +35,6 @@ export class SerializationController {
 
 ```json title="Output"
 {
-    "date":"2022-06-01",
-    "dateTime":"2022-06-01 18:19:33",
-    "timeStamp":1654078773784,
     "direction":"LEFT"
 }
 ```
