@@ -43,7 +43,8 @@ export class BookController {
 | boolean | 布尔型 |
 | number | 数字型，包括整数和小数 |
 | string | 字符串 |
-| int/bigint | 整数 |
+| int | 整型 |
+| bigint | 大整型 |
 | Date | 日期字符串 |
 | enum | 枚举（包括数字值枚举，字符串值枚举） |
 | 't1' \| 't2' | 字符串联合类型 |

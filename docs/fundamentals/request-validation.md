@@ -43,7 +43,8 @@ export class BookController {
 | boolean | Boolean type |
 | number | Number type |
 | string | String type |
-| int/bigint | Integer type |
+| int | Integer type |
+| bigint | BigInt type |
 | Date | Date type |
 | enum | Enum（including Numeric Enum and String Enum) |
 | 't1' \| 't2' | String Union type |
