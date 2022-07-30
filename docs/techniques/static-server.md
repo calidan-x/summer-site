@@ -15,8 +15,8 @@ export const SERVER_CONFIG: ServerConfig = {
   // highlight-start
   static: [
     {
-      requestPathRoot: '/static',
-      destPathRoot: 'resource',
+      requestPath: '/static',
+      destPath: 'resource',
       indexFiles: ['index.html']
     }
   ]
@@ -24,8 +24,8 @@ export const SERVER_CONFIG: ServerConfig = {
 }
 ```
 
-**requestPathRoot** static path access root<br/>
-**destPathRoot** server-side access folder<br/>
+**requestPath** static path access root<br/>
+**destPath** server-side access folder<br/>
 **indexFiles** index files list
 
 Write a simple html
@@ -39,5 +39,5 @@ Write a simple html
 Put index.html to ./resource/index.html, access by browser http://127.0.0.1:8801/static/ 
 
 :::caution
-./resource is the default resource folder for summer framework destPathRoot should be set to this folder or subfolder
+./resource is the default resource folder for summer framework destPath should be set to this folder or subfolder
 :::

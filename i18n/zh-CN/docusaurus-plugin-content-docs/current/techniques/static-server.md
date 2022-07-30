@@ -14,16 +14,16 @@ export const SERVER_CONFIG: ServerConfig = {
   port: 8801,
   static: [
     {
-      requestPathRoot: '/static',
-      destPathRoot: 'resource',
+      requestPath: '/static',
+      destPath: 'resource',
       indexFiles: ['index.html']
     }
   ]
 }
 ```
 
-`requestPathRoot` 为请求的根节点<br/>
-`destPathRoot` 为对应文件系统的目录<br/>
+`requestPath` 为请求的根节点<br/>
+`destPath` 为对应文件系统的目录<br/>
 `indexFiles` 索引文件列表
 
 编写一个简单的HTML代码
