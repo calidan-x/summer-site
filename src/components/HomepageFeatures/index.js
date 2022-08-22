@@ -4,19 +4,19 @@ import styles from './styles.module.css'
 
 const FeatureList = [
   {
-    title: 'Enterprise',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
-    description: <>Runtime typescript check</>
-  },
-  {
-    title: 'Extensible',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
-    description: <>Custom decorators，plugins</>
-  },
-  {
     title: 'Programmer Friendly',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
-    description: <>Always easy to learn and easy to use.</>
+    description: <>every things just as simple & powerful as possible</>
+  },
+  {
+    title: 'Runtime TypeScript',
+    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    description: <>strict runtime typing validation and swagger typing document</>
+  },
+  {
+    title: 'More',
+    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    description: <>customer decorators, easy DTO conversion, serverless compatible build, RPC …</>
   }
 ]
 
