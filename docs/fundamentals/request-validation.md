@@ -56,7 +56,7 @@ export class BookController {
 | File | upload file |
 | {object} | Object |
 | array[] | Array |
-| generic&lt;T&gt; | Simple Generic |
+| generic&lt;T&gt; | Simple Generic Object type|
 
 
 
