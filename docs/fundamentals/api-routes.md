@@ -4,7 +4,9 @@ sidebar_position: 10
 
 # API Route
 
-```ts title="A simple route example"
+### A Simple Routing Example
+
+```ts title="src/controller/TodoController.ts"
 import { Controller, Get, Post } from '@summer-js/summer';
 
 @Controller
@@ -21,31 +23,74 @@ export class TodoController {
 }
 ```
 
+```json title="GET http://127.0.0.1:8801/todos"
+[
+  "Learn Summer",
+  "Watch TV",
+  "Play Switch Game"
+]
+```
+
 :::info Writing Summer Decorator
-Most of NodeJS backend frameworks require parentheses "()" at the end of decorators even if there's no param pass in, Summer can ignore writing parentheses if there's no param pass in.
+Most of NodeJS backend frameworks require to write parentheses "()" at the end of decorators even if there's no param pass in, ignore writing parentheses works in Summer.
 :::
 
-### Controller and API Route Decorators
+### Restful API Route Decorators
 
 |  Decorator   | Usage  |
 |  ----  | ----  |
-| @Controller | API entry |
-| @Get | Get request entry |
-| @Post | Post request entry |
-| @Put | Put request entry |
-| @Patch | Patch request entry |
-| @Delete | Delete request entry |
-| @Request | All kind of request entry |
+| @Controller(prefixPath?: string) | API entry |
+| @Get(path?: string) | Get request entry |
+| @Post(path?: string) | Post request entry |
+| @Put(path?: string) | Put request entry |
+| @Patch(path?: string) | Patch request entry |
+| @Delete(path?: string) | Delete request entry |
+| @Request(path?: string) | All kind of request entry |
+
+
+
+### API Prefix Path
+
+API prefix path can be defined in @Controller, to ignore prefix path, add "**^**" at the beginning.
+
+```ts title="src/controller/TodoController.ts"
+import { Body, Controller, Delete, Get, PathParam, Post } from '@summer-js/summer'
+import { Todo } from '../dto/request/Todo'
+
+// highlight-next-line
+@Controller('/v1')
+export class TodoController {
+  @Get('/todos')
+  list() {}
+
+  // highlight-next-line
+  @Get('^/v2/todos')
+  listV2() {
+    console.log('Todo list V2')
+  }
+
+  @Get('/todos/:id')
+  todo(@PathParam id: int) {}
+
+  @Post('/todos')
+  addTodo(@Body todo: Todo) {}
+
+  @Delete('/todos/:id')
+  deleteTodo(@PathParam id: int) {}
+}
+```
+
 
 
 ### Extract Request Data
 
-```ts
+```ts title="src/controller/TodoController.ts"
 import { Controller, Get, PathParam } from '@summer-js/summer';
 
 @Controller
 export class TodoController {
   @Get('/todos/:id')
+  // highlight-next-line
   detail(@PathParam id: number) {
     const todoList = ['Lean Summer', 'Watch TV', 'Play NS Game'];
     return todoList[id];
@@ -54,13 +99,13 @@ export class TodoController {
 ```
 
 
-### Extract Request Data Decorators
+### Extract Data Decorators
 
 |  Decorator   | Usage  |
 |  ----  | ----  |
 | @PathParam  | get param in request path |
 | @Query  | get query param |
-| @Queries  | get all query param|
+| @Queries  | get all query params|
 | @Body  | get request body |
 | @Header  | get header |
 | @Ctx  | get request context |
@@ -70,51 +115,103 @@ export class TodoController {
 
 
 
-### Request Param Type Conversion
+### Request Data Conversion
 
 :::info Auto Type Conversion
-Summer can auto convert data into type as you defined in method params.
+Data will be converted into type as you defined in method params.
 :::
 
-```ts
-import { Controller, Get, PathParam } from '@summer-js/summer';
+
+```ts title="src/dto/request/Todo.ts"
+export class Todo {
+  content: string
+  isDone: boolean
+}
+```
+
+```ts title="src/controller/TodoController.ts"
+import { Body, Controller, Get, PathParam, Post } from '@summer-js/summer'
+import { Todo } from '../dto/request/Todo'
 
 @Controller
 export class TodoController {
   @Get('/todos/:id')
-  detail(@PathParam id: string) {
-    // will output string
-    console.log(typeof id);
+  todo(@PathParam id: string) {
+    console.log(typeof id)
   }
 
-  @Get('/my-todos/:id')
-  myDetail(@PathParam id: number) {
-    // will output number
-    console.log(typeof id);
+  @Get('/tasks/:id')
+  task(@PathParam id: number) {
+    console.log(typeof id)
+  }
+
+  @Post('/todos')
+  addTodo(@Body todo: Todo) {
+    console.log(todo)
   }
 }
 ```
 
+```json title="GET http://127.0.0.1/todos/10"
+string
+```
 
-### Request Params Key Conversion
-The following example shows how to convert a query key from 'todo_id' to 'id'
+```json title="GET http://127.0.0.1/tasks/10"
+number
+```
 
-```ts
+```json title="POST http://127.0.0.1/todos"
+Post Data:
+{
+  "content": "Read Book",
+  "isDone": false
+}
+
+Console Output:
+Todo { content: 'Read Book', isDone: false }
+```
+
+### Key Mapping
+The following example shows how to map a query key from 'todo_index' to 'index'
+
+```ts title="src/controller/TodoController.ts"
 import { Controller, Get, Query } from '@summer-js/summer';
 
 @Controller
 export class TodoController {
+
   @Get('/todos')
-  detail(@Query('todo_id') id: number) {
+  // highlight-next-line
+  todo(@Query('todo_index') index: number) {
     const todoList = ['Lean Summer', 'Watch TV', 'Play NS Game'];
-    return todoList[id];
+    return todoList[index];
   }
 }
 
-// Get /todos?todo_id=1
-// output "Watch TV"
+```
+
+```json title="GET http://127.0.0.1:8801/todos?todo_index=1"
+Watch TV
 ```
 
 
+Get user agent info from browser request
+```ts title="src/controller/AppController.ts"
+import { Controller, Get, Header } from '@summer-js/summer';
 
+@Controller
+export class AppController {
+  @Get('/user-agent')
+  // highlight-next-line
+  detail(@Header('user-agent') userAgent: string) {
+    return userAgent;
+  }
+}
+
+```
+
+
+```json title="GET http://127.0.0.1:8801/user-agent (by Chrome)"
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36
+```
 

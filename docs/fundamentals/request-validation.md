@@ -6,12 +6,12 @@ sidebar_position: 20
 
 ### Validate Request Data
 :::tip Runtime TypeScript Type Validation
-Summer can validate TypeScript type in runtime, so everything just as simple as writing normal code, the request DTO must be a class.
+Summer can validate TypeScript type in runtime, so everything just as simple as writing normal code. <br/>
+The request DTO must be a class.
 :::
 
-```ts
-import { Controller, Post, Body } from '@summer-js/summer';
-
+### General Validation Example
+```ts title="src/dto/request/book.ts"
 enum BookType {
   Fiction = 0,
   Education = 1
@@ -27,12 +27,17 @@ class AddBookRequest {
   // validate pageCount is an integer
   pageCount: int;
 }
+```
+
+```ts title="src/controller/BookController.ts"
+import { Controller, Post, Body } from '@summer-js/summer'
+import { AddBookRequest } from '../dto/request/book'
 
 @Controller('/v1')
 export class BookController {
   @Post('/books')
   add(@Body addBookRequest: AddBookRequest) {
-    console.log(addBookRequest);
+    console.log(addBookRequest)
   }
 }
 ```
@@ -54,16 +59,42 @@ export class BookController {
 
 
 
-:::info Integer Validation
-'int' is not a base type in TypeScript, this type is an extension type in Summer which only use for validation, in normal code int is an alias of number.
-:::
+### Integer Validation
+**int** is not a primitive type in TypeScript, this type is an extension type in Summer which is only used for integer validation, in normal code int works like a **number**.
+
+```ts title="src/controller/TodoController.ts"
+import { Controller, Get, PathParam } from '@summer-js/summer';
+
+@Controller
+export class TodoController {
+  
+  @Get('/todos/:inx')
+  detail(@PathParam inx: int) {
+    const todoList = ['Lean Summer', 'Watch TV', 'Play NS Game'];
+    return todoList[inx];
+  }
+}
+```
+
+
+```json title="Get http://127.0.0.1:8801/todos/1.5"
+{
+  message: "Validation Failed",
+  errors: [
+    {
+      param: "inx",
+      message: "'1.5' is not an integer"
+    }
+  ]
+}
+```
 
 :::info Enum Validation
-Enum validate the pass in param is a string key of enum. The final value of the filed in request DTO is the value of enum.
+Enum validates the pass in param is a string key of enum.
 :::
 
 :::info Date Validation
-Date validate the pass in param is a date/datetime format like 2022-10-01 or 2022-10-01 12:00:00<br/>
+Date validates the pass in param is a date/datetime string format like '2022-10-01' or '2022-10-01' 12:00:00<br/>
 :::
 
 :::info Boolean Validation
@@ -137,8 +168,9 @@ export class BookController {
 | @Email  |  use in string email format |
 | @Pattern  | use in string match RegExp |
 | @Validate  | custom validation, pass in value and return true/false to determine validation result |
+| @IgnoreUnknownProperties | allow undefined property in request DTO |
 
-### Required Param and Optional Param
+### Required or Optional
 
 :::tip Required Param and Optional Param
 use ? to mark the param is an optional param, optional param can set a default value<br/>

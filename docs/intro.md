@@ -3,15 +3,15 @@ sidebar_position: 1
 ---
 
 # Introduction
-Summer aims to provide a high-quality, easy fast, micro-service/serviceless enterprise backend framework
+Summer aims to provide a high-quality, easy fast enterprise backend framework
 
 ## Main Features
 
 - **Pleasure of Programming**<br/>
   Summer cares about coding experience, always easy to learn and easy to do.
 
-- **Runtime TypeScript Validation**<br/>
-  TypeScript can be used for runtime request validation, and save a lot of duplicated code for request DTO.
+- **Strict Runtime TypeScript Validation**<br/>
+  TypeScript can be used for runtime request validation, this makes your backend more secure.
 
 - **Simply DTO Conversion**<br/>
   Backend programming always deals with lots of DTO conversion, Summer provides 2 easy and safe functions for conversion.
@@ -22,8 +22,10 @@ Summer aims to provide a high-quality, easy fast, micro-service/serviceless ente
 - **One Complied Code, Deploy Everywhere**<br/>
   Summer use esbuild to pack code into ONE runnable js file. This compiled code is compatible to deploy in Kubernetes cluster or Serverless without changing any configuration.
 
+- **Best Swagger Integration**<br/>
+  Summer Swagger plugin utilizes runtime typescript to generate API documents ( OpenAPI 3.0.x ), this helps to simplify your code, a single line of code can generate a full document. The Swagger plugin works together with Summer core decorators that can read @Max() @Optional() or even database column comments in TypeORM.
 
-## Create Project
+## Create a New Project
 
 ```bash
 npm create summer@latest
