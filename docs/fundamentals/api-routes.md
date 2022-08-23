@@ -122,7 +122,7 @@ Data will be converted into type as you defined in method params.
 :::
 
 
-```ts title="src/dto/request/Todo.ts"
+```ts title="src/dto/request/todo.ts"
 export class Todo {
   content: string
   isDone: boolean
@@ -131,7 +131,7 @@ export class Todo {
 
 ```ts title="src/controller/TodoController.ts"
 import { Body, Controller, Get, PathParam, Post } from '@summer-js/summer'
-import { Todo } from '../dto/request/Todo'
+import { Todo } from '../dto/request/todo'
 
 @Controller
 export class TodoController {
