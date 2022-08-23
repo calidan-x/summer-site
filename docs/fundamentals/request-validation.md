@@ -263,8 +263,8 @@ class PersonRequest{
 }
 ```
 
+notice the '?' optional token also works in method params
 ```ts
-// notice the '?' optional token also work in method params
 @Get(/books)
 addBooks(@Query keyword?: string){
   // you code
@@ -274,13 +274,16 @@ addBooks(@Query keyword?: string){
 
 ### Object Array Validation
 
-```ts  
-import { Controller, Post, Body } from '@summer-js/summer';
-
-class Book {
+```ts title="src/dto/request/book.ts"
+export class Book {
   title: string;
   author: string;
 }
+```
+
+```ts title="src/controller/BookController.ts"
+import { Controller, Post, Body } from '@summer-js/summer';
+import { Book } from '../dto/request/book'
 
 @Controller
 export class BookController {
@@ -294,24 +297,27 @@ export class BookController {
 
 ### Object Validation
 
-```ts
-import { Controller, Post, Body } from '@summer-js/summer';
-
-enum Gender {
+```ts title="src/dto/request/book.ts"
+export enum Gender {
   Female = 1,
   Male = 2
 }
 
-class Person {
+export class Person {
   name: string;
   age: int;
   gender: Gender;
 }
 
-class Book {
+export class Book {
   title: string;
   author: Person;
 }
+```
+
+```ts
+import { Controller, Post, Body } from '@summer-js/summer';
+import { Book } from '../dto/request/book'
 
 @Controller
 export class BookController {
@@ -347,7 +353,8 @@ export class AnimalController {
 ```
 
 ### Simple Generic Type Validation
-```ts
+
+```ts title="src/dto/request/AnimalController.ts"
 import { Controller, Post, Body } from '@summer-js/summer';
 
 class Dog {
