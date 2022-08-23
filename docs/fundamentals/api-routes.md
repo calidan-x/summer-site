@@ -4,6 +4,24 @@ sidebar_position: 10
 
 # API Route
 
+:::info Writing Summer Decorator
+Most of NodeJS backend frameworks require to write parentheses "()" at the end of decorators even if there's no param pass in, ignore writing parentheses works in Summer.
+:::
+
+### Restful API Route Decorators
+
+|  Decorator   | Usage  |
+|  ----  | ----  |
+| @Controller(prefixPath?: string) | API entry |
+| @Get(path?: string) | Get request entry |
+| @Post(path?: string) | Post request entry |
+| @Put(path?: string) | Put request entry |
+| @Patch(path?: string) | Patch request entry |
+| @Delete(path?: string) | Delete request entry |
+| @Request(path?: string) | All kind of request entry |
+
+
+
 ### A Simple Routing Example
 
 ```ts title="src/controller/TodoController.ts"
@@ -30,22 +48,6 @@ export class TodoController {
   "Play Switch Game"
 ]
 ```
-
-:::info Writing Summer Decorator
-Most of NodeJS backend frameworks require to write parentheses "()" at the end of decorators even if there's no param pass in, ignore writing parentheses works in Summer.
-:::
-
-### Restful API Route Decorators
-
-|  Decorator   | Usage  |
-|  ----  | ----  |
-| @Controller(prefixPath?: string) | API entry |
-| @Get(path?: string) | Get request entry |
-| @Post(path?: string) | Post request entry |
-| @Put(path?: string) | Put request entry |
-| @Patch(path?: string) | Patch request entry |
-| @Delete(path?: string) | Delete request entry |
-| @Request(path?: string) | All kind of request entry |
 
 
 
