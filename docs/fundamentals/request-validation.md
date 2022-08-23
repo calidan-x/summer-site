@@ -51,7 +51,7 @@ export class BookController {
 | int | Integer type |
 | bigint | BigInt type |
 | Date | Date type |
-| enum | Enum（including Numeric Enum and String Enum) |
+| enum | Enum（includes Numeric Enum and String Enum) |
 | 't1' \| 't2' | String Union type |
 | File | upload file |
 | {object} | Object |
