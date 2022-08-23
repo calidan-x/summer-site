@@ -62,20 +62,18 @@ export class BookController {
 ### Integer Validation
 **int** is not a primitive type in TypeScript, this type is an extension type in Summer which is only used for integer validation, in normal code int works like a **number**.
 
-```ts title="src/controller/TodoController.ts"
-import { Controller, Get, PathParam } from '@summer-js/summer';
+```ts title="src/controller/BookController.ts"
+import { Controller, Get, PathParam } from '@summer-js/summer'
 
 @Controller
-export class TodoController {
-  
-  @Get('/todos/:inx')
-  detail(@PathParam inx: int) {
-    const todoList = ['Lean Summer', 'Watch TV', 'Play NS Game'];
-    return todoList[inx];
+export class BookController {
+  @Get('/books/:inx')
+  book(@PathParam inx: int) {
+    const books = ['Harry Potter', 'The Great Gatsby', 'Dune']
+    return books[inx]
   }
 }
 ```
-
 
 ```json title="Get http://127.0.0.1:8801/todos/1.5"
 {
@@ -89,17 +87,80 @@ export class TodoController {
 }
 ```
 
-:::info Enum Validation
+### Enum Validation
+
 Enum validates the pass in param is a string key of enum.
-:::
 
-:::info Date Validation
-Date validates the pass in param is a date/datetime string format like '2022-10-01' or '2022-10-01' 12:00:00<br/>
-:::
+```ts title="src/controller/BookController.ts"
+import { Controller, Get, Query } from '@summer-js/summer'
 
-:::info Boolean Validation
-if boolean type use single @Query validate, the string 'true'/'false' number 0/1 can be treat like boolean for validation
-:::
+enum BookType {
+  Fiction = 0,
+  Education = 1
+}
+
+@Controller
+export class BookController {
+  @Get('/books')
+  addBook(@Query type: BookType) {
+    if (type === BookType.Education) {
+      console.log('Searching Education Books...')
+    } else if (type === BookType.Fiction) {
+      console.log('Searching Fiction Books...')
+    }
+  }
+}
+```
+
+
+```json title="GET http://127.0.0.1:8801/books?type=Romance"
+{
+    "message":"Validation Failed",
+    "errors":[
+        {
+            "param":"type",
+            "message":"'Romance' is not in [\"Fiction\",\"Education\"]"
+        }
+    ]
+}
+```
+
+```json title="GET http://127.0.0.1:8801/books?type=Fiction"
+Searching Fiction Books...
+```
+
+
+### Date Validation
+
+Date validates the pass in param is a date/datetime string format like '2022-10-01' or '2022-10-01 12:00:00'<br/>
+
+```ts title="src/controller/BookController.ts"
+import { Controller, Get, Query } from '@summer-js/summer'
+
+@Controller
+export class BookController {
+  @Get('/books')
+  addBook(@Query createDate: Date) {
+    console.log('Searching Books in created in ' + createDate)
+  }
+}
+```
+
+```json title="GET http://127.0.0.1:8801/books?createDate=xxx"
+{
+    "message":"Validation Failed",
+    "errors":[
+        {
+            "param":"createDate",
+            "message":"error parsing 'xxx' to Date"
+        }
+    ]
+}
+```
+
+### Boolean Validation
+String 'true'/'false' '0'/'1', Number 0/1 can be recognized as boolean for validation
+
 
 ```ts title='Validation boolean query data'
 import { Controller, Get, Query } from '@summer-js/summer';
@@ -113,14 +174,31 @@ export class ExampleController {
 }
 ```
 
-```
-GET http://localhost:8801/boolean-test?isDone=true
-will output: boolean true
+```json title="GET http://localhost:8801/boolean-test?isDone=true"
+boolean true
 ```
 
+```json title="GET http://localhost:8801/boolean-test?isDone=0"
+boolean false
 ```
-GET http://localhost:8801/boolean-test?isDone=0
-will output: boolean false
+
+### int/number array Validation
+String "1,3,10" can be recognized as int[\]/number[\] for validation
+
+```ts title="src/controller/BookController.ts"
+import { Controller, Delete, PathParam } from '@summer-js/summer'
+
+@Controller
+export class BookController {
+  @Delete('/books/:ids')
+  deleteBooks(@PathParam ids: int[]) {
+    console.log('Delete Books id in ' + JSON.stringify(ids))
+  }
+}
+```
+
+```json title="http://127.0.0.1:8801/books/12,15,31"
+Delete Books id in [12,15,31]
 ```
 
 
@@ -193,15 +271,6 @@ addBooks(@Query keyword?: string){
 ```
 
 
-```ts
-class BlogRequest{
-  // title cannot post as empty string
-  title!: string
-  context: string
-}
-```
-
-
 ### Array Validation
 
 ```ts  
@@ -217,37 +286,6 @@ export class BookController {
   @Post('/books')
   addBooks(@Body param: Book[]) {
     console.log(typeof param, param);
-  }
-}
-```
-
-### Enum Validation
-
-```ts title='Enum is a very great way to handle magic number'
-import { Controller, Post, Body } from '@summer-js/summer';
-
-
-enum Gender {
-  Female = 1,
-  Male = 2
-}
-
-class Person {
-  name: string;
-  gender: Gender;
-}
-
-@Controller
-export class PersonController {
-  @Post('/persons')
-  addBooks(@Body person: Person) {
-    // person.gender value(1/2) is the value of Gender.Male / Gender.Female
-    console.log(person.gender)
-
-    // save the integer value to DB
-
-    return person
-    // person.gender will be serialized to string 'Male'/'Female' to frontend
   }
 }
 ```
