@@ -4,16 +4,45 @@ sidebar_position: 20
 
 # Request Validation
 
-
-## Type Validation
-
 :::tip Runtime TypeScript Type Validation
-Summer can validate TypeScript type in runtime, so everything just as simple as writing normal code. <br/>
+Summer can validate TypeScript type in runtime, so everything is just as simple as writing normal code. <br/>
 The request DTO must be a class.
 :::
 
 
-### General Validation Example
+## Supported Validation Types
+|  Type   |  Description |
+|  ----  | ----  |
+| boolean | Boolean type |
+| number | Number type |
+| string | String type |
+| int | Integer type |
+| bigint | BigInt type |
+| Date | Date type |
+| enum | Enum（includes Numeric Enum and String Enum) |
+| 't1' \| 't2' | String Union type |
+| {object} | Object |
+| array[] | Array |
+| generic&lt;T&gt; | Simple Generic Object type|
+
+
+## Data Restriction Decorators
+|  Decorators   | Usage  |
+|  ----  | ----  |
+| ? | optional |
+| @Min  | use in number/int/bigint minimum |
+| @Max  | use in number/int/bigint maximum |
+| @MinLen  | use in string/array[] minimum length |
+| @MaxLen  | use in string/array[] maximum length |
+| @Email  |  use in string email format |
+| @Pattern  | use in string match RegExp |
+| @Validate  | custom validation, pass in value and return true/false to determine validation result |
+| @IgnoreUnknownProperties | allow undefined property in request DTO |
+ 
+
+
+
+## General Validation Example
 ```ts title="src/dto/request/book.ts"
 enum BookType {
   Fiction = 0,
@@ -45,23 +74,9 @@ export class BookController {
 }
 ```
 
-### Supported Types
-|  Type   |  Description |
-|  ----  | ----  |
-| boolean | Boolean type |
-| number | Number type |
-| string | String type |
-| int | Integer type |
-| bigint | BigInt type |
-| Date | Date type |
-| enum | Enum（includes Numeric Enum and String Enum) |
-| 't1' \| 't2' | String Union type |
-| {object} | Object |
-| array[] | Array |
-| generic&lt;T&gt; | Simple Generic Object type|
- 
 
 
+## Type Validation
 
 ### Integer Validation
 **int** is not a primitive type in TypeScript, this type is an extension type in Summer which is only used for integer validation, in normal code int works like a **number**.
@@ -239,20 +254,9 @@ export class BookController {
 }
 ```
 
-### Data Restriction Decorators
-|  Decorators   | Usage  |
-|  ----  | ----  |
-| ? | optional |
-| @Min  | use in number/int/bigint minimum |
-| @Max  | use in number/int/bigint maximum |
-| @MinLen  | use in string/array[] minimum length |
-| @MaxLen  | use in string/array[] maximum length |
-| @Email  |  use in string email format |
-| @Pattern  | use in string match RegExp |
-| @Validate  | custom validation, pass in value and return true/false to determine validation result |
-| @IgnoreUnknownProperties | allow undefined property in request DTO |
 
-### Required or Optional
+
+## Required or Optional
 
 :::tip Required Param and Optional Param
 use ? to mark the param is an optional param, optional param can set a default value<br/>
@@ -333,24 +337,27 @@ export class BookController {
 
 ## Class Hierarchy Validation
 
-```ts
-import { Controller, Post, Body } from '@summer-js/summer';
-
+```ts title="src/dto/request/animal.ts"
 class Animal {
-  name: string;
-  weight: number;
+  name: string
+  weight: number
 }
 
-class Dog extends Animal {
-  noseLength: number;
-  eyesColor: 'blue' | 'brown';
+export class Dog extends Animal {
+  noseLength: number
+  eyesColor: 'blue' | 'brown'
 }
+```
+
+```ts title="src/controller/AnimalController.ts"
+import { Controller, Post, Body } from '@summer-js/summer'
+import { Dog } from '../dto/request/animal'
 
 @Controller
 export class AnimalController {
   @Post('/dogs')
   add(@Body dog: Dog) {
-    console.log(typeof dog, dog);
+    console.log(typeof dog, dog)
   }
 }
 ```
