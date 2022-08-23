@@ -362,6 +362,33 @@ export class AnimalController {
 }
 ```
 
+## Custom Validation
+
+```ts title="src/dto/request/book.ts"
+import { Validate } from '@summer-js/summer'
+
+export class Book {
+  // title must starts with uppercase
+  @Validate((val: string) => {
+    return val.substring(0, 1).toUpperCase() === val.substring(0, 1)
+  })
+  title: string
+}
+```
+
+```ts title="src/controller/BookController.ts"
+import { Controller, Body, Post } from '@summer-js/summer'
+import { Book } from '../dto/request/book'
+
+@Controller
+export class BookController {
+  @Post('/books')
+  detail(@Body book: Book) {
+    return book
+  }
+}
+```
+
 ## Simple Generic Type Validation
 
 ```ts title="src/dto/request/animal.ts"
