@@ -271,7 +271,7 @@ addBooks(@Query keyword?: string){
 ```
 
 
-### Array Validation
+### Object Array Validation
 
 ```ts  
 import { Controller, Post, Body } from '@summer-js/summer';
