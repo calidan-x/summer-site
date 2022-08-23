@@ -295,6 +295,19 @@ export class Book {
 }
 ```
 
+```ts
+import { Controller, Post, Body } from '@summer-js/summer';
+import { Book } from '../dto/request/book'
+
+@Controller
+export class BookController {
+  @Post('/books')
+  addBook(@Body book: Book) {
+    console.log(typeof book, book);
+  }
+}
+```
+
 ## Object Array Validation
 
 ```ts title="src/dto/request/book.ts"
@@ -317,18 +330,6 @@ export class BookController {
 }
 ```
 
-```ts
-import { Controller, Post, Body } from '@summer-js/summer';
-import { Book } from '../dto/request/book'
-
-@Controller
-export class BookController {
-  @Post('/books')
-  addBook(@Body book: Book) {
-    console.log(typeof book, book);
-  }
-}
-```
 
 ## Class Hierarchy Validation
 
