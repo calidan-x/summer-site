@@ -30,13 +30,13 @@ The request DTO must be a class.
 |  Decorators   | Usage  |
 |  ----  | ----  |
 | ? | optional |
-| @Min  | use in number/int/bigint minimum |
-| @Max  | use in number/int/bigint maximum |
-| @MinLen  | use in string/array[] minimum length |
-| @MaxLen  | use in string/array[] maximum length |
+| @Min(min: number)  | use in number/int/bigint minimum |
+| @Max(max: number)  | use in number/int/bigint maximum |
+| @MinLen(minLen: number)  | use in string/array[] minimum length |
+| @MaxLen(maxLen: number)  | use in string/array[] maximum length |
 | @Email  |  use in string email format |
-| @Pattern  | use in string match RegExp |
-| @Validate  | custom validation, pass in value and return true/false to determine validation result |
+| @Pattern(regexp :RegExp)  | use in string match RegExp |
+| @Validate(func: (val: any) => boolean )  | custom validation, pass in value and return true/false to determine validation result |
 | @IgnoreUnknownProperties | allow undefined property in request DTO |
  
 
