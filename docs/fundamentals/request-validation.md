@@ -354,34 +354,37 @@ export class AnimalController {
 
 ### Simple Generic Type Validation
 
-```ts title="src/dto/request/AnimalController.ts"
-import { Controller, Post, Body } from '@summer-js/summer';
-
-class Dog {
+```ts title="src/dto/request/animal.ts"
+export class Dog {
   name: string
   weight: number
 }
 
-class Cat {
+export class Cat {
   name: string
   tailLength: number
 }
 
-class AnimalRequest<T>{
+export class AnimalRequest<T>{
   obj: T
   count: number
 }
+```
+
+```ts title="src/controller/AnimalController.ts"
+import { Controller, Post, Body } from '@summer-js/summer'
+import { Dog, Cat, AnimalRequest } from '../dto/request/animal'
 
 @Controller
 export class AnimalController {
   @Post('/dogs')
-  addDog(@Body dog: AnimalRequest<Dog>) { 
-    // your code
+  addDog(@Body dog: AnimalRequest<Dog>) {
+    console.log(dog)
   }
 
   @Post('/cats')
-  addDog(@Body dog: AnimalRequest<Cat>) {
-    // your code
+  addCat(@Body cat: AnimalRequest<Cat>) {
+    console.log(cat)
   }
 }
 ```
