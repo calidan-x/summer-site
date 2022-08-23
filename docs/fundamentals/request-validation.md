@@ -4,11 +4,14 @@ sidebar_position: 20
 
 # Request Validation
 
-### Validate Request Data
+
+## Type Validation
+
 :::tip Runtime TypeScript Type Validation
 Summer can validate TypeScript type in runtime, so everything just as simple as writing normal code. <br/>
 The request DTO must be a class.
 :::
+
 
 ### General Validation Example
 ```ts title="src/dto/request/book.ts"
@@ -42,7 +45,7 @@ export class BookController {
 }
 ```
 
-### Supported Validation Types
+### Supported Types
 |  Type   |  Description |
 |  ----  | ----  |
 | boolean | Boolean type |
@@ -53,10 +56,10 @@ export class BookController {
 | Date | Date type |
 | enum | Enum（includes Numeric Enum and String Enum) |
 | 't1' \| 't2' | String Union type |
-| File | upload file |
 | {object} | Object |
 | array[] | Array |
 | generic&lt;T&gt; | Simple Generic Object type|
+ 
 
 
 
@@ -203,7 +206,7 @@ Delete Books id in [12,15,31]
 ```
 
 
-### Data Restriction and Optional Validation
+## Data Restriction
 
 ```ts
 import { Controller, Post, Body, Min, MaxLen  } from '@summer-js/summer';
@@ -272,7 +275,27 @@ addBooks(@Query keyword?: string){
 ```
 
 
-### Object Array Validation
+## Object Validation
+
+```ts title="src/dto/request/book.ts"
+export enum Gender {
+  Female = 1,
+  Male = 2
+}
+
+export class Person {
+  name: string;
+  age: int;
+  gender: Gender;
+}
+
+export class Book {
+  title: string;
+  author: Person;
+}
+```
+
+## Object Array Validation
 
 ```ts title="src/dto/request/book.ts"
 export class Book {
@@ -294,27 +317,6 @@ export class BookController {
 }
 ```
 
-
-### Object Validation
-
-```ts title="src/dto/request/book.ts"
-export enum Gender {
-  Female = 1,
-  Male = 2
-}
-
-export class Person {
-  name: string;
-  age: int;
-  gender: Gender;
-}
-
-export class Book {
-  title: string;
-  author: Person;
-}
-```
-
 ```ts
 import { Controller, Post, Body } from '@summer-js/summer';
 import { Book } from '../dto/request/book'
@@ -328,7 +330,7 @@ export class BookController {
 }
 ```
 
-### Class Hierarchy Validation
+## Class Hierarchy Validation
 
 ```ts
 import { Controller, Post, Body } from '@summer-js/summer';
@@ -352,7 +354,7 @@ export class AnimalController {
 }
 ```
 
-### Simple Generic Type Validation
+## Simple Generic Type Validation
 
 ```ts title="src/dto/request/animal.ts"
 export class Dog {
