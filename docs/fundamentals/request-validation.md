@@ -36,7 +36,7 @@ The request DTO must be a class.
 | @MaxLen(maxLen: number)  | use in string/array[] maximum length |
 | @Email  |  use in string email format |
 | @Pattern(regexp :RegExp)  | use in string match RegExp |
-| @Validate(func: (val: any) => boolean )  | custom validation, pass in value and return true/false to determine validation result |
+| @Validate(func: (val: any) => boolean )  | custom validation,<br/> pass in value and return true/false to determine validation result |
 | @IgnoreUnknownProperties | allow undefined property in request DTO |
  
 
