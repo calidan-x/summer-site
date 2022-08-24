@@ -22,6 +22,9 @@ Summer aims to provide a high-quality, easy fast enterprise backend framework
 - **One Complied Code, Deploy Everywhere**<br/>
   Summer use esbuild to pack code into ONE runnable js file. This compiled code is compatible to deploy in Kubernetes cluster or Serverless without changing any configuration.
 
+ 
+<!-- <img src="/img/swagger_logo.svg"  style={{marginLeft:"30px",marginBottom:"5px",marginTop:"20px"}} width="200"/><br/> -->
+
 - **Best Swagger Integration**<br/>
   Summer Swagger plugin utilizes runtime typescript to generate API documents ( OpenAPI 3.0.x ), this helps to simplify your code, a single line of code can generate a full document. The Swagger plugin works together with Summer core decorators that can read @Max() @Optional() or even database column comments in TypeORM.
 

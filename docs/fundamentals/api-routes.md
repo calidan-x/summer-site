@@ -22,6 +22,21 @@ Most of NodeJS backend frameworks require to write parentheses "()" at the end o
 
 
 
+### Extract Data Decorators
+
+|  Decorator   | Usage  |
+|  ----  | ----  |
+| @PathParam  | get param in request path |
+| @Query  | get query param |
+| @Queries  | get all query params|
+| @Body  | get request body |
+| @Header  | get header |
+| @Ctx  | get request context |
+| @RequestPath  | get request path |
+| @Cookie  | get request cookie |
+| @Session  | get session object |
+
+
 ### A Simple Routing Example
 
 ```ts title="src/controller/TodoController.ts"
@@ -93,27 +108,13 @@ import { Controller, Get, PathParam } from '@summer-js/summer';
 export class TodoController {
   @Get('/todos/:id')
   // highlight-next-line
-  detail(@PathParam id: number) {
+  todo(@PathParam id: number) {
     const todoList = ['Lean Summer', 'Watch TV', 'Play NS Game'];
     return todoList[id];
   }
 }
 ```
 
-
-### Extract Data Decorators
-
-|  Decorator   | Usage  |
-|  ----  | ----  |
-| @PathParam  | get param in request path |
-| @Query  | get query param |
-| @Queries  | get all query params|
-| @Body  | get request body |
-| @Header  | get header |
-| @Ctx  | get request context |
-| @RequestPath  | get request path |
-| @Cookie  | get request cookie |
-| @Session  | get session object |
 
 
 

@@ -36,7 +36,7 @@ The request DTO must be a class.
 | @MaxLen(maxLen: number)  | use in string/array[] maximum length |
 | @Email  |  use in string email format |
 | @Pattern(regexp :RegExp)  | use in string match RegExp |
-| @Validate(func: (val: any) => boolean )  | custom validation,<br/> pass in value and return true/false to determine validation result |
+| @Validate(func: (val: any) => boolean \| string )  | custom validation,<br/> pass in value and return true \| "Error Message"<br/> to determine validation result |
 | @IgnoreUnknownProperties | allow undefined property in request DTO |
  
 
@@ -259,7 +259,7 @@ export class BookController {
 ## Required or Optional
 
 :::tip Required Param and Optional Param
-use ? to mark the param is an optional param, optional param can set a default value<br/>
+use '?' to mark the param is an optional param, optional param can set a default value<br/>
 :::
 
 
@@ -270,11 +270,11 @@ class PersonRequest{
 }
 ```
 
-notice the '?' optional token also works in method params
+notice the '**?**' optional token also works in method params
 ```ts
 @Get(/books)
 addBooks(@Query keyword?: string){
-  // you code
+  // code
 }
 ```
 
@@ -335,7 +335,7 @@ export class BookController {
 ```
 
 
-## Class Hierarchy Validation
+## Class Inherit Validation
 
 ```ts title="src/dto/request/animal.ts"
 class Animal {
@@ -368,9 +368,13 @@ export class AnimalController {
 import { Validate } from '@summer-js/summer'
 
 export class Book {
-  // title must starts with uppercase
   @Validate((val: string) => {
-    return val.substring(0, 1).toUpperCase() === val.substring(0, 1)
+     if(val.substring(0, 1).toUpperCase() === val.substring(0, 1)){
+      // return true to pass validation
+      return true
+     }
+     // or return an error message
+     return "Title must starts with uppercase letter"
   })
   title: string
 }
