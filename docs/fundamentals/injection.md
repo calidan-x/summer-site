@@ -29,6 +29,7 @@ All injectable class instances are singletons
 ```ts title="src/service/TodoService.ts"
 import { Service } from '@summer-js/summer'
 
+// highlight-next-line
 @Service
 export class TodoService {
   async getTodos() {
@@ -43,6 +44,7 @@ import { TodoService } from './../service/TodoService'
 
 @Controller
 export class TodoController {
+  // highlight-next-line
   @Inject
   todoService: TodoService
 
@@ -65,6 +67,7 @@ Instead of writing each **@Inject**s one by one, use **@AutoInject** decorator f
 import { Controller, Get, AutoInject } from '@summer-js/summer'
 import { TodoService } from './../service/TodoService'
 
+// highlight-next-line
 @AutoInject
 @Controller
 export class TodoController {
@@ -94,7 +97,7 @@ import { getInjectable } from "@summer-js/summer"
 const todoService = getInjectable(TodoService)
 ```
 
-### Config Injection
+### Configuration Injection
 
 ```ts title="src/controller/TodoController.ts"
 import { Controller, Config, PostConstruct } from '@summer-js/summer'
@@ -105,6 +108,7 @@ export class TodoController {
   serverConfig
 
   // injection happen after constructor() method, use **@PostConstruct** to do init works
+  // highlight-next-line
   @PostConstruct
   init() {
     console.log(this.serverConfig)
@@ -120,6 +124,7 @@ import { Controller, getConfig } from '@summer-js/summer'
 @Controller
 export class TodoController {
   constructor() {
+    // highlight-next-line
     const serverConfig = getConfig('SERVER_CONFIG')
     console.log(serverConfig)
   }
@@ -135,7 +140,6 @@ import { createPropertyDecorator } from '@summer-js/summer'
 export const CityList = createPropertyDecorator((config) => {
   return ['Shanghai', 'New York City', 'London']
 })
-
 ```
 
 ```ts title="src/controller/AppController.ts"
@@ -144,6 +148,7 @@ import { CityList } from '../data/city'
 
 @Controller
 export class AppController {
+  // highlight-next-line
   @CityList
   cityList: string[]
 
