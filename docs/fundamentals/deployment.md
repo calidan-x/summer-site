@@ -90,7 +90,7 @@ WORKDIR /usr/src/app
 
 COPY ./build .
 
-EXPOSE 8801
+EXPOSE 80
 CMD [ "node", "--enable-source-maps", "index.js" ]
 ```
 
@@ -98,7 +98,7 @@ CMD [ "node", "--enable-source-maps", "index.js" ]
 `docker build . -t <your username>/node-web-app`
 
 3. Run
-`docker run -p 80:8801 -d <your username>/node-web-app`
+`docker run -p 80:80 -d <your username>/node-web-app`
 
 ### Deploy in AWS Lambda
 ![](/img/awslambda.jpg)
