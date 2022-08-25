@@ -38,6 +38,7 @@ class Book {
 export class BookController {
   @Post('/books')
   add(@Body addBookRequest: AddBookRequest) {
+    // highlight-next-line
     const book: Book = convertData(addBookRequest, Book);
     /* equals to:
     const book: Book = new Book();
@@ -59,40 +60,51 @@ fillData(instance:T,data:T);
 This function helps inject data into an existing instance.
 
 ```ts
-
-import { Controller, fillData, Get, PathParam } from '@summer-js/summer';
-
-class Person {
-  id: number;
-  name: string;
-  age: int;
-}
+import { Controller, fillData, Get, PathParam } from '@summer-js/summer'
 
 class Book {
-  id: number;
-  title: string;
-  personId: number
+  id: number
+  title: string
+  createTime: Date
+  updateTime: Date
+}
+
+class Author {
+  authorId: number
+  authorName: string
+  photo: string
 }
 
 class BookResource {
-  id: number;
-  title: string;
-  author: Person;
+  id: number
+  title: string
+  authorId: number
+  authorName: string
+  photo: string
 }
 
 @Controller
 export class BookController {
   @Get('/books/:id')
   bookDetail(@PathParam id: number) {
-    const bookResource: BookResource = new BookResource();
-    const book: Book = /* read book from DB */
-    bookResource.author = /* read book from DB */
-
-    // note that the personId will be ignore
-    fillData(bookResource, book);
-    return bookResource;
+    const bookResource: BookResource = new BookResource()
+    const book: Book = { id, title: 'DUNE', createTime: new Date(), updateTime: new Date() }
+    const author: Author = { authorId: 1, authorName: 'Frank Herbert', photo: 'https://photo.exmaple.com/xxx.jpg' }
+    // highlight-next-line
+    fillData(bookResource, book)
+    // highlight-next-line
+    fillData(bookResource, author)
+    return bookResource
   }
 }
+```
 
-
+```json title="GET http://127.0.0.1:8801/books/123"
+{
+    "id":123,
+    "title":"DUNE",
+    "authorId":1,
+    "authorName":"Frank Herbert",
+    "photo":"https://photo.exmaple.com/xxx.jpg"
+}
 ```
