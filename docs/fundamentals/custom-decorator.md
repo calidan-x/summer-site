@@ -10,11 +10,11 @@ Custom Decorator is a powerful function in Summer that can let you extract reque
 
 |Create Method|Description|Usage|
 |----|----|----|
-|createParamDecorator|create a decorator used in controller method param|extract request data|
-|createMethodDecorator|create a decorator used in method|method interception|
-|createClassDecorator|create a decorator used in  class|class methods interception|
-|createClassAndMethodDecorator|create a decorator used in class/method|class methods interception|
-|createPropertyDecorator|create a decorator used in property|inject config, init property data|
+|createParamDecorator|used in controller method param|extract request data|
+|createMethodDecorator|used in method|method interception|
+|createClassDecorator|used in  class|class methods interception|
+|createClassAndMethodDecorator|used in class/method|class methods interception|
+|createPropertyDecorator|used in property|inject config, init property data|
 
  
 
