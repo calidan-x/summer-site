@@ -15,6 +15,31 @@
   --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
   --ifm-color-banner-bg: #f8f8f8;
+  --docusaurus-highlighted-code-line-bg: rgb(0, 0, 0, 0.06);
+  --prism-background-color: white;
+  --ifm-code-border-radius: 0;
+  --ifm-global-shadow-lw: none;
+  --ifm-color-emphasis-300: #eee;
+  --ifm-alert-border-radius: 0;
+  --ifm-table-border-width: 0;
+}
+
+table th {
+  text-align: left;
+}
+
+.codeBlockContainer_node_modules-\@docusaurus-theme-classic-lib-theme-CodeBlock-Container-styles-module,
+table {
+  border: 1px solid #eee;
+}
+
+table {
+  display: inline-block;
+}
+
+.codeBlockTitle_node_modules-\@docusaurus-theme-classic-lib-theme-CodeBlock-Content-styles-module,
+.codeBlock_node_modules-\@docusaurus-theme-classic-lib-theme-CodeBlock-Content-styles-module {
+  background-color: #fafafa;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -27,17 +52,6 @@
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --ifm-color-banner-bg: #403a31;
-}
-
-.docusaurus-highlight-code-line {
-  background-color: rgba(0, 0, 0, 0.1);
-  display: block;
-  margin: 0 calc(-1 * var(--ifm-pre-padding));
-  padding: 0 var(--ifm-pre-padding);
-}
-
-[data-theme='dark'] .docusaurus-highlight-code-line {
-  background-color: rgba(0, 0, 0, 0.3);
 }
 
 * {
