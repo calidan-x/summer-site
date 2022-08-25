@@ -15,7 +15,7 @@
   --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
   --ifm-color-banner-bg: #f8f8f8;
-  --docusaurus-highlighted-code-line-bg: rgb(0, 0, 0, 0.06);
+  --docusaurus-highlighted-code-line-bg: rgb(0, 0, 0, 0.05);
   --prism-background-color: white;
   --ifm-code-border-radius: 0;
   --ifm-global-shadow-lw: none;
@@ -28,7 +28,7 @@ table th {
   text-align: left;
 }
 
-.codeBlockContainer_node_modules-\@docusaurus-theme-classic-lib-theme-CodeBlock-Container-styles-module,
+.theme-code-block,
 table {
   border: 1px solid #eee;
 }
@@ -37,8 +37,8 @@ table {
   display: inline-block;
 }
 
-.codeBlockTitle_node_modules-\@docusaurus-theme-classic-lib-theme-CodeBlock-Content-styles-module,
-.codeBlock_node_modules-\@docusaurus-theme-classic-lib-theme-CodeBlock-Content-styles-module {
+.theme-code-block div,
+.prism-code {
   background-color: white;
 }
 
