@@ -162,7 +162,7 @@ export class AppController {
 
 ### Param Value Injection
 
-```ts title="src/data/city.ts"
+```ts title="src/data/names.ts"
 import { createParamDecorator } from '@summer-js/summer'
 
 export const NameList = createParamDecorator((ctx) => {
