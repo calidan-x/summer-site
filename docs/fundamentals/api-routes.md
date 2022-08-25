@@ -26,14 +26,14 @@ Most of NodeJS backend frameworks require to write parentheses "()" at the end o
 
 |  Decorator   | Usage  |
 |  ----  | ----  |
-| @PathParam  | get param in request path |
-| @Query  | get query param |
+| @PathParam(key?: string)  | get param in request path |
+| @Query(key?: string)  | get query param |
 | @Queries  | get all query params|
 | @Body  | get request body |
-| @Header  | get header |
+| @Header(key?: string)  | get header |
 | @Ctx  | get request context |
 | @RequestPath  | get request path |
-| @Cookie  | get request cookie |
+| @Cookie(key?: sting)  | get request cookie |
 | @Session  | get session object |
 
 
@@ -115,7 +115,50 @@ export class TodoController {
 }
 ```
 
+### Custom Extract Request Data
 
+```ts title="src/decorators.ts"
+import { createParamDecorator } from '@summer-js/summer'
+
+export const UserAgent = createParamDecorator((ctx) => ctx.request.headers['user-agent'])
+export const RequestMethod = createParamDecorator((ctx) => ctx.request.method)
+// same as @Query
+export const MyQuery = createParamDecorator((ctx, paramName, key) => ctx.request.queries[key || paramName])
+```
+
+```ts title="src/controller/AppController.ts"
+import { Controller, Get } from '@summer-js/summer'
+import { UserAgent, RequestMethod, MyQuery } from '../decorators'
+
+@Controller
+export class AppController {
+  @Get('/user-agent')
+  // highlight-next-line
+  userAgent(@UserAgent userAgent: string) {
+    console.log(userAgent)
+  }
+
+  @Get('/request-method')
+  // highlight-next-line
+  method(@RequestMethod method: string) {
+    console.log(method)
+  }
+
+  @Get('/query')
+  // highlight-next-line
+  info(@MyQuery('key') key2: string) {
+    // ?key=123
+    console.log(key2)
+  }
+
+  @Get('/query2')
+  // highlight-next-line
+  info2(@MyQuery key2: string) {
+    // ?key2=123
+    console.log(key2)
+  }
+}
+```
 
 
 ### Request Data Conversion
