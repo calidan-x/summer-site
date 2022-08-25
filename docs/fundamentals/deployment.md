@@ -6,7 +6,7 @@ sidebar_position: 90
 
 ### Change Server Config
 
-in default.config.ts or env config
+in default.config.ts or other env config
 
 ```ts title="change port number"
 export const SERVER_CONFIG: ServerConfig = {
@@ -14,7 +14,7 @@ export const SERVER_CONFIG: ServerConfig = {
 };
 ```
 
-```ts title="alert basePath"
+```ts title="change basePath"
 export const SERVER_CONFIG: ServerConfig = {
   basePath: '/my-service',
   port: [PORT_NUMBER]
@@ -37,16 +37,37 @@ prod is the ENV_NAME
 :::
 
 
-
-:::note About the final compiled file
-The final compiled file can be run independently without **node_modules** which makes the deployment process much easier.<br/>
-To startup server simply run **node --enable-source-maps build/index.js**.<br/>
-The code is also compatible with Serverless deployment which can detect the running environment.
+:::note The final compiled file
+The final compiled file runs independently without **node_modules**, this makes deployment process much easier.<br/>
+To start up the server, simply runs **node --enable-source-maps build/index.js**.<br/>
+The file is also compatible with Serverless deployment.
 :::
 
 ### Use Resource Files
-create folder **./resource** and put the resource files into it.<br/>
-**./resource** will be copied to **build/resource**.
+To deploy your server code with some assets.<br/>
+create folder **resource** and put the resource files into it.<br/>
+**resource** will be copied to **build/resource**.
+
+
+### Get Build TimeStamp
+build timestamp can help to generate update time
+```
+process.env.SUMMER_BUILD_TIME
+```
+
+### Enable Cluster Mode
+
+Clusters of Node.js processes can be used to run multiple instances of Node.js that can distribute workloads among their application threads. When process isolation is not needed, use the worker_threads module instead, which allows running multiple application threads within a single Node.js instance.
+
+```ts title="src/config/default.config.ts"
+export const SERVER_CONFIG: ServerConfig = {
+  port: 8801,
+  clusterMode: true,
+  // workersNumber is your deploy machine cpu core count by default
+  // or you can set your preferred number
+  workersNumber: 4
+}
+```
 
 ### Deploy in Linux Server
 

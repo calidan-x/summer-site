@@ -86,12 +86,12 @@ Common ENV_NAME
 process.env.SUMMER_ENV
 ```
 
-### Get Current env Config by API Function
+### Get Current env Config API 
 
 Not all code run in class, fetch env var cannot always inject by @Config(), call getConfig() works in function code.
 
 ```ts
 import { getConfig } from '@summer-js/summer'
 
-console.log(getConfig())
+console.log(getConfig("SERVER_CONFIG"))
 ```
