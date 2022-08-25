@@ -39,7 +39,7 @@ import { AppError } from '../error'
 
 @Controller
 export class AppController {
-  @Get('/error')
+  @Get('/login')
   login() {
     // highlight-next-line
     throw AppError.LOGIN_FAIL
