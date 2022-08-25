@@ -158,3 +158,27 @@ export class AppController {
   }
 }
 ```
+
+
+### Param Value Injection
+
+```ts title="src/data/city.ts"
+import { createParamDecorator } from '@summer-js/summer'
+
+export const NameList = createParamDecorator((ctx) => {
+  return ['Tom', 'John', 'Bill', 'Kate']
+})
+```
+
+```ts title="src/controller/AppController.ts"
+import { Controller, Get } from '@summer-js/summer'
+import { NameList } from '../data/names'
+
+@Controller
+export class AppController {
+  @Get('/names')
+  info(@NameList names: string[]) {
+    console.log(names)
+  }
+}
+```
