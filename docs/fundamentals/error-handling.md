@@ -6,7 +6,7 @@ sidebar_position: 34
 
 ### Make an Error Response
 
-To make an error response, simply throw a new instance of ResponseError.
+To make an error response, simply throw a new instance of **ResponseError**.
 
 ```ts
 import { Controller, Get, ResponseError } from '@summer-js/summer'
