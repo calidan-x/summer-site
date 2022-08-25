@@ -21,19 +21,25 @@ Custom Decorator is a powerful function in Summer that can let you extract reque
 ### Create Param Decorator
 
 ```ts
-export const [DecoratorName] = createParamDecorator((ctx?, paramName?, arg1?, arg2?,...) => { return [value] });
+export const [DecoratorName] = createParamDecorator(
+  (ctx?, paramName?, arg1?, arg2?,...) => {
+    return [Value]
+  }
+)
 ```
+
 
 **DecoratorName** decorator name<br/>
 **ctx** request context<br/>
 **paramName** param name defined in method<br/>
-**arg1, arg2...**custom param used in this decorator like @DecoratorName(arg1,arg2,...)<br/>
+**arg1, arg2...** custom params used in decorator like @DecoratorName(arg1,arg2,...)<br/>
 
 
 
 ```ts title="Get the AppVersion value in request header"
 import { Controller, createParamDecorator, Get } from '@summer-js/summer'
 
+// highlight-next-line
 export const AppVersion = createParamDecorator((ctx) => {
   return ctx.request.headers['app-version']
 })
@@ -41,6 +47,7 @@ export const AppVersion = createParamDecorator((ctx) => {
 @Controller
 export class AppVersionController {
   @Get('/app/version')
+  // highlight-next-line
   async version(@AppVersion version) {
     return version
   }
@@ -63,7 +70,7 @@ export const Uid = createParamDecorator((ctx) => {
 @Controller
 export class JWTController {
   @Get('/userinfo')
-  userinfo(@Uid uid: number) {
+  userinfo(@Uid uid?: number) {
     return uid
   }
 }
@@ -73,11 +80,25 @@ export class JWTController {
 
 ```ts
 // only works in METHOD
-export const [DecoratorName] = createMethodDecorator((ctx?, invokeMethod? , arg1?, arg2?,...) => { return [value] });
+export const [DecoratorName] = createMethodDecorator(
+  async (ctx?, invokeMethod? , arg1?, arg2?,...) => { 
+    return await invokeMethod(ctx.invocation.params)  
+  }
+);
+
 // only works in CLASS
-export const [DecoratorName] = createClassDecorator((ctx?, invokeMethod? , arg1?, arg2?,...) => { return [value] });
+export const [DecoratorName] = createClassDecorator(
+  async (ctx?, invokeMethod? , arg1?, arg2?,...) => { 
+    return await invokeMethod(ctx.invocation.params)  
+  }
+);
+
 // works in CLASS / METHOD
-export const [DecoratorName] = createClassAndMethodDecorator((ctx?, invokeMethod? , arg1?, arg2?,...) => { return [value] });
+export const [DecoratorName] = createClassAndMethodDecorator(
+  async (ctx?, invokeMethod? , arg1?, arg2?,...) => { 
+    return await invokeMethod(ctx.invocation.params)  
+  }
+);
 ```
 
 **DecoratorName** decorator name<br/>
@@ -94,6 +115,7 @@ Write a class decorator means intercept all methods
 import { Controller, createClassAndMethodDecorator, Get, Put } from '@summer-js/summer'
 import jwt from 'jsonwebtoken'
 
+// highlight-next-line
 export const RequireLogin = createClassAndMethodDecorator(async (ctx, invokeMethod?) => {
   const token = ctx.request.headers['authentication']
   try {
@@ -131,7 +153,11 @@ export class LoginController2 {
 
 ### Create Property Decorator
 ```ts
-export const [DecoratorName] = createPropertyDecorator((config?, propertyName? , arg1?, arg2?,...) => { return [value] }); 
+export const [DecoratorName] = createPropertyDecorator(
+  (config?, propertyName? , arg1?, arg2?,...) => {
+    return [Value]
+  }
+); 
 ```
 
 **DecoratorName** decorator name<br/>
@@ -142,12 +168,14 @@ export const [DecoratorName] = createPropertyDecorator((config?, propertyName? ,
 ```ts title="read mysql config"
 import { Controller, createPropertyDecorator, Get } from '@summer-js/summer'
 
+// highlight-next-line
 export const MySQLConfig = createPropertyDecorator((config) => {
-  return config['MySQL']
+  return config['MySQL_CONFIG']
 })
 
 @Controller
 export class ConfigInjectController {
+  // highlight-next-line
   @MySQLConfig
   mysqlConfig
 
@@ -161,12 +189,14 @@ export class ConfigInjectController {
 ```ts title="read city list"
 import { Controller, createPropertyDecorator, Get } from '@summer-js/summer'
 
+// highlight-next-line
 export const CityList = createPropertyDecorator(() => {
   return ['Shanghai', 'Tokyo', 'New York City']
 })
 
 @Controller
 export class CityListController {
+  // highlight-next-line
   @CityList
   cityList
 
@@ -183,6 +213,7 @@ export class CityListController {
 ```ts
 import { Controller, createMethodDecorator, Get } from '@summer-js/summer'
 
+// highlight-next-line
 export const ResponseCode = createMethodDecorator(async (ctx, invokeMethod, code: number) => {
   ctx.response.statusCode = code
   return await invokeMethod(ctx.invocation.params)
@@ -190,6 +221,7 @@ export const ResponseCode = createMethodDecorator(async (ctx, invokeMethod, code
 
 @Controller
 export class ResponseCodeController {
+  // highlight-next-line
   @ResponseCode(404)
   @Get('/dog')
   userInfo() {
@@ -204,6 +236,7 @@ import { AutoInject, Controller, createMethodDecorator, Get, PathParam, Service 
 import md5 from 'md5'
 
 const CACHE = {}
+// highlight-next-line
 export const Cache = createMethodDecorator(async (ctx, invokeMethod) => {
   const callParamHash = md5(JSON.stringify(ctx.invocation))
   if (CACHE[callParamHash] === undefined) {
@@ -214,6 +247,7 @@ export const Cache = createMethodDecorator(async (ctx, invokeMethod) => {
 
 @Service
 export class CacheService {
+  // highlight-next-line
   @Cache()
   async cache(id) {
     return id + ':' + Date.now()
@@ -226,6 +260,7 @@ export class CacheController {
   cacheService: CacheService
 
   @Get('/cache/:id')
+  // highlight-next-line
   @Cache()
   async api(@PathParam id) {
     return id + ':' + Date.now()
@@ -242,6 +277,7 @@ export class CacheController {
 ```ts
 import { Controller, createMethodDecorator, Get } from '@summer-js/summer'
 
+// highlight-next-line
 export const DownLoadFile = createMethodDecorator(async (ctx, invokeMethod, fileName: string) => {
   ctx.response.headers['Content-Type'] = 'application/octet-stream'
   ctx.response.headers['Content-Disposition'] = `attachment; filename="${fileName}"`
@@ -250,6 +286,7 @@ export const DownLoadFile = createMethodDecorator(async (ctx, invokeMethod, file
 
 @Controller
 export class DownloadController {
+  // highlight-next-line
   @DownLoadFile('hello.txt')
   @Get('/download')
   download() {
