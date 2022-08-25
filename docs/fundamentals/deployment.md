@@ -43,7 +43,7 @@ To start up the server, simply runs **node --enable-source-maps build/index.js**
 The file is also compatible with Serverless deployment.
 :::
 
-### Use Resource Files
+### Resource Files
 To deploy your server code with some assets.<br/>
 create folder **resource** and put the resource files into it.<br/>
 **resource** will be copied to **build/resource**.
