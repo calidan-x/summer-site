@@ -108,7 +108,7 @@ export const [DecoratorName] = createClassAndMethodDecorator(
 
 
 :::info 
-Write a class decorator means intercept all methods
+Write a class decorator means intercept all it's methods
 :::
 
 ```ts title="Develop a @RequireLogin decorator"
@@ -214,10 +214,12 @@ export class CityListController {
 import { Controller, createMethodDecorator, Get } from '@summer-js/summer'
 
 // highlight-next-line
-export const ResponseCode = createMethodDecorator(async (ctx, invokeMethod, code: number) => {
-  ctx.response.statusCode = code
-  return await invokeMethod(ctx.invocation.params)
-})
+export const ResponseCode = createMethodDecorator(
+  async (ctx, invokeMethod, code: number) => {
+    ctx.response.statusCode = code
+    return await invokeMethod(ctx.invocation.params)
+  }
+)
 
 @Controller
 export class ResponseCodeController {
@@ -237,13 +239,15 @@ import md5 from 'md5'
 
 const CACHE = {}
 // highlight-next-line
-export const Cache = createMethodDecorator(async (ctx, invokeMethod) => {
-  const callParamHash = md5(JSON.stringify(ctx.invocation))
-  if (CACHE[callParamHash] === undefined) {
-    CACHE[callParamHash] = await invokeMethod(ctx.invocation.params)
+export const Cache = createMethodDecorator(
+  async (ctx, invokeMethod) => {
+    const callParamHash = md5(JSON.stringify(ctx.invocation))
+    if (CACHE[callParamHash] === undefined) {
+      CACHE[callParamHash] = await invokeMethod(ctx.invocation.params)
+    }
+    return CACHE[callParamHash]
   }
-  return CACHE[callParamHash]
-})
+)
 
 @Service
 export class CacheService {
@@ -278,11 +282,13 @@ export class CacheController {
 import { Controller, createMethodDecorator, Get } from '@summer-js/summer'
 
 // highlight-next-line
-export const DownLoadFile = createMethodDecorator(async (ctx, invokeMethod, fileName: string) => {
-  ctx.response.headers['Content-Type'] = 'application/octet-stream'
-  ctx.response.headers['Content-Disposition'] = `attachment; filename="${fileName}"`
-  return await invokeMethod(ctx.invocation.params)
-})
+export const DownLoadFile = createMethodDecorator(
+  async (ctx, invokeMethod, fileName: string) => {
+    ctx.response.headers['Content-Type'] = 'application/octet-stream'
+    ctx.response.headers['Content-Disposition'] = `attachment; filename="${fileName}"`
+    return await invokeMethod(ctx.invocation.params)
+  }
+)
 
 @Controller
 export class DownloadController {
