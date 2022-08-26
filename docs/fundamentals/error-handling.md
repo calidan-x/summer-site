@@ -65,16 +65,14 @@ export class ErrorMiddleware {
       // highlight-next-line
       if (err instanceof ValidationError) {
         throw new ResponseError(400, { msg: err.body.message, err: err.body.errors })
-      }
       // highlight-next-line
-      if (err instanceof NotFoundError) {
+      } else if (err instanceof NotFoundError) {
         throw new ResponseError(400, { msg: 'Page Not Found!' })
-      }
       // highlight-next-line
-      if (err instanceof ResponseError) {
+      } else if (err instanceof ResponseError) {
         throw err
       } else {
-        Logger.error(err)
+        console.log(err)
         ctx.response.statusCode = 500
         ctx.response.body = 'Server Error'
       }
