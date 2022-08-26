@@ -6,7 +6,7 @@ sidebar_position: 32
 
 ### Request Interception
 
-Check access-key before
+Check access-key
 
 ```ts
 import { Controller, Get, createClassAndMethodDecorator, ResponseError } from '@summer-js/summer'

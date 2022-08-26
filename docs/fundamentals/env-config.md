@@ -10,7 +10,7 @@ create a file named **[ENV_NAME].config.ts** in **src/config** folder
 
 **default.config.ts** is a basic config that will be read in every Env
 
-The final config is overlaid by **default.config.ts**** and **[ENV_NAME].config.ts**
+The final config is merged by **default.config.ts** and **[ENV_NAME].config.ts**
 
 For example in default.config.ts writes
 

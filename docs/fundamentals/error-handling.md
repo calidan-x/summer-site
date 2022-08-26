@@ -49,12 +49,43 @@ export class AppController {
 ```
 
 
-### Customize Validation/NotFound Errors Response
+## Customize Errors Response Format
 
-Create an error handling middleware
+You can handle error response format by following 2 ways.
 
-```ts
-import { Middleware, Context, ValidationError, NotFoundError, ResponseError } from '@summer-js/summer'
+### Handle Errors By ErrorHandler
+
+```ts title="src/error/ErrorHandler.ts"
+import { AnyError, E, ErrorHandler, Logger, NotFoundError, ValidationError } from '@summer-js/summer'
+
+@ErrorHandler
+export class HandleError {
+  // highlight-next-line
+  @E(NotFoundError)
+  notFound() {
+    return { statusCode: 404, body: 'Page Not Found ~' }
+  }
+
+  // highlight-next-line  
+  @E(ValidationError)
+  validateFail(err: ValidationError) {
+    return { statusCode: 404, body: err.body.errors }
+  }
+
+  // highlight-next-line
+  @E(AnyError)
+  default(err) {
+    Logger.error(err)
+    return { statusCode: 500, body: 'Some Error Happen' }
+  }
+}
+```
+
+
+### Handle Errors By Middleware
+
+```ts title="src/error/ErrorMiddleware.ts"
+import { Middleware, Context, ValidationError, NotFoundError, ResponseError, Logger } from '@summer-js/summer'
 
 @Middleware({ order: 0 })
 export class ErrorMiddleware {
@@ -72,9 +103,8 @@ export class ErrorMiddleware {
       } else if (err instanceof ResponseError) {
         throw err
       } else {
-        console.log(err)
-        ctx.response.statusCode = 500
-        ctx.response.body = 'Server Error'
+        Logger.error(err)
+        throw new ResponseError(500, { msg: 'Server Error' })
       }
     }
   }
