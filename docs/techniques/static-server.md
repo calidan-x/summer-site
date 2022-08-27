@@ -8,7 +8,7 @@ sidebar_position: 20
 
 in config/default.config.ts or other env config
 ```ts
-import { SERVER_CONFIG } from '@summer-js/summer';
+import { ServerConfig } from '@summer-js/summer';
 
 export const SERVER_CONFIG: ServerConfig = {
   port: 8801,
@@ -48,7 +48,7 @@ Summer supports serving SPA (Single Page Application) like React / Vue / Svelte 
 To enable SPA redirecting feature simply add **spa:ture** to config.
 
 ```ts
-import { SERVER_CONFIG } from '@summer-js/summer';
+import { ServerConfig } from '@summer-js/summer';
 
 export const SERVER_CONFIG: ServerConfig = {
   port: 8801,
