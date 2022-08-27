@@ -190,7 +190,6 @@ const MovieNotFindError = new ResponseError(404,"Movie not found")
   // highlight-next-line
   errors: [ MovieNotFindError ]
 })
-
 @Get('/movies/:id')
 detail(@PathParam id: string) {
   const movie: Movie = { id: 1, name: 'Titanic', year: '1997' }
