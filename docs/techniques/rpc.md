@@ -8,6 +8,15 @@ To avoid developing controllers and restful APIs, summer provides a RPC module l
 
 ![](/img/rpc.svg)
 
+
+### PRC Decorators
+
+|  Decorators   | Usage  |
+|  ----  | ----  |
+| @RpcProvider | Rpc Provider |
+| @RpcClient | Rpc Client | 
+
+
 ### Server
 
 ```ts title="src/default.config.ts"
@@ -80,10 +89,3 @@ export class UserRpcClient {
 
 ```
 
-
-### Decorators
-
-|  Decorators   | Usage  |
-|  ----  | ----  |
-| @RpcProvider | Rpc Provider |
-| @RpcClient | Rpc Client | 

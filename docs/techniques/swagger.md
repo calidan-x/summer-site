@@ -5,6 +5,21 @@ sidebar_position: 5
 # Swagger Docs
 
 
+### Features
+
+<img src="/img/swagger_logo.svg"  style={{position:"absolute",right:"280px",top:"260px"}} width="200"/>
+
+* Only THREE simple decorators
+* Infer ALL types and generate examples
+* Full support of OpenAPI 3.0.x
+* Working with Summer core validation decorator (@Max @Email optional(?)...)
+* Can read TypeORM comment
+* Reuse Summer ResponseError
+
+
+
+
+
 ### Install Swagger Plugin
 
 ```
@@ -23,19 +38,20 @@ export const SWAGGER_CONFIG: SwaggerConfig = {
 }
 ```
 
-**docPath** the swagger access path
+
+### Swagger Decorators
+
+|  Decorator   | Usage  |
+|  ----  | ----  |
+| @ApiDocGroup  | mark controller |
+| @ApiDoc  | mark controller method |
+| @PropDoc  | mark DTO property|
 
 
-:::tip How to mark
-Use @ApiDocGroup to mark controller<br/>
-Use @ApiDoc to mark controller method<br/>
-Use @PropDoc to mark DTO property<br/>
-:::
 
+### Most Simple Usage 
 
-### Simple Usage
-
-```ts
+```ts title="A single line of code can generate a full swagger document"
 import { Body, Controller, Get, Query, PathParam, Post } from '@summer-js/summer'
 import { ApiDoc, ApiDocGroup } from '@summer-js/swagger'
 
@@ -51,9 +67,9 @@ class Movie {
 }
 
 @Controller
+// highlight-next-line
 @ApiDocGroup('Movie APIs')
-export class MovieController {
-  @ApiDoc('Fetch movies list')
+export class MovieController { 
   @Get('/movies')
   list(@Query search: string) {
     const movies: Movie[] = [
@@ -62,15 +78,13 @@ export class MovieController {
     ]
     return movies
   }
-
-  @ApiDoc('Get a specific movie detail by id')
+ 
   @Get('/movies/:id')
   detail(@PathParam id: string) {
     const movies: Movie = { id: 1, name: 'Titanic', year: '1997' }
     return movies
   }
-
-  @ApiDoc('Add a new movie')
+ 
   @Post('/movies')
   add(@Body body: AddMovieRequest) {
     const movies: Movie = { id: 1, name: 'Titanic', year: '1997' }
@@ -86,9 +100,11 @@ import { Body, Controller, Get, Query, PathParam, Header, Post } from '@summer-j
 import { ApiDoc, ApiDocGroup, PropDoc } from '@summer-js/swagger'
 
 class AddMovieRequest {
+  // highlight-next-line
   @PropDoc("Movie Name", "Titanic")
   name: string
 
+  // highlight-next-line
   @PropDoc("Movie Release Year", 1997)
   year: string
 }
@@ -100,17 +116,14 @@ class Movie {
 }
 
 @Controller
+// highlight-next-line
 @ApiDocGroup('Movie API', { category: 'Client API' })
 export class MovieController {
+  // highlight-start
   @ApiDoc('Fetch movie list', {
     description: 'This api return a full list of movies',
-    example: {
-      response: [
-        { id: 1, name: 'Titanic', year: '1997' },
-        { id: 2, name: 'CODA', year: '2021' }
-      ]
-    }
   })
+  // highlight-end
   @Get('/movies')
   list(@Query search: string) {
     const movies: Movie[] = [
@@ -120,10 +133,8 @@ export class MovieController {
     return movies
   }
 
+  // highlight-start
   @ApiDoc('Get a specific movie detail by id', {
-    example: {
-      response: { id: 1, name: 'Titanic', year: '1997' }
-    },
     errors: [
       { 
         statusCode: 404,
@@ -132,19 +143,18 @@ export class MovieController {
       }
     ]
   })
+  // highlight-end
   @Get('/movies/:id')
   detail(@PathParam id: string) {
-    const movies: Movie = { id: 1, name: 'Titanic', year: '1997' }
-    return movies
+    const movie: Movie = { id: 1, name: 'Titanic', year: '1997' }
+    return movie
   }
 
+  // highlight-start
   @ApiDoc('Add a new movie', {
-    description: '',
-    example: {
-      request: { name: 'Titanic', year: '1997' },
-      response: { id: 1, name: 'Titanic', year: '1997' }
-    }
+    description: ''
   })
+  // highlight-end
   @Post('/movies')
   add(@Body body: AddMovieRequest) {
     const movies: Movie = { id: 1, name: 'Titanic', year: '1997' }
@@ -152,6 +162,10 @@ export class MovieController {
   }
 }
 ```
+
+:::caution Return type and Example
+Summer can infer class return type and generate examples automatically, return type must be a Class.
+:::
 
 :::tip Categorize APIs to different pages
 config **category** in @ApiDocGroup('',{category:'App APIs'})
@@ -161,13 +175,108 @@ config **category** in @ApiDocGroup('',{category:'App APIs'})
 config **order** in @ApiDocGroup('',{order:1})
 :::
  
-:::tip Return type Inference
-Summer can infer class return type, the return type do not need to define in class methods.
-:::
 
-:::tip Request and Response example
-Although Summer can infer class type to generate example object,<br/>
-To provide a better document with meaningful example value can be done by 2 ways:
-1. add a full object example in @ApiDoc
-2. set @PropDoc(desc, example value) example value
-:::
+
+
+### Reuse ResponseError
+ResponseError instance can be set to errors example
+
+```ts
+// define error
+// highlight-next-line
+const MovieNotFindError = new ResponseError(404,"Movie not found")
+
+@ApiDoc('Get a specific movie detail by id', {
+  // highlight-next-line
+  errors: [ MovieNotFindError ]
+})
+
+@Get('/movies/:id')
+detail(@PathParam id: string) {
+  const movie: Movie = { id: 1, name: 'Titanic', year: '1997' }
+  if(!movie){
+    // highlight-next-line
+    throw MovieNotFindError
+  }
+  return movie
+}
+```
+
+### Read TypeORM comment
+
+TypeORM entity comment can be read to swagger DTO property description.
+To enable this feature, set readTypeORMComment to true in SWAGGER_CONFIG
+
+```ts
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
+
+@Entity()
+export class Todo {
+  @PrimaryGeneratedColumn()
+  id: number
+
+  // highlight-next-line
+  @Column({ comment: 'To do content' })
+  content: string
+
+  // highlight-next-line
+  @Column({ comment: 'Is already done' })
+  isDone: boolean
+}
+```
+
+```ts
+export const SWAGGER_CONFIG: SwaggerConfig = {
+  docPath: '/swagger',
+  // highlight-next-line
+  readTypeORMComment: true,
+  info: {
+    title: 'Summer',
+    description: 'Last build at: ' + new Date(Number(process.env.SUMMER_BUILD_TIME)),
+    version: '1.0.0'
+  }
+}
+```
+
+
+
+### Add API Auth 
+
+```ts
+export const SWAGGER_CONFIG: SwaggerConfig = {
+  docPath: '/swagger',
+  info: { title: 'Summer', version: '1.0.0' },
+  // highlight-start
+  securitySchemes: {
+    Auth: {
+      type: 'apiKey',
+      in: 'header',
+      name: 'Authorization'
+    }
+  }
+  // highlight-end
+}
+```
+
+```ts
+// highlight-next-line
+@Get('/movies/:id',{ security: [{ Auth: [] }] })
+detail(@PathParam id: string) {
+  const movie: Movie = { id: 1, name: 'Titanic', year: '1997' }
+  return movie
+}
+```
+
+### Show Build Time
+
+```ts
+export const SWAGGER_CONFIG: SwaggerConfig = {
+  docPath: '/swagger',
+  info: {
+    title: 'Summer',
+    // highlight-next-line
+    description: 'Last build at: ' + new Date(Number(process.env.SUMMER_BUILD_TIME)),
+    version: '1.0.0'
+  }
+}
+```
