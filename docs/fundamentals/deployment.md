@@ -44,7 +44,7 @@ The file is also compatible with Serverless deployment.
 :::
 
 ### Resource Files
-To deploy your server code with some assets.<br/>
+To deploy your server code with assets,<br/>
 create folder **resource** and put the resource files into it.<br/>
 **resource** will be copied to **build/resource**.
 
@@ -95,10 +95,10 @@ CMD [ "node", "--enable-source-maps", "index.js" ]
 ```
 
 2. Build Docker image
-`docker build . -t <your username>/node-web-app`
+`docker build . -t <your username>/node-app`
 
 3. Run
-`docker run -p 80:80 -d <your username>/node-web-app`
+`docker run -p 80:80 -d <your username>/node-app`
 
 ### Deploy in AWS Lambda
 ![](/img/awslambda.jpg)

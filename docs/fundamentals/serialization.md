@@ -4,9 +4,11 @@ sidebar_position: 55
 
 # Serialization
 
-Summer can serialize enum automatically.
+Summer serializes response data automatically.
 
- 
+A controller method returns an object will be serialized to JSON string with **application/json** in header context-type. String or other js primitive type will be converted to string with **text/html** in header context-type.
+
+Enum type in object will convert to Key string.
 
 ```ts
 import { Controller, Get } from '@summer-js/summer'
@@ -19,6 +21,7 @@ enum Direction {
 }
 
 class Resource { 
+  info: string
   direction: Direction
 }
 
@@ -28,6 +31,7 @@ export class SerializationController {
   async serialize() {
     const r = new Resource()
     r.direction = Direction.LEFT
+    r.info = "Information"
     return r
   }
 }
@@ -35,6 +39,7 @@ export class SerializationController {
 
 ```json title="Output"
 {
+    "info":"Information",
     "direction":"LEFT"
 }
 ```
