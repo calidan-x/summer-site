@@ -7,8 +7,8 @@ Summer aims to provide a secure, high-quality, easy fast enterprise backend fram
 
 ## Main Features
 
-- **Pleasure of Programming**<br/>
-  Summer cares about coding experience, always easy to learn and easy to do.
+- **Pleasure Programming**<br/>
+  Summer cares about coding experience, always easy to learn and easy to use.
 
 - **Strict Runtime TypeScript Validation**<br/>
   TypeScript can be used for runtime request validation, this makes your backend more secure.
