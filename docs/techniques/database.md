@@ -150,7 +150,6 @@ summerStart({
 })
 ```
 
-启动服务器执行数据库更变脚本
 
 
-TypeORM更多使用方法请参考 [TypeORM官方文档](https://typeorm.io/)
+For more usage please check [TypeORM official DOC](https://typeorm.io/)
