@@ -3,7 +3,7 @@ sidebar_position: 1
 ---
 
 # Introduction
-Summer aims to provide a high-quality, easy fast enterprise backend framework
+Summer aims to provide a secure, high-quality, easy fast enterprise backend framework
 
 ## Main Features
 
