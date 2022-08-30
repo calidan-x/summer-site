@@ -5,10 +5,10 @@ sidebar_position: 30
 # Injection
 
 Classes marked with **@Injectable** or **@Service** will be auto-collected by Summer.<br/>
-**@Inject** can help inject the instance into the property.
 
-:::note 
-All injectable class instances are singletons
+:::info
+Summer injects Injectable/Service instances automatically (without writing any decorator).<br/>
+All injectable class instances are singletons.
 :::
 
 ### Injection Decorators / API
@@ -17,8 +17,6 @@ All injectable class instances are singletons
 |  Decorators/API  | Usage  |
 |  ----  | ----  |
 | @Service / @Injectable | Injectable class |
-| @Inject | Inject instance to property |
-| @AutoInject | Auto injection |
 | @Config | Inject config |
 | @PostConstruct | Init method after construction |
 | createPropertyDecorator | create a property injection decorator|
@@ -45,7 +43,6 @@ import { TodoService } from './../service/TodoService'
 @Controller
 export class TodoController {
   // highlight-next-line
-  @Inject
   todoService: TodoService
 
   @Get('/todos')
@@ -55,37 +52,6 @@ export class TodoController {
 }
 ```
 
-
-
-### Auto Injection
-
-:::tip
-Instead of writing each **@Inject**s one by one, use **@AutoInject** decorator for auto injection.
-:::
-
-```ts title="src/controller/TodoController.ts"
-import { Controller, Get, AutoInject } from '@summer-js/summer'
-import { TodoService } from './../service/TodoService'
-
-// highlight-next-line
-@AutoInject
-@Controller
-export class TodoController {
-
-  // you don't need to write @Inject here
-  todoService: TodoService
-  // and here ...
-  service1: Service1
-  service2: Service2
-  service3: Service3
-  service4: Service4
-
-  @Get('/todos')
-  list() {
-    return this.todoService.getTodos()
-  }
-}
-```
 
 ### Get Injectable Instance API
 

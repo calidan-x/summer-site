@@ -264,7 +264,6 @@ export class CacheService {
 }
 
 @Controller
-@AutoInject
 export class CacheController {
   cacheService: CacheService
 

@@ -52,7 +52,6 @@ class InvokeService {
 
 @Controller
 @AccessLog
-@AutoInject
 export class ContextController {
   invokeService: InvokeService
 
