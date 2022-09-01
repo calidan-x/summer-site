@@ -53,15 +53,61 @@ export class TodoController {
 ```
 
 
+### Generic Service Injection
+Summer supports generic class injection, generic params will pass to **constructor** for instance initialization.
+
+```ts
+import { Controller, Get, Service } from '@summer-js/summer'
+
+class Dog {
+  name: string
+}
+
+class Cat {
+  name: string
+}
+
+@Service
+export class AnimalService<AnimalType extends Dog | Cat> {
+  animal: AnimalType
+
+  constructor(AnimalType: any) {
+      this.animal = new AnimalType()
+  }
+}
+ 
+@Controller
+export class GenericInjectController {
+  // highlight-next-line
+  dogService: AnimalService<Dog>
+  // highlight-next-line
+  catService: AnimalService<Cat>
+
+  // code...
+}
+```
+
+
 ### Get Injectable Instance API
 
 Not all code run in class, if a simple function wishes to get the injectable instance, you can call **getInjectable()** api.
 
 ```ts
 import { getInjectable } from "@summer-js/summer"
+import { TodoService } from "src/service/TodoService"
+import { AnimalService } from "src/service/AnimalService"
 
+// highlight-next-line
 const todoService = getInjectable(TodoService)
+
+// for generic class
+// highlight-next-line
+const dogService = getInjectable(AnimalService,[ Dog ])
+// highlight-next-line
+const catService = getInjectable(AnimalService,[ Cat ])
+
 ```
+
 
 ### Configuration Injection
 
@@ -73,7 +119,7 @@ export class TodoController {
   @Config('SERVER_CONFIG')
   serverConfig
 
-  // injection happen after constructor() method, use **@PostConstruct** to do init works
+  // injection happen after constructor() method, use @PostConstruct to do init works
   // highlight-next-line
   @PostConstruct
   init() {
@@ -125,26 +171,4 @@ export class AppController {
 }
 ```
 
-
-### Param Value Injection
-
-```ts title="src/data/names.ts"
-import { createParamDecorator } from '@summer-js/summer'
-
-export const NameList = createParamDecorator((ctx) => {
-  return ['Tom', 'John', 'Bill', 'Kate']
-})
-```
-
-```ts title="src/controller/AppController.ts"
-import { Controller, Get } from '@summer-js/summer'
-import { NameList } from '../data/names'
-
-@Controller
-export class AppController {
-  @Get('/names')
-  info(@NameList names: string[]) {
-    console.log(names)
-  }
-}
-```
+ 

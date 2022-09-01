@@ -11,10 +11,12 @@ import { initTest, endTest, request } from '@summer-js/test'
 
 describe('Test Movie Controller', () => {
   beforeAll(async () => {
+    // highlight-next-line
     await initTest()
   })
 
   afterAll(async () => {
+    // highlight-next-line
     await endTest()
   })
 
@@ -38,6 +40,7 @@ describe('Test Movie Service', () => {
 
   beforeAll(async () => {
     await initTest()
+    // highlight-next-line
     movieService = getInjectable(MovieService)
   })
 
@@ -52,3 +55,32 @@ describe('Test Movie Service', () => {
 })
 ```
 
+
+### Set Request Header
+
+```ts
+import { initTest, endTest, Request } from '@summer-js/test'
+
+describe('Test Movie Controller', () => {
+  // init header
+  // highlight-next-line
+  const request = new Request({ headers: { Authorization: 'Bearer xxxxxxxxxxxx' } })
+
+  beforeAll(async () => {
+    await initTest()
+  })
+
+  afterAll(async () => {
+    await endTest()
+  })
+
+  test('should return movie list', async () => {
+    const response = await request.get('/movies')
+    expect(response.statusCode).toEqual(200)
+
+    // change header
+    // highlight-next-line
+    request.setHeaders({ Authorization: 'Bearer xxxxxxxxxxxx' })
+  })
+})
+```

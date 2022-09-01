@@ -26,7 +26,7 @@ The request DTO must be a class.
 | generic&lt;T&gt; | Simple Generic Object type|
 
 
-## Data Restriction Decorators
+## Data Constraints Decorators
 |  Decorators   | Usage  |
 |  ----  | ----  |
 | ? | optional |
@@ -221,7 +221,7 @@ Delete Books id in [12,15,31]
 ```
 
 
-## Data Restriction
+## Data Constraints
 
 ```ts
 import { Controller, Post, Body, Min, MaxLen  } from '@summer-js/summer';
