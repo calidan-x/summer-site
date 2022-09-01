@@ -8,7 +8,7 @@ sidebar_position: 1
 
 ```
 npm install @summer-js/typeorm
-npm install mysql
+npm install mysql2
 ```
 
 ### Add Config
@@ -30,7 +30,7 @@ export const TYPEORM_CONFIG: TypeORMConfig = {
 ```
 
 :::tip
-Summer TypeORM plugin can auto collect entity and migration
+Summer TypeORM plugin can auto collect entities and migrations
 :::
 
 ### Create an Entity
@@ -50,26 +50,23 @@ export class Todo {
 }
 ```
 
-### Setup getRepository()
-```ts title="src/DataSource.ts"
-import { EntityTarget } from 'typeorm'
-import { getDataSource } from '@summer-js/typeorm'
-
-export const getRepository = <T>(entity: EntityTarget<T>) => {
-  return getDataSource('DATA_SOURCE').getRepository(entity)
-}
-```
 
 ### Do CRUD by Repository
+
+:::tip
+Repository&lt;T, DataSourceName?=FirstDataSource&gt; is a generic injectable class.
+:::
+
 ```ts title="src/service/TodoService.ts"
 import { Service } from '@summer-js/summer'
-import { getRepository } from './DataSource.ts'
+import { Repository } from '@summer-js/typeorm'
 
 import { Todo } from '../entity/Todo'
 
 @Service
 export class TodoService {
-  todoRepository = getRepository(Todo)
+  //highlight-next-line
+  todoRepository: Repository<Todo>
 
   async getTodos() {
     return await this.todoRepository.find()
