@@ -56,7 +56,7 @@ You can handle error response format by following 2 ways.
 ### Handle Errors By ErrorHandler
 
 ```ts title="src/error/ErrorHandler.ts"
-import { AnyError, E, ErrorHandler, Logger, NotFoundError, ValidationError } from '@summer-js/summer'
+import { OtherErrors, E, ErrorHandler, Logger, NotFoundError, ValidationError } from '@summer-js/summer'
 
 @ErrorHandler
 export class HandleError {
@@ -73,7 +73,7 @@ export class HandleError {
   }
 
   // highlight-next-line
-  @E(AnyError)
+  @E(OtherErrors)
   default(err) {
     Logger.error(err)
     return { statusCode: 500, body: 'Some Error Happen' }

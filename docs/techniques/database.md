@@ -11,7 +11,7 @@ npm install @summer-js/typeorm
 npm install mysql2
 ```
 
-### Add Config
+### Add DataSource Config
 in default.config.ts
 
 ```ts title="src/config/default.config.ts"
@@ -54,7 +54,8 @@ export class Todo {
 ### Do CRUD by Repository
 
 :::tip
-Repository&lt;T, DataSourceName?=FirstDataSource&gt; is a generic injectable class.
+Repository&lt;T, DataSourceName?: string = FirstDataSource&gt; is a generic injectable class.<br/>
+The Repository instance connect to the first DataSource by default, however, you can set the second param to specify another DataSource.
 :::
 
 ```ts title="src/service/TodoService.ts"
@@ -78,6 +79,37 @@ export class TodoService {
   }
 }
 ```
+
+
+
+### Get Repository From DataSouse
+
+You can also get repository by calling **getDataSource("DATA_SOURCE_NAME").getRepository(entity)**.<br/>
+The inject instance way mentions before looks more elegant, but only works in class. **getRepository()** can be called everywhere.
+
+```ts title="src/DataSource.ts"
+import { EntityTarget } from 'typeorm'
+import { getDataSource } from '@summer-js/typeorm'
+
+export const getRepository = <T>(entity: EntityTarget<T>) => {
+  return getDataSource('DATA_SOURCE').getRepository(entity)
+}
+```
+
+```ts title="src/service/TodoService.ts"
+import { Service } from '@summer-js/summer'
+import { getRepository } from '../DataSource.ts'
+
+import { Todo } from '../entity/Todo'
+
+@Service
+export class TodoService {
+  //highlight-next-line
+  todoRepository = getRepository(Todo)
+
+}
+```
+
 
 ### DB Migration
 

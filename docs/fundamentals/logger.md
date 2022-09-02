@@ -33,6 +33,6 @@ export class LoggerController {
 ### Set Log Type
 
 ```ts
-// only display Warning and Error
+// only log Warning and Error
 Logger.logType = ['Warning','Error']
 ````
