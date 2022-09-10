@@ -9,68 +9,179 @@ sidebar_position: 20
 Summer支持运行时校验TypeScript类型，所以请求DTO只需要按正常的TypeScript写法就可以了，必须写成class类，不能是interface
 :::
 
-```ts
-import { Controller, Post, Body } from '@summer-js/summer';
 
+## 支持的验证类型
+|  Type   |  Description |
+|  ----  | ----  |
+| boolean | 布尔型 |
+| number | 数字型 |
+| string | 字符串型 |
+| int | 整形 |
+| bigint | 大整型 |
+| Date | 日期类型 |
+| enum | 枚举（支持数字枚举和字符串枚举) |
+| 't1' \| 't2' | 字符串联合类型 |
+| {object} | JSON对象 |
+| array[] | 数组 |
+| generic&lt;T&gt; | 简单的泛型 |
+
+
+## 数据限制装饰器
+|  Decorators   | Usage  |
+|  ----  | ----  |
+| ? | 选传参数 |
+| @Min(min: number)  | 使用在 number/int/bigint 限定最小值 |
+| @Max(max: number)  | 使用在 number/int/bigint 限定最大值 |
+| @MinLen(minLen: number)  | 使用在 string/array[] 限定最小长度 |
+| @MaxLen(maxLen: number)  | 使用在 string/array[] 限定最大长度 |
+| @Email  |  使用在 string 限定必须是电子邮件格式 |
+| @Pattern(regexp :RegExp)  | 使用在 string 匹配正则 |
+| @Validate(func: (val: any) => boolean \| string )  | 自定义验证，验证函数返回 true 时代表验证通过，<br/>返回字符串 "错误信息" 表示验证失败。|
+| @IgnoreUnknownProperties | 允许接口发来额外不在请求中定义的字段 |
+ 
+
+
+
+## 请求验证例子
+```ts title="src/dto/request/book.ts"
 enum BookType {
   Fiction = 0,
   Education = 1
 }
 
 class AddBookRequest {
-  // 限定title必须是string型
+  // 验证 title 必须是字符串
   title: string;
-  // 限定author必须是string型
+  // 验证 author 必须是字符串
   author: string;
-  // 限定type必须是BookType型，传值"Fiction"|"Education"
+  // 验证 type 必须是 "Fiction" 或 "Education"
   type: BookType;
-  // 限定pageCount必须是整形
+  // 验证 pageCount 必须是整形
   pageCount: int;
 }
+```
+
+```ts title="src/controller/BookController.ts"
+import { Controller, Post, Body } from '@summer-js/summer'
+import { AddBookRequest } from '../dto/request/book'
 
 @Controller('/v1')
 export class BookController {
   @Post('/books')
   add(@Body addBookRequest: AddBookRequest) {
-    console.log(addBookRequest);
+    console.log(addBookRequest)
   }
 }
 ```
 
-### 支持的校验的类型
-|  类型   | 说明  |
-|  ----  | ----  |
-| boolean | 布尔型 |
-| number | 数字型，包括整数和小数 |
-| string | 字符串 |
-| int | 整型 |
-| bigint | 大整型 |
-| Date | 日期字符串 |
-| enum | 枚举（包括数字值枚举，字符串值枚举） |
-| 't1' \| 't2' | 字符串联合类型 |
-| File | 上传文件 |
-| {object} | 对象 |
-| array[] | 数组 |
 
 
+## 类型验证
 
-:::info 整形校验
-int型不是TypeScript支持的基础数据类型，是Summer额外补充仅用于请求参数校验的类型，在非校验代码中int型等同于number
-:::
+### 整形验证
+**int** 不是TS/JS的基本类型，这是 Summer 扩展用于做请求验证的类型，在常规代码中int等同于 **number**.
 
-:::info 枚举校验
-使用数字作为枚举值的enum，Summer会自动转换成枚举值(string转数字)，便于后续的数据库存储
-:::
+```ts title="src/controller/BookController.ts"
+import { Controller, Get, PathParam } from '@summer-js/summer'
 
-:::info 日期校验
-Date 在校验格式后最终会从string型（"2022-04-01"）转为Date型
-:::
+@Controller
+export class BookController {
+  @Get('/books/:inx')
+  book(@PathParam inx: int) {
+    const books = ['Harry Potter', 'The Great Gatsby', 'Dune']
+    return books[inx]
+  }
+}
+```
 
-:::info 布尔型校验
-布尔型如果是使用在 @Query 上，请求url中的字符串 'ture' 'false' '0' '1' 会被识别成布尔型 true/false<br/>
-:::
+```json title="Get http://127.0.0.1:8801/todos/1.5"
+{
+  message: "Validation Failed",
+  errors: [
+    {
+      param: "inx",
+      message: "'1.5' is not an integer"
+    }
+  ]
+}
+```
 
-```ts
+### 枚举验证
+ 
+枚举类型验证传入值必须是枚举的其中一个key值
+
+```ts title="src/controller/BookController.ts"
+import { Controller, Get, Query } from '@summer-js/summer'
+
+enum BookType {
+  Fiction = 0,
+  Education = 1
+}
+
+@Controller
+export class BookController {
+  @Get('/books')
+  addBook(@Query type: BookType) {
+    if (type === BookType.Education) {
+      console.log('Searching Education Books...')
+    } else if (type === BookType.Fiction) {
+      console.log('Searching Fiction Books...')
+    }
+  }
+}
+```
+
+
+```json title="GET http://127.0.0.1:8801/books?type=Romance"
+{
+    "message":"Validation Failed",
+    "errors":[
+        {
+            "param":"type",
+            "message":"'Romance' is not in [\"Fiction\",\"Education\"]"
+        }
+    ]
+}
+```
+
+```json title="GET http://127.0.0.1:8801/books?type=Fiction"
+Searching Fiction Books...
+```
+
+
+### 日期验证
+
+日期验证传入的格式是否为日期格式例如 '2022-10-01' or '2022-10-01 12:00:00'<br/>
+
+```ts title="src/controller/BookController.ts"
+import { Controller, Get, Query } from '@summer-js/summer'
+
+@Controller
+export class BookController {
+  @Get('/books')
+  addBook(@Query createDate: Date) {
+    console.log('Searching Books in created in ' + createDate)
+  }
+}
+```
+
+```json title="GET http://127.0.0.1:8801/books?createDate=xxx"
+{
+    "message":"Validation Failed",
+    "errors":[
+        {
+            "param":"createDate",
+            "message":"error parsing 'xxx' to Date"
+        }
+    ]
+}
+```
+
+### 布尔值验证
+字符串 'true'/'false' '0'/'1', 数字 0/1 都可以用于验证通过并转成布尔型
+
+
+```ts title='Validation boolean query data'
 import { Controller, Get, Query } from '@summer-js/summer';
 
 @Controller
@@ -82,18 +193,35 @@ export class ExampleController {
 }
 ```
 
-```
-http://localhost:8801/boolean-test?isDone=true
-will output: boolean true
-```
-
-```
-http://localhost:8801/boolean-test?isDone=0
-will output: boolean false
+```json title="GET http://localhost:8801/boolean-test?isDone=true"
+boolean true
 ```
 
+```json title="GET http://localhost:8801/boolean-test?isDone=0"
+boolean false
+```
 
-### 数据长度格式可选等校验
+### 数字型数组验证
+带逗号的字符串 "1,3,10" 可以通过int[\]/number[\]的验证
+
+```ts title="src/controller/BookController.ts"
+import { Controller, Delete, PathParam } from '@summer-js/summer'
+
+@Controller
+export class BookController {
+  @Delete('/books/:ids')
+  deleteBooks(@PathParam ids: int[]) {
+    console.log('Delete Books id in ' + JSON.stringify(ids))
+  }
+}
+```
+
+```json title="http://127.0.0.1:8801/books/12,15,31"
+Delete Books id in [12,15,31]
+```
+
+
+## 数据约束
 
 ```ts
 import { Controller, Post, Body, Min, MaxLen  } from '@summer-js/summer';
@@ -106,13 +234,13 @@ enum BookType {
 class AddBookRequest { 
   title: string;
 
-  // 限定author不超过50个字符
+  // no more than 50 chars
   @MaxLen(50)
   author: string;
 
   type: BookType;
 
-  // 限定pageCount必须大于或等于1
+  // pageCount must bigger than 0
   @Min(1)
   pageCount: int;
 }
@@ -126,23 +254,15 @@ export class BookController {
 }
 ```
 
-### 数据格式相关Decorator
-|  写法   | 作用  |
-|  ----  | ----  |
-| ? | 选传值 |
-| @Min  | 在 number/int/bigint 类型使用，限制最小值 |
-| @Max  | 在 number/int/bigint 类型使用，限制最大值 |
-| @MinLen  | 在string型使用，限制字符串最小长度<br/>在array[]型使用限制数组最小长度 |
-| @MaxLen  | 在string型使用，限制字符串最大长度<br/>在array[]型使用限制数组最大长度 |
-| @Email  | 在string型使用，限定格式为email格式 |
-| @Pattern  | 在string型使用，限定匹配正则表达式 |
-| @Validate  | 在所有类型使用，使用一个判断函数，传入值返回是否验证通过 |
 
-### 必传参数与选传参数
 
-:::tip 必传参数与选传参数
-使用可选?符号标记为可选传参，选传值可以设置默认值<br/>
+## 必传与选传
+
+:::tip 必传与选传
+使用 '?' 标记的字段为选传参数，选传参数可以给默认值。<br/>
+Summer的选传必须给API接口做了最佳适配，必传代表了必须要有数据，所以必传还有非空的概念。不写 '?' 的传参在传空字符串的时候不会验证通过。
 :::
+
 
 ```ts
 class PersonRequest{
@@ -151,93 +271,38 @@ class PersonRequest{
 }
 ```
 
+notice the '**?**' optional token also works in method params
 ```ts
-// '?' 也可以标记在请求入口方法的参数上，同样是标记可选参数
 @Get(/books)
 addBooks(@Query keyword?: string){
-  // you code
-}
-
-
-
-```ts
-class BlogRequest{
-  // 标题必须输入文字，不能是空字符串
-  title!: string
-  context: string
+  // code
 }
 ```
 
 
-### 数组型校验
+## 对象体验证
 
-```ts
-import { Controller, Post, Body } from '@summer-js/summer';
-
-class Book {
-  title: string;
-  author: string;
-}
-
-@Controller
-export class BookController {
-  @Post('/books')
-  addBooks(@Body param: Book[]) {
-    console.log(typeof param, param);
-  }
-}
-```
-
-### 枚举校验与接口返回
-
-```ts
-import { Controller, Post, Body } from '@summer-js/summer';
-
-
-enum Gender {
+```ts title="src/dto/request/book.ts"
+export enum Gender {
   Female = 1,
   Male = 2
 }
 
-class Person {
-  name: string;
-  gender: Gender;
-}
-
-@Controller
-export class PersonController {
-  @Post('/persons')
-  addBooks(@Body person: Person) {
-    // 输出 number型 1 或 2 为 Gender.Male or Gender.Female
-    // 数据库存入数字型数据
-    console.log(person.gender);
-    return person
-    // 返回的 person 对象枚举部分会被转换成 Gender 的key值 Male/Female
-  }
-}
-```
-
-
-### 复杂对象校验
-
-```ts
-import { Controller, Post, Body } from '@summer-js/summer';
-
-enum Gender {
-  Female = 1,
-  Male = 2
-}
-
-class Person {
+export class Person {
   name: string;
   age: int;
   gender: Gender;
 }
 
-class Book {
+export class Book {
   title: string;
   author: Person;
 }
+```
+
+```ts
+import { Controller, Post, Body } from '@summer-js/summer';
+import { Book } from '../dto/request/book'
 
 @Controller
 export class BookController {
@@ -248,67 +313,127 @@ export class BookController {
 }
 ```
 
-### 继承类校验
+## 对象体数组验证
 
-```ts
+```ts title="src/dto/request/book.ts"
+export class Book {
+  title: string;
+  author: string;
+}
+```
+
+```ts title="src/controller/BookController.ts"
 import { Controller, Post, Body } from '@summer-js/summer';
+import { Book } from '../dto/request/book'
 
+@Controller
+export class BookController {
+  @Post('/books')
+  addBooks(@Body param: Book[]) {
+    console.log(typeof param, param);
+  }
+}
+```
+
+
+## 类继承验证
+
+```ts title="src/dto/request/animal.ts"
 class Animal {
-  name: string;
-  weight: number;
+  name: string
+  weight: number
 }
 
-class Dog extends Animal {
-  noseLength: number;
-  eyesColor: 'blue' | 'brown';
+export class Dog extends Animal {
+  noseLength: number
+  eyesColor: 'blue' | 'brown'
 }
+```
+
+```ts title="src/controller/AnimalController.ts"
+import { Controller, Post, Body } from '@summer-js/summer'
+import { Dog } from '../dto/request/animal'
 
 @Controller
 export class AnimalController {
   @Post('/dogs')
   add(@Body dog: Dog) {
-    console.log(typeof dog, dog);
+    console.log(typeof dog, dog)
   }
 }
 ```
 
+## 自定义验证
 
+```ts title="src/dto/request/book.ts"
+import { Validate } from '@summer-js/summer'
 
-### 基础 Generic Type 验证
-```ts
-import { Controller, Post, Body } from '@summer-js/summer';
+export class Book {
+  @Validate((val: string) => {
+     if(val.substring(0, 1).toUpperCase() === val.substring(0, 1)){
+      // return true to pass validation
+      return true
+     }
+     // or return an error message
+     return "Title must starts with uppercase letter"
+  })
+  title: string
+}
+```
 
-class Dog {
+```ts title="src/controller/BookController.ts"
+import { Controller, Body, Post } from '@summer-js/summer'
+import { Book } from '../dto/request/book'
+
+@Controller
+export class BookController {
+  @Post('/books')
+  detail(@Body book: Book) {
+    return book
+  }
+}
+```
+
+## 简单的泛型验证
+
+```ts title="src/dto/request/animal.ts"
+export class Dog {
   name: string
   weight: number
 }
 
-class Cat {
+export class Cat {
   name: string
   tailLength: number
 }
 
-class AnimalRequest<T>{
+export class AnimalRequest<T>{
   obj: T
   count: number
 }
+```
+
+```ts title="src/controller/AnimalController.ts"
+import { Controller, Post, Body } from '@summer-js/summer'
+import { Dog, Cat, AnimalRequest } from '../dto/request/animal'
 
 @Controller
 export class AnimalController {
   @Post('/dogs')
-  addDog(@Body dog: AnimalRequest<Dog>) { 
-    // your code
+  addDog(@Body dog: AnimalRequest<Dog>) {
+    console.log(dog)
   }
 
   @Post('/cats')
-  addDog(@Body dog: AnimalRequest<Cat>) {
-    // your code
+  addCat(@Body cat: AnimalRequest<Cat>) {
+    console.log(cat)
   }
 }
 ```
 
-:::caution Summer 中使用 Generic Type
-Summer 仅支持简单的泛型验证和推断，复杂的或多层嵌套泛型不支持
+:::caution Summer中的泛型验证
+Summer 只支持简单的泛型.<br/>
+复杂的泛型无法验证（包扩多层嵌套，复杂结构）
 :::
 
 ```ts
@@ -328,15 +453,15 @@ class Obj<T, K, G> {
   filed4: TObj<int>
 }
 
-// 可用
+// 可以验证
 @Post
 api(@Body body: Obj<int[], string, boolean>) { }
 
-// 可用
+// 可以验证
 @Post
 api(@Body body: Obj<int[], string, PObj>) { }
 
-// 不可用，还可能导致出错
+// 不可使用，可能会导致程序错误
 @Post
 api(@Body body: Obj<int[], string, TObj<TObj<TObj<number>>>>) { }
 

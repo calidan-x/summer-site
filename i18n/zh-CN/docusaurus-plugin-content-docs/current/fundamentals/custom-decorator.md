@@ -2,38 +2,45 @@
 sidebar_position: 40
 ---
 
-# 自定义 Decorator
+# 自定义装饰器
+ 
 
-Summer 提供了轻松自建 Decorator 的能力
+自定义装饰器在Summer中是一项强大的功能，你可用它来拦截请求，验证登录信息，提取请求信息，修改返回code...
 
-### 相关创建方法
+### 创建装饰器接口
 
-|方法|说明|用途|
+|创建方法|可标记在哪里|用途|
 |----|----|----|
-|createParamDecorator|创建标记在方法参数前的Decorator|获取请求数据|
-|createMethodDecorator|创建标记在method层级的Decorator|拦截方法，修改结果|
-|createClassDecorator|创建标记在class层级的Decorator|拦截Controller的所有方法，修改结果|
-|createClassAndMethodDecorator|创建标记在class和method层级的Decorator|拦截Controller的所有方法或单个方法，修改结果|
-|createPropertyDecorator|创建标记在类属性上的Decorator|注入配置|
+|createParamDecorator|使用在Controller接口方法里|提取请求数据|
+|createMethodDecorator|使用在方法上|方法拦截|
+|createClassDecorator|使用在类上|拦截类中所有方法|
+|createClassAndMethodDecorator|使用在类或方法上|拦截类中所有方法或单一方法|
+|createPropertyDecorator|使用在属性上|属性注入|
 
  
 
-### 创建方法参数 Decorator
+### 创建方法参数装饰器
 
 ```ts
-export const [DecoratorName] = createParamDecorator((ctx?, paramName?, arg1?, arg2?,...) => { return [value] });
+export const [DecoratorName] = createParamDecorator(
+  (ctx?, paramName?, arg1?, arg2?,...) => {
+    return [Value]
+  }
+)
 ```
 
-``DecoratorName`` 是定义的装饰器名字<br/>
-``ctx`` 是请求的上下文，里面包含请求的所有信息<br/>
-``paramName`` 是调用方法被标记的传参的变量名<br/>
-``arg1, arg2...`` 为自定义参数，在之后调用时候使用 @DecoratorName(arg1,arg2,...)<br/>
+
+**DecoratorName** 装饰器名字<br/>
+**ctx** 请求上下文<br/>
+**paramName** 在方法中的参数名字<br/>
+**arg1, arg2...** 自定义参数 @DecoratorName(arg1,arg2,...)<br/>
 
 
 
-```ts title="例子：获取头部 AppVersion 信息"
+```ts title="获取前端APP发来的头部'app-version'信息"
 import { Controller, createParamDecorator, Get } from '@summer-js/summer'
 
+// highlight-next-line
 export const AppVersion = createParamDecorator((ctx) => {
   return ctx.request.headers['app-version']
 })
@@ -41,13 +48,14 @@ export const AppVersion = createParamDecorator((ctx) => {
 @Controller
 export class AppVersionController {
   @Get('/app/version')
+  // highlight-next-line
   async version(@AppVersion version) {
     return version
   }
 }
 ```
 
-```ts title="例子：解析获取JWT Token中的uid"
+```ts title="解析JWT Token"
 import { Controller, createParamDecorator, Get } from '@summer-js/summer'
 import jwt from 'jsonwebtoken'
 
@@ -63,37 +71,49 @@ export const Uid = createParamDecorator((ctx) => {
 @Controller
 export class JWTController {
   @Get('/userinfo')
-  userinfo(@Uid uid: number) {
+  userinfo(@Uid uid?: number) {
     return uid
   }
 }
 ```
 
-### 创建class/method Decorator
+### 创建类/方法装饰器
 
 ```ts
-// 仅在方法上使用
-export const [DecoratorName] = createMethodDecorator((ctx?, invokeMethod? , arg1?, arg2?,...) => { return [value] });
-// 仅在类上使用
-export const [DecoratorName] = createClassDecorator((ctx?, invokeMethod? , arg1?, arg2?,...) => { return [value] });
-// 在类和方法上都能使用
-export const [DecoratorName] = createClassAndMethodDecorator((ctx?, invokeMethod? , arg1?, arg2?,...) => { return [value] });
+// 只可以用在方法上
+export const [DecoratorName] = createMethodDecorator(
+  async (ctx?, invokeMethod? , arg1?, arg2?,...) => { 
+    return await invokeMethod(ctx.invocation.params)  
+  }
+);
+
+// 只可以用在类上，标记会拦截所有方法
+export const [DecoratorName] = createClassDecorator(
+  async (ctx?, invokeMethod? , arg1?, arg2?,...) => { 
+    return await invokeMethod(ctx.invocation.params)  
+  }
+);
+
+// 既可以用在类上，也可以在单一方法上，标记会拦截所有方法
+export const [DecoratorName] = createClassAndMethodDecorator(
+  async (ctx?, invokeMethod? , arg1?, arg2?,...) => { 
+    return await invokeMethod(ctx.invocation.params)  
+  }
+);
 ```
 
-``DecoratorName`` 是定义的装饰器名字<br/>
-``ctx`` 是请求的上下文，里面包含请求的所有信息<br/>
-``invokeMethod`` 被调用的方法<br/>
-``arg1, arg2...`` 为自定义参数，在之后调用时候使用 @DecoratorName(arg1,arg2,...)<br/>
+**DecoratorName** 装饰器名字<br/>
+**ctx** 请求上下文<br/>
+**invokeMethod** 被执行的方法<br/>
+**arg1, arg2...** 自定义参数 @DecoratorName(arg1,arg2,...)<br/>
 
 
-:::info 
-在class层级写Decorator是对class中的所有方法进行拦截
-:::
 
-```ts title="例子：开发 @RequireLogin 拦截未登录请求"
+```ts title="开发一个 @RequireLogin 装饰器"
 import { Controller, createClassAndMethodDecorator, Get, Put } from '@summer-js/summer'
 import jwt from 'jsonwebtoken'
 
+// highlight-next-line
 export const RequireLogin = createClassAndMethodDecorator(async (ctx, invokeMethod?) => {
   const token = ctx.request.headers['authentication']
   try {
@@ -129,25 +149,31 @@ export class LoginController2 {
 ```
 
 
-### 创建属性 Decorator
+### 创建属性装饰器
 ```ts
-export const [DecoratorName] = createPropertyDecorator((config?, propertyName? , arg1?, arg2?,...) => { return [value] }); 
+export const [DecoratorName] = createPropertyDecorator(
+  (config?, propertyName? , arg1?, arg2?,...) => {
+    return [Value]
+  }
+); 
 ```
 
-``DecoratorName`` 是定义的装饰器名字<br/>
-``config`` 当前环境的配置<br/>
-``propertyName`` 是定义的属性变量名字<br/>
-``arg1, arg2...`` 为自定义参数，在之后调用时候使用 @DecoratorName(arg1,arg2,...)<br/>
+**DecoratorName** 装饰器名字<br/>
+**config** 当前的配置<br/>
+**propertyName** 属性的名字<br/>
+**arg1, arg2...** 自定义参数 @DecoratorName(arg1,arg2,...)<br/>
 
-```ts title="例子：从环境变量中读取MySQL的配置"
+```ts title="注入MySQL配置"
 import { Controller, createPropertyDecorator, Get } from '@summer-js/summer'
 
+// highlight-next-line
 export const MySQLConfig = createPropertyDecorator((config) => {
-  return config['MySQL']
+  return config['MySQL_CONFIG']
 })
 
 @Controller
 export class ConfigInjectController {
+  // highlight-next-line
   @MySQLConfig
   mysqlConfig
 
@@ -158,15 +184,17 @@ export class ConfigInjectController {
 }
 ```
 
-```ts title="例子：获取城市列表"
+```ts title="注入城市列表"
 import { Controller, createPropertyDecorator, Get } from '@summer-js/summer'
 
+// highlight-next-line
 export const CityList = createPropertyDecorator(() => {
   return ['Shanghai', 'Tokyo', 'New York City']
 })
 
 @Controller
 export class CityListController {
+  // highlight-next-line
   @CityList
   cityList
 
@@ -179,42 +207,55 @@ export class CityListController {
 
 ## 更多例子
 
-### 修改返回状态码
+### 改变HTTP请求返回码
 ```ts
 import { Controller, createMethodDecorator, Get } from '@summer-js/summer'
 
-export const ResponseCode = createMethodDecorator(async (ctx, invokeMethod, code: number) => {
-  ctx.response.statusCode = code
-  return await invokeMethod(ctx.invocation.params)
-})
+// highlight-next-line
+export const ResponseCode = createMethodDecorator(
+  async (ctx, invokeMethod, code: number) => {
+    ctx.response.statusCode = code
+    return await invokeMethod(ctx.invocation.params)
+  }
+)
 
 @Controller
 export class ResponseCodeController {
+  // highlight-next-line
   @ResponseCode(404)
   @Get('/dog')
   userInfo() {
-    return 'dog not exist'
+    return '404 小狗走丢了'
   }
 }
 ```
 
-### 返回值缓存
+### 缓存返回值
 ```ts
-import { AutoInject, Controller, createMethodDecorator, Get, PathParam, Service } from '@summer-js/summer'
+import { AutoInject, Controller, createMethodDecorator, Get, Logger, PathParam, Service } from '@summer-js/summer'
 import md5 from 'md5'
 
 const CACHE = {}
-export const Cache = createMethodDecorator(async (ctx, invokeMethod) => {
+// highlight-next-line
+export const Cache = createMethodDecorator(async (ctx, invokeMethod, cacheTime: number) => {
   const callParamHash = md5(JSON.stringify(ctx.invocation))
   if (CACHE[callParamHash] === undefined) {
     CACHE[callParamHash] = await invokeMethod(ctx.invocation.params)
+    Logger.info('Cache ' + CACHE[callParamHash] + ' in ' + cacheTime + 's')
+    if (cacheTime) {
+      setTimeout(() => {
+        CACHE[callParamHash] = undefined
+        Logger.info('Clear Cache')
+      }, cacheTime)
+    }
   }
   return CACHE[callParamHash]
 })
 
 @Service
 export class CacheService {
-  @Cache()
+  // highlight-next-line
+  @Cache
   async cache(id) {
     return id + ':' + Date.now()
   }
@@ -225,7 +266,8 @@ export class CacheController {
   cacheService: CacheService
 
   @Get('/cache/:id')
-  @Cache()
+  // highlight-next-line
+  @Cache(1000)
   async api(@PathParam id) {
     return id + ':' + Date.now()
   }
@@ -241,14 +283,18 @@ export class CacheController {
 ```ts
 import { Controller, createMethodDecorator, Get } from '@summer-js/summer'
 
-export const DownLoadFile = createMethodDecorator(async (ctx, invokeMethod, fileName: string) => {
-  ctx.response.headers['Content-Type'] = 'application/octet-stream'
-  ctx.response.headers['Content-Disposition'] = `attachment; filename="${fileName}"`
-  return await invokeMethod(ctx.invocation.params)
-})
+// highlight-next-line
+export const DownLoadFile = createMethodDecorator(
+  async (ctx, invokeMethod, fileName: string) => {
+    ctx.response.headers['Content-Type'] = 'application/octet-stream'
+    ctx.response.headers['Content-Disposition'] = `attachment; filename="${fileName}"`
+    return await invokeMethod(ctx.invocation.params)
+  }
+)
 
 @Controller
 export class DownloadController {
+  // highlight-next-line
   @DownLoadFile('hello.txt')
   @Get('/download')
   download() {
