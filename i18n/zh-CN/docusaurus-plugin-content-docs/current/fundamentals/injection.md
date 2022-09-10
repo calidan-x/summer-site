@@ -14,7 +14,7 @@ Summer 框架的所有可注入对象都会自动注入到类属性中，代码�
 ### 注入相关装饰器与接口方法
 
 
-|  Decorators/API  | Usage  |
+|  装饰器/方法  | 用途  |
 |  ----  | ----  |
 | @Service / @Injectable | Injectable class |
 | @Config | Inject config |
