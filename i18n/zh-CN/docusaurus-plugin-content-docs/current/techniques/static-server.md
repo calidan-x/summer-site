@@ -39,3 +39,28 @@ export const SERVER_CONFIG: ServerConfig = {
 :::caution
 ./resource 目录是Summer框架默认的资源目录，配置目标目录的时候需要配置在这个文件目录或其次级目录
 :::
+
+
+### SPA 应用支持
+Summer 支持 SPA (Single Page Application) 例如 React / Vue / Svelte 等应用。
+使用这个功能，可以在配置文件中添加 **spa:ture** 。
+
+```ts
+import { ServerConfig } from '@summer-js/summer';
+
+export const SERVER_CONFIG: ServerConfig = {
+  port: 8801,
+  
+  static: [
+    {
+      requestPath: '/app',
+      destPath: 'resource',
+      indexFiles: ['index.html'],
+      // highlight-next-line
+      spa: true
+    }
+  ]
+}
+```
+
+将编译打包好的应用放到 resource 目录即可

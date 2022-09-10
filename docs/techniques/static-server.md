@@ -55,7 +55,7 @@ export const SERVER_CONFIG: ServerConfig = {
   
   static: [
     {
-      requestPath: '/static',
+      requestPath: '/app',
       destPath: 'resource',
       indexFiles: ['index.html'],
       // highlight-next-line
@@ -64,3 +64,5 @@ export const SERVER_CONFIG: ServerConfig = {
   ]
 }
 ```
+
+Put your frontend app to resource folder.
