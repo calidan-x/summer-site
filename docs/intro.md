@@ -26,7 +26,7 @@ Summer aims to provide a secure, high-quality, easy fast enterprise backend fram
 <!-- <img src="/img/swagger_logo.svg"  style={{marginLeft:"30px",marginBottom:"5px",marginTop:"20px"}} width="200"/><br/> -->
 
 - **Best Swagger Integration**<br/>
-  Summer Swagger plugin utilizes runtime typescript to generate API documents ( OpenAPI 3.0.x ), a single line of code can generate a full document. The Swagger plugin works together with Summer core decorators that can read @Max() @Optional() and database column comments in TypeORM.
+  Summer Swagger plugin utilizes runtime typescript to generate API documents ( OpenAPI 3.0.x ), a single line of code can generate a full document. The Swagger plugin works together with Summer core decorators that can read @Max() Optional(?) and database column comments in TypeORM.
 
 ## Create a New Project
 
