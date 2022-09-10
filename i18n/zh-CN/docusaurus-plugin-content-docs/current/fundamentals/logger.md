@@ -29,3 +29,10 @@ export class LoggerController {
 [2022-04-06 07:22:25][WARNING] 警告
 [2022-04-06 07:22:25][DEBUG] 调试
 ```
+
+### 限定日志输出蕾西
+
+```ts
+// 只记录 Warning 和 Error 
+Logger.logType = ['Warning','Error']
+````

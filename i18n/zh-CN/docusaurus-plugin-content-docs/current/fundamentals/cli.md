@@ -4,19 +4,19 @@ sidebar_position: 100
 
 # 命令行
 
-start a local dev server
+本地启动服务
 
 ```
 summer serve --env [ENV_NAME]
 ```
 
-run test cases
+跑测试
 
 ```
 summer test --env [ENV_NAME] -- [JEST_OPTIONS]
 ```
 
-build
+编译打包
 
 ```
 summer build --env [ENV_NAME] -- [ESBUILD_OPTIONS]

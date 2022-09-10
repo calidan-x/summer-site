@@ -12,10 +12,10 @@ import './auto-imports'
 export { handler }
 
 summerStart({
-  before(config) {
+  async before(config) {
     // init code before startup
   },
-  after(config) {
+  async after(config) {
     // post job after startup
   }
 })

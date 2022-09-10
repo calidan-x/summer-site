@@ -4,6 +4,7 @@ sidebar_position: 72
 
 # Logging
 
+### Log Output
 
 ```ts
 import { Controller, Get, Logger } from '@summer-js/summer';

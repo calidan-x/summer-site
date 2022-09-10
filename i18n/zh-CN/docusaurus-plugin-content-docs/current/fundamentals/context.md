@@ -3,15 +3,15 @@ sidebar_position: 54
 ---
 
 # 请求上下文
+ 
+Summer 会在每次请求创建一个 Context 对象记录请求信息，Context 对象存储了 请求信息，返回信息，cookie，会话，方法调用信息。你可以在任何代码中获取并利用其内容。
 
-Summer creates a **Context** object at the beginning of each request, context store request/response/cookie/session/invocation information that can be utilized in your code.
+Context 中的 **context.response** 能直接被修改以此改变请求返回的头部信息。
 
-**context.response** can be modify to alter response headers / content-type...
-
-Context can be received easily from pass-in param or call **getContext()** Api.
+Context 可以很容易的被获取到，Summer定义的一些接口方法会以传参的形式传入ctx，你也可以使用 **getContext()** Api 来获取当前的请求上下文.
  
 
-### Receive Context
+### 获取 Context
 
 ```ts
 import { Context, Controller, Ctx, Get } from '@summer-js/summer'
@@ -20,7 +20,7 @@ import { Context, Controller, Ctx, Get } from '@summer-js/summer'
 export class ContextController {
   @Get('/context')
   context(@Ctx context: Context) {
-    // or const context = getContext()
+    // 或者使用 const context = getContext()
     console.log(context)
   }
 }
@@ -75,9 +75,9 @@ export class ContextController {
     // highlight-next-line
     context.response.headers['content-type'] = 'text/plain'
 
-    // although the controller return 'hello winter',
-    // set context response content has a higher priority,
-    // this take advantage of setting response content in custom decorator or middleware.
+    // 尽管controller 方法返回了 'hello winter',
+    // 设置context的内容能有更高的优先级，所以这里会返回 'hi Summer'
+    // 这可以让你再装饰器或某段代码中通过修改context.response达到最终修改目的，而不受controller的返回值影响
     // highlight-next-line
     context.response.body = 'hi Summer'
     return 'hello winter'

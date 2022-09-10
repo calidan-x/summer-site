@@ -52,6 +52,27 @@ Summer生成的最终执行文件相当简洁，不再有node_modules目录让�
 创建 ./resource 文件夹放入资源文件<br/>
 ./resource 目录会自动被拷贝到 build/resource 
 
+### 获取编译打包时间
+打包时间可以用于显示记录包的打包时间
+```
+process.env.SUMMER_BUILD_TIME
+```
+
+### 启用集群模式
+
+集群模式是NodeJS提供的一种服务器扩展，打开后，NodeJS会以多线程的形式启动多个服务器线程响应请求。一些外部工具类似PM2提供了这样的能力，Summer本身就集成了这项能力，所以你不再需要PM2之类的工具。
+
+```ts title="src/config/default.config.ts"
+export const SERVER_CONFIG: ServerConfig = {
+  port: 8801,
+  clusterMode: true,
+  // workersNumber 如果不设置默认为你部署服务器的内核数
+  // 或者你可以自己设置集群worker数
+  workersNumber: 4
+}
+```
+
+
 ### 在Linux系统机器部署
 
 1. 将 build/index.js 和 build/index.js.map 文件传上 linux 服务器

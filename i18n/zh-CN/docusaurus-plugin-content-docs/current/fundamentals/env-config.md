@@ -95,4 +95,5 @@ process.env.SUMMER_ENV
 import { getConfig } from '@summer-js/summer'
 
 console.log(getConfig())
+console.log(getConfig("SERVER_CONFIG"))
 ```

@@ -2,9 +2,9 @@
 sidebar_position: 1
 ---
 
-# Cors
+# CORS
 
-Set to support cors
+Set to support CORS
 
 ```ts title='config/default.config.ts'
 import { SERVER_CONFIG } from '@summer-js/summer';

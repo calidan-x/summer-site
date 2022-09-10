@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # 跨域
 
-在 config/default.config.ts 或其他配置环境加入 cors
+开启(CORS)跨域资源共享
 
 ```ts
 import { SERVER_CONFIG } from '@summer-js/summer';

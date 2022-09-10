@@ -4,7 +4,11 @@ sidebar_position: 55
 
 # 序列化
 
-Summer会自动序列化枚举
+Summer 自动序列化返回数据.
+
+控制器方法如果返回的是一个对象体，Summer会将其序列化成JSON字符串，并且设置头部类型为**application/json**。字符串或其他 Javascript 基础类型会被序列号成字符串，返回的头部会设置成 **text/html** 类型。
+
+枚举会转换成字符串 key 值。
 
 ```ts
 import { Controller, Get } from '@summer-js/summer'
@@ -17,6 +21,7 @@ enum Direction {
 }
 
 class Resource { 
+  info: string
   direction: Direction
 }
 
@@ -26,13 +31,15 @@ export class SerializationController {
   async serialize() {
     const r = new Resource()
     r.direction = Direction.LEFT
+    r.info = "Information"
     return r
   }
 }
 ```
 
-```json title="输出"
+```json title="Output"
 {
+    "info":"Information",
     "direction":"LEFT"
 }
 ```
