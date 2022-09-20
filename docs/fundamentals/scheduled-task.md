@@ -2,7 +2,7 @@
 sidebar_position: 72
 ---
 
-# 定时任务
+# Scheduled Task
  
 
 ```ts title="cron trigger"
