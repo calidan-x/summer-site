@@ -12,7 +12,7 @@ import { Scheduled, Service } from '@summer-js/summer'
 @Service
 export class TaskService {
   // highlight-next-line
-  @Scheduled({ cron: '* * * * *', timeZone:"UTC" })
+  @Scheduled({ cron: '* * * * *', timeZone: 'UTC' })
   print() {
     console.log(new Date())
   }
