@@ -12,6 +12,7 @@ sidebar_position: 5
 * 只有3个装饰器
 * 推断所有类型自动生成文档
 * 支持 OpenAPI 3.0.x
+* 密码保护
 * 可读取Summer核心的 (@Max @Email optional(?)...) 等装饰器信息
 * 可读取TypeORM的数据库字段Comment
 * 可以使用 ResponseError 来设置返回错误
@@ -32,6 +33,7 @@ import { SwaggerConfig } from '@summer-js/swagger';
 
 export const SWAGGER_CONFIG: SwaggerConfig = {
   docPath: '/swagger',
+  password: 'abc123',
   info: { title: 'Summer', version:"0.0.1" }
 }
 ```

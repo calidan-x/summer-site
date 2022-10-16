@@ -12,6 +12,7 @@ sidebar_position: 5
 * Only THREE simple decorators
 * Infer ALL types and generate examples
 * Full support of OpenAPI 3.0.x
+* Password protection
 * Working with Summer core validation decorator (@Max @Email optional(?)...)
 * Can read TypeORM comment
 * Reuse Summer ResponseError
@@ -34,6 +35,7 @@ import { SwaggerConfig } from '@summer-js/swagger';
 
 export const SWAGGER_CONFIG: SwaggerConfig = {
   docPath: '/swagger',
+  password: 'abc123',
   info: { title: 'Summer', version:"0.0.1" }
 }
 ```
@@ -199,7 +201,8 @@ detail(@PathParam id: string) {
   }
   return movie
 }
-```
+``` 
+
 
 ### Read TypeORM comment
 
