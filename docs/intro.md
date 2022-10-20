@@ -11,7 +11,7 @@ Summer aims to provide a secure, high-quality, easy fast enterprise backend fram
   Summer cares about coding experience, always easy to learn and easy to use.
 
 - **Strict Runtime TypeScript Validation**<br/>
-  TypeScript can be used for runtime request validation, this makes your backend more secure.
+  TypeScript can be used for runtime request validation, this makes your backend app more secure and reliable.
 
 - **Simply DTO Conversion**<br/>
   Backend programming always deals with lots of DTO conversion, Summer provides 2 easy and safe functions for conversion.
