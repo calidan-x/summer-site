@@ -50,7 +50,7 @@ enum BookType {
 }
 
 class AddBookRequest {
-  // 验证 title 必须是字符串
+  // 验证 title 必须是字符串，而且是个选传参数，在不传时默认为 "无标题"
   title = "无标题"
   // 验证 author 必须是字符串
   author: string
