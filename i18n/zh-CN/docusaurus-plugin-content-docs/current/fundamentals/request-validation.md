@@ -51,13 +51,13 @@ enum BookType {
 
 class AddBookRequest {
   // 验证 title 必须是字符串
-  title: string;
+  title = "无标题"
   // 验证 author 必须是字符串
-  author: string;
+  author: string
   // 验证 type 必须是 "Fiction" 或 "Education"
-  type: BookType;
+  type: BookType
   // 验证 pageCount 必须是整形
-  pageCount: int;
+  pageCount: int
 }
 ```
 
@@ -274,7 +274,7 @@ class PersonRequest{
 notice the '**?**' optional token also works in method params
 ```ts
 @Get(/books)
-addBooks(@Query keyword?: string){
+addBooks(@Query keyword?: string, @Query pageNumber = 1){
   // code
 }
 ```

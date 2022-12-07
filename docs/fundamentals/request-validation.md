@@ -50,8 +50,8 @@ enum BookType {
 }
 
 class AddBookRequest {
-  // validate title is string type
-  title: string;
+  // validate title is string and it's optional
+  title = "No Title"
   // validate author is string type
   author: string;
   // validate type is "Fiction" or "Education"
@@ -273,7 +273,7 @@ class PersonRequest{
 notice the '**?**' optional token also works in method params
 ```ts
 @Get(/books)
-addBooks(@Query keyword?: string){
+addBooks(@Query keyword?: string, @Query pageNumber = 1){
   // code
 }
 ```

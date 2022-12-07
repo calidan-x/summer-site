@@ -50,7 +50,20 @@ Summer生成的最终执行文件相当简洁，不再有node_modules目录让�
 
 ### 使用资源文件
 创建 ./resource 文件夹放入资源文件<br/>
-./resource 目录会自动被拷贝到 build/resource 
+./resource 目录会自动被拷贝到 build/resource
+
+### API接口数据压缩
+Summer 支持压缩API数据加强客户端请求。
+
+```ts title="src/config/default.config.ts"
+export const SERVER_CONFIG: ServerConfig = {
+  ...
+  compression: {
+    enable: true
+    // threshold: 1024 (默认为 860byte)
+  }
+}
+```
 
 ### 获取编译打包时间
 打包时间可以用于显示记录包的打包时间

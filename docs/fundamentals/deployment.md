@@ -49,6 +49,21 @@ create folder **resource** and put the resource files into it.<br/>
 **resource** will be copied to **build/resource**.
 
 
+### Enable Api Response Compression
+
+Summer can compress big response data to speed up client request.
+
+```ts title="src/config/default.config.ts"
+export const SERVER_CONFIG: ServerConfig = {
+  ...
+  compression: {
+    enable: true
+    // threshold: 1024 (default is 860byte)
+  }
+}
+```
+
+
 ### Get Build TimeStamp
 build timestamp can help to generate update time
 ```
