@@ -30,6 +30,7 @@ The request DTO must be a class.
 |  Decorators   | Usage  |
 |  ----  | ----  |
 | ? | optional |
+| ! | use in string not blank |
 | @Min(min: number)  | use in number/int/bigint minimum |
 | @Max(max: number)  | use in number/int/bigint maximum |
 | @MinLen(minLen: number)  | use in string/array[] minimum length |
