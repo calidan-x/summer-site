@@ -5,7 +5,7 @@ sidebar_position: 7
 # Declarative Request Client
 
 :::caution
-This feature will remove in feature version
+This feature will be removed in feature version
 :::
  
 
