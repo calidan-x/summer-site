@@ -4,6 +4,14 @@ sidebar_position: 5
 
 # 测试
 
+### 配置 Jest
+```js title="jest.config.js"
+module.exports = {
+  preset: '@summer-js/test',
+  testPathIgnorePatterns: ['<rootDir>/src/']
+}
+```
+
 ### 测试控制器
 
 ```ts
@@ -22,8 +30,6 @@ describe('Test Movie Controller', () => {
 ### 测试服务
 ```ts
 import { getInjectable } from '@summer-js/summer'
-// highlight-next-line
-import '@summer-js/test' // 不要忘了这行代码
 
 import { MovieService } from './../service/person-service'
 

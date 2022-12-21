@@ -4,6 +4,15 @@ sidebar_position: 5
 
 # Testing
 
+### Config Jest
+```js title="jest.config.js"
+module.exports = {
+  preset: '@summer-js/test',
+  testPathIgnorePatterns: ['<rootDir>/src/']
+}
+```
+
+
 ### Test Controller
 
 ```ts
@@ -22,8 +31,6 @@ describe('Test Movie Controller', () => {
 ### Test Service
 ```ts
 import { getInjectable } from '@summer-js/summer'
-// highlight-next-line
-import '@summer-js/test' // don't miss it
 
 import { MovieService } from './../service/person-service'
 
