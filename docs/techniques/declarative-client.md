@@ -4,6 +4,9 @@ sidebar_position: 7
 
 # Declarative Request Client
 
+:::caution
+This feature will remove in feature version
+:::
  
 
 ```ts title="SendGrid"
