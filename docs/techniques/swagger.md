@@ -178,7 +178,16 @@ config **order** in @ApiDocGroup('',{order:1})
 :::
  
 
+### Add Access Password
 
+```ts
+export const SWAGGER_CONFIG: SwaggerConfig = {
+  docPath: '/swagger',
+  // highlight-next-line
+  password: 'xxxxxxxxxx',
+  .....
+}
+```
 
 ### Reuse ResponseError
 ResponseError instance can be set to errors example

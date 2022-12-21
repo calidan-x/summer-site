@@ -176,6 +176,16 @@ Summer 可以读取运行时TypeScript类型推断出返回类型，哪怕你在
 例如：@ApiDocGroup('',{order:1})
 :::
  
+### 添加访问密码
+
+```ts
+export const SWAGGER_CONFIG: SwaggerConfig = {
+  docPath: '/swagger',
+  // highlight-next-line
+  password: 'xxxxxxxxxx',
+  .....
+}
+```
 
 
 ### 复用 ResponseError
