@@ -184,18 +184,18 @@ ResponseError 错误可以被直接设置成接口异常定义
 ```ts
 // 定义错误
 // highlight-next-line
-const MovieNotFindError = new ResponseError(404,"Movie not found")
+const MovieNotFoundError = new ResponseError(404,"Movie not found")
 
 @ApiDoc('Get a specific movie detail by id', {
   // highlight-next-line
-  errors: [ MovieNotFindError ]
+  errors: [ MovieNotFoundError ]
 })
 @Get('/movies/:id')
 detail(@PathParam id: string) {
   const movie: Movie = { id: 1, name: 'Titanic', year: '1997' }
   if(!movie){
     // highlight-next-line
-    throw MovieNotFindError
+    throw MovieNotFoundError
   }
   return movie
 }
