@@ -31,12 +31,14 @@ The request DTO must be a class.
 |  ----  | ----  |
 | ? | optional |
 | ! | use in string not blank |
-| @Min(min: number)  | use in number/int/bigint minimum |
-| @Max(max: number)  | use in number/int/bigint maximum |
-| @MinLen(minLen: number)  | use in string/array[] minimum length |
-| @MaxLen(maxLen: number)  | use in string/array[] maximum length |
-| @Email  |  use in string email format |
-| @Pattern(regexp :RegExp)  | use in string match RegExp |
+| @Min(min: number, message?: string \| (val) => string)  | use in number/int/bigint minimum |
+| @Max(max: number, message?: string \| (val) => string)  | use in number/int/bigint maximum |
+| @MinLen(minLen: number, message?: string \| (val) => string)  | use in string/array[] minimum length |
+| @MaxLen(maxLen: number, message?: string \| (val) => string)  | use in string/array[] maximum length |
+| @Len(fixedLen: number, message?: string \| (val) => string)  | use in string/array[] fixed length |
+| @Len(minLen: number, maxLen: number, message?: string \| (val) => string)  | use in string/array[] length range |
+| @Email(message?: string \| (val) => string)  |  use in string email format |
+| @Pattern(regexp :RegExp, message?: string \| (val) => string)  | use in string match RegExp |
 | @Validate(func: (val: any) => boolean \| string )  | custom validation,<br/> pass in value and return true \| "Error Message"<br/> to determine validation result |
 | @IgnoreUnknownProperties | allow undefined property in request DTO |
  

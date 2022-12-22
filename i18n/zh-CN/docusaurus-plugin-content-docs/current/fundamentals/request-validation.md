@@ -31,12 +31,14 @@ Summer支持运行时校验TypeScript类型，所以请求DTO只需要按正常�
 |  ----  | ----  |
 | ? | 选传参数 |
 | ! | 使用在 string 不允许为空白（多个空格） |
-| @Min(min: number)  | 使用在 number/int/bigint 限定最小值 |
-| @Max(max: number)  | 使用在 number/int/bigint 限定最大值 |
-| @MinLen(minLen: number)  | 使用在 string/array[] 限定最小长度 |
-| @MaxLen(maxLen: number)  | 使用在 string/array[] 限定最大长度 |
-| @Email  |  使用在 string 限定必须是电子邮件格式 |
-| @Pattern(regexp :RegExp)  | 使用在 string 匹配正则 |
+| @Min(min: number, message?: string \| (val) => string)  | 使用在 number/int/bigint 限定最小值 |
+| @Max(max: number, message?: string \| (val) => string)  | 使用在 number/int/bigint 限定最大值 |
+| @MinLen(minLen: number, message?: string \| (val) => string)  | 使用在 string/array[] 限定最小长度 |
+| @MaxLen(maxLen: number, message?: string \| (val) => string)  | 使用在 string/array[] 限定最大长度 |
+| @Len(fixedLen: number, message?: string \| (val) => string)  | 使用在 string/array[] 限定固定长度 |
+| @Len(minLen: number, maxLen: number, message?: string \| (val) => string)  | 使用在 string/array[] 限定长度范围 |
+| @Email(message?: string \| (val) => string)  |  使用在 string 限定必须是电子邮件格式 |
+| @Pattern(regexp :RegExp, message?: string \| (val) => string)  | 使用在 string 匹配正则 |
 | @Validate(func: (val: any) => boolean \| string )  | 自定义验证，验证函数返回 true 时代表验证通过，<br/>返回字符串 "错误信息" 表示验证失败。|
 | @IgnoreUnknownProperties | 允许接口发来额外不在请求中定义的字段 |
  
