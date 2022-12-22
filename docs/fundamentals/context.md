@@ -96,7 +96,7 @@ Set context.response.headers, prop key will be converted to letter uppercase for
 
 ### Passing Custom Data
 
-The content object has a **data** property that allows you to store and carry data during a whole request period. 
+The context object has a **data** property that allows you to store and carry data during a whole request period. 
 
 ```ts
 import { Middleware, Context, ValidationError, NotFoundError, ResponseError, Logger } from '@summer-js/summer'

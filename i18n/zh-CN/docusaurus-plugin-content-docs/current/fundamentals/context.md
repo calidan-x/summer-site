@@ -62,7 +62,7 @@ export class ContextController {
 }
 ```
 
-### Alter Response 
+### 修改返回数据
 
 ```ts title="src/controller/ContentController.ts"
 import { AutoInject, Controller, Get, getContext } from '@summer-js/summer'
@@ -91,12 +91,12 @@ hi Summer
 ```
 
 :::note 
-Set context.response.headers, prop key will be converted to letter uppercase format automatically. 'context-type' => 'Content-Type'
+给 context.response.headers 赋值, headers中的key会自动转成大写驼峰形式. 例如: 'context-type' => 'Content-Type'
 :::
 
-### Passing Custom Data
+### 传递数据
 
-The content object has a **data** property that allows you to store and carry data during a whole request period. 
+context 对象有一个叫 **data** 的属性，可用用来存储自定义信息传递给后续做逻辑操作. 
 
 ```ts
 import { Middleware, Context, ValidationError, NotFoundError, ResponseError, Logger } from '@summer-js/summer'
@@ -110,5 +110,5 @@ export class DataMiddleware {
   }
 }
 
-// then you can access ctx.data.customData in custom decorators / controllers
+// 你可以在之后的自定义装饰器 / 控制器 中获取 ctx.data.customData
 ```
