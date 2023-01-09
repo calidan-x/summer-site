@@ -54,7 +54,7 @@ enum BookType {
 
 class AddBookRequest {
   // validate title is string and it's optional
-  title = "No Title"
+  title? string
   // validate author is string type
   author: string;
   // validate type is "Fiction" or "Education"
