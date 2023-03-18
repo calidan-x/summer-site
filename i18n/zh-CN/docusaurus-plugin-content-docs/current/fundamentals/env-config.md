@@ -42,15 +42,15 @@ export const MY_CONFIG = {
 
 ### 获取环境变量
 
-通过 @Config(key:string) 获取
+通过 **EnvConfig<'KEY', Type = any>** 获取
 
 ```ts
 import { Config, Controller, Get } from '@summer-js/summer'
 
 @Controller
 export class ConfigController {
-  @Config('MY_CONFIG')
-  myConfig
+ 
+  myConfig: EnvConfig<'MY_CONFIG'>
 
   @Get('/config')
   add() {
@@ -92,8 +92,8 @@ process.env.SUMMER_ENV
 并不是所有程序执行的位置都适用于注入写法，框架还提供了调用函数获取的方式
 
 ```ts
-import { getConfig } from '@summer-js/summer'
+import { getEnvConfig } from '@summer-js/summer'
 
-console.log(getConfig())
-console.log(getConfig("SERVER_CONFIG"))
+console.log(getEnvConfig())
+console.log(getEnvConfig("SERVER_CONFIG"))
 ```

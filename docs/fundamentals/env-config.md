@@ -42,20 +42,20 @@ the final **local** config would be
 
 ### Get Env Variable
 
-User **@Config(key?:string)** inject to Controller property or call **getConfig(key?:string)**
+User **EnvConfig<'KEY', Type = any>)** inject to Controller property or call **getEnvConfig(key?:string)**
 
 ```ts
-import { Config, Controller, Get, getConfig } from '@summer-js/summer'
+import { Config, Controller, Get, getEnvConfig } from '@summer-js/summer'
 
 @Controller
 export class ConfigController {
-  @Config('MY_CONFIG')
-  myConfig
+
+  myConfig: EnvConfig<'MY_CONFIG'>
 
   @Get('/config')
   add() {
     console.log(this.myConfig)
-    console.log(getConfig("MY_CONFIG"))
+    console.log(getEnvConfig("MY_CONFIG"))
   }
 }
 ```

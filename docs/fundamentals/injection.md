@@ -17,7 +17,7 @@ All injectable class instances are singletons.
 |  Decorators/API  | Usage  |
 |  ----  | ----  |
 | @Service / @Injectable | Injectable class |
-| @Config | Inject config |
+| EnvConfig<'KEY', Type = any> | Inject config |
 | @PostConstruct | Init method after construction |
 | createPropertyDecorator | create a property injection decorator|
 
@@ -115,9 +115,8 @@ const catService = getInjectable(AnimalService,[ Cat ])
 import { Controller, Config, PostConstruct } from '@summer-js/summer'
 
 @Controller
-export class TodoController {
-  @Config('SERVER_CONFIG')
-  serverConfig
+export class TodoController { 
+  serverConfig: EnvConfig<'SERVER_CONFIG'>
 
   // injection happen after constructor() method, use @PostConstruct to do init works
   // highlight-next-line
@@ -128,16 +127,16 @@ export class TodoController {
 }
 ```
 
-For a more convenient way to access configuration, you can call **getConfig()** api in constructor method.
+For a more convenient way to access configuration, you can call **getEnvConfig()** api in constructor method.
 
 ```ts title="src/controller/TodoController.ts"
-import { Controller, getConfig } from '@summer-js/summer'
+import { Controller, getEnvConfig } from '@summer-js/summer'
 
 @Controller
 export class TodoController {
   constructor() {
     // highlight-next-line
-    const serverConfig = getConfig('SERVER_CONFIG')
+    const serverConfig = getEnvConfig('SERVER_CONFIG')
     console.log(serverConfig)
   }
 }

@@ -17,7 +17,7 @@ Summer 框架的所有可注入对象都会自动注入到类属性中，代码�
 |  装饰器/方法  | 用途  |
 |  ----  | ----  |
 | @Service / @Injectable | Injectable class |
-| @Config | Inject config |
+| EnvConfig<'KEY', Type = any> | Inject config |
 | @PostConstruct | Init method after construction |
 | createPropertyDecorator | create a property injection decorator|
 
@@ -116,8 +116,8 @@ import { Controller, Config, PostConstruct } from '@summer-js/summer'
 
 @Controller
 export class TodoController {
-  @Config('SERVER_CONFIG')
-  serverConfig
+  
+  serverConfig: EnvConfig<'SERVER_CONFIG'>
 
   // 字段实例的注入发生在构造函数 constructor() 运行之后, 使用 @PostConstruct 做初始化工作。
   // highlight-next-line
@@ -129,16 +129,16 @@ export class TodoController {
 ```
 
  
-还有一个更简单的获取配置信息的手段，就是直接调用 getConfig() 接口获取配置信息，这样一些初始化工作就可以直接写到 constructor() 方法中了。
+还有一个更简单的获取配置信息的手段，就是直接调用 getEnvConfig() 接口获取配置信息，这样一些初始化工作就可以直接写到 constructor() 方法中了。
 
 ```ts title="src/controller/TodoController.ts"
-import { Controller, getConfig } from '@summer-js/summer'
+import { Controller, getEnvConfig } from '@summer-js/summer'
 
 @Controller
 export class TodoController {
   constructor() {
     // highlight-next-line
-    const serverConfig = getConfig('SERVER_CONFIG')
+    const serverConfig = getEnvConfig('SERVER_CONFIG')
     console.log(serverConfig)
   }
 }
