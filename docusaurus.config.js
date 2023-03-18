@@ -1,53 +1,53 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require('prism-react-renderer/themes/github')
-const darkCodeTheme = require('prism-react-renderer/themes/dracula')
+const lightCodeTheme = require("prism-react-renderer/themes/github")
+const darkCodeTheme = require("prism-react-renderer/themes/dracula")
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Summer',
-  tagline: 'Efficient NodeJs Backend Framework',
-  url: 'https://your-docusaurus-test-site.com',
-  baseUrl: '/',
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  title: "Summer",
+  tagline: "Efficient NodeJs Backend Framework",
+  url: "https://your-docusaurus-test-site.com",
+  baseUrl: "/",
+  onBrokenLinks: "throw",
+  onBrokenMarkdownLinks: "warn",
+  favicon: "img/favicon.ico",
+  organizationName: "facebook", // Usually your GitHub org/user name.
+  projectName: "docusaurus", // Usually your repo name.
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'zh-CN'],
+    defaultLocale: "en",
+    locales: ["en", "zh-CN"],
     localeConfigs: {
       en: {
-        label: 'English',
-        direction: 'ltr',
-        htmlLang: 'en-US'
+        label: "English",
+        direction: "ltr",
+        htmlLang: "en-US"
       },
-      'zh-CN': {
-        label: '中文',
-        direction: 'ltr',
-        htmlLang: 'zh-CN'
+      "zh-CN": {
+        label: "中文",
+        direction: "ltr",
+        htmlLang: "zh-CN"
       }
     }
   },
   presets: [
     [
-      'classic',
+      "classic",
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
+          sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
-          editUrl: 'https://github.com/calidan-x/summer-site/'
+          editUrl: "https://github.com/calidan-x/summer-site/"
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
-          editUrl: 'https://github.com/calidan-x/summer-site/'
+          editUrl: "https://github.com/calidan-x/summer-site/"
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css')
+          customCss: require.resolve("./src/css/custom.css")
         }
       })
     ]
@@ -58,12 +58,12 @@ const config = {
     {
       algolia: {
         // The application ID provided by Algolia
-        appId: 'XLUUUIJIDV',
+        appId: "XLUUUIJIDV",
 
         // Public API key: it is safe to commit it
-        apiKey: '2fc0cd2a0d1472025068bbee35a37409',
+        apiKey: "a0142cdc309437268d52479f93101167",
 
-        indexName: 'summerjs',
+        indexName: "summerjs",
 
         // Optional: see doc section below
         contextualSearch: true,
@@ -75,44 +75,44 @@ const config = {
         searchParameters: {},
 
         // Optional: path for search page that enabled by default (`false` to disable it)
-        searchPagePath: 'search'
+        searchPagePath: "search"
 
         //... other Algolia params
       },
       navbar: {
-        title: 'Summer',
+        title: "Summer",
         logo: {
-          alt: '',
-          src: 'img/logo.svg'
+          alt: "",
+          src: "img/logo.svg"
         },
         items: [
           {
-            type: 'doc',
-            docId: 'intro',
-            position: 'left',
-            label: 'Docs'
+            type: "doc",
+            docId: "intro",
+            position: "left",
+            label: "Docs"
           },
-          { to: '/blog', label: 'Blog', position: 'left' },
+          { to: "/blog", label: "Blog", position: "left" },
           {
-            type: 'localeDropdown',
-            position: 'right'
+            type: "localeDropdown",
+            position: "right"
           },
           {
-            href: 'https://github.com/calidan-x/summer',
-            label: 'GitHub',
-            position: 'right'
+            href: "https://github.com/calidan-x/summer",
+            label: "GitHub",
+            position: "right"
           }
         ]
       },
       footer: {
-        style: 'dark',
+        style: "dark",
         links: [
           {
-            title: 'Docs',
+            title: "Docs",
             items: [
               {
-                label: 'Tutorial',
-                to: '/docs/intro'
+                label: "Tutorial",
+                to: "/docs/intro"
               }
             ]
           }
@@ -124,7 +124,7 @@ const config = {
         darkTheme: darkCodeTheme
       },
       colorMode: {
-        defaultMode: 'light',
+        defaultMode: "light",
         disableSwitch: true
       }
     }
