@@ -2,17 +2,16 @@
 sidebar_position: 1
 ---
 
-# MySQL
+# TypeORM
 
-### Install TypeORM Plugin
+### 安装 TypeORM 插件
 
 ```
 npm install @summer-js/typeorm
 npm install mysql2
 ```
 
-### Add DataSource Config
-in default.config.ts
+### 添加数据源 
 
 ```ts title="src/config/default.config.ts"
 import { TypeORMConfig } from '@summer-js/typeorm'
@@ -24,16 +23,16 @@ export const TYPEORM_CONFIG: TypeORMConfig = {
     database: 'dbname',
     username: 'root',
     password: 'root'
-    // you don't need to add entities/migrations, summer will auto collect them
+    // 你不需要添加 entities/migrations, Summer会自动收集他们
   }
 }
 ```
 
 :::tip
-Summer TypeORM plugin can auto collect entities and migrations
+Summer TypeORM plugin 或自动收集 entities/migrations 
 :::
 
-### Create an Entity
+### 创建Entity
 ```ts title="src/entity/Todo.ts"
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 
@@ -51,21 +50,23 @@ export class Todo {
 ```
 
 
-### Do CRUD by Repository
+### 使用 Repository 做增删改查
 
 :::tip
-Repository&lt;T, DataSourceName?: string = FirstDataSource&gt; is a generic injectable class.<br/>
-The Repository instance connect to the first DataSource by default, however, you can set the second param to specify another DataSource.
+Repository&lt;T, DataSourceName?: string = FirstDataSource&gt; 是一个泛型可注入对象，会被Summer自动注入.<br/>
+Repository对象会默认链接第一个数据源，如果你想要连接不同的数据源，你需要加上第二个参数。
 :::
 
 ```ts title="src/service/TodoService.ts"
 import { Service } from '@summer-js/summer'
+//highlight-next-line
 import { Repository } from '@summer-js/typeorm'
 
 import { Todo } from '../entity/Todo'
 
 @Service
 export class TodoService {
+  // auto inject
   //highlight-next-line
   todoRepository: Repository<Todo>
 
@@ -82,10 +83,10 @@ export class TodoService {
 
 
 
-### Get Repository From DataSouse
+### 从数据源获取Repository
 
-You can also get repository by calling **getDataSource("DATA_SOURCE_NAME").getRepository(entity)**.<br/>
-The inject instance way mentions before looks more elegant, but only works in class. **getRepository()** can be called everywhere.
+你也可以通过调用 **getDataSource("DATA_SOURCE_NAME").getRepository(entity)** 去获取Repository实例。<br/>
+注入的写法当然更优雅，但是仅可是在class中使用 **getRepository()** api可以在任何地方使用。
 
 ```ts title="src/DataSource.ts"
 import { EntityTarget } from 'typeorm'
@@ -111,15 +112,14 @@ export class TodoService {
 ```
 
 
-### DB Migration
+### 数据库版本迁移
 
-
-install ts-node
+安装 ts-node
 ```
 npm install ts-node --save-dev
 ```
 
-Create a file named ormconfig.ts
+创建本地配置文件 ormconfig.ts
 
 ```ts title="ormconfig.ts"
 import { DataSource } from 'typeorm'
@@ -137,7 +137,7 @@ export default new DataSource({
 ```
 
 
-Add migration generation script in package.json
+在 package.json 加入生成 migration 的指令
 ```json title="package.json"
 {
 	....
@@ -149,12 +149,13 @@ Add migration generation script in package.json
 }
 ```
 
-Run the script, this will help to generate a new migration version in **src/migrations/**
+运行指令，它会在 **src/migrations/** 生成对应的数据库版本
 ```
 npm run generate-migration
 ```
 
-Run migration before the server start.
+在启动项目前执行版本，同步数据库
+
 ```ts title="src/index.ts"
 import { getDataSource } from '@summer-js/typeorm'
 import { summerStart, handler, Logger } from '@summer-js/summer'
@@ -181,4 +182,4 @@ summerStart({
 
 
 
-For more usage please check [TypeORM official DOC](https://typeorm.io/)
+更多TypeORM的使用方法请参考 [TypeORM 官方文档](https://typeorm.io/)
