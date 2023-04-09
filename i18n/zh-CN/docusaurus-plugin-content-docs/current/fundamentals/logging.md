@@ -16,7 +16,7 @@ export class LoggerController {
     Logger.log('日志');
     Logger.info('信息');
     Logger.error('错误');
-    Logger.warning('警告');
+    Logger.warn('警告');
     Logger.debug('调试');
   }
 }
@@ -26,13 +26,8 @@ export class LoggerController {
 [2022-04-06 07:22:25][LOG] 日志
 [2022-04-06 07:22:25][INFO] 信息
 [2022-04-06 07:22:25][ERROR] 错误
-[2022-04-06 07:22:25][WARNING] 警告
+[2022-04-06 07:22:25][WARN] 警告
 [2022-04-06 07:22:25][DEBUG] 调试
 ```
 
-### 限定日志输出蕾西
-
-```ts
-// 只记录 Warning 和 Error 
-Logger.logType = ['Warning','Error']
-````
+ 

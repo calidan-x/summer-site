@@ -16,7 +16,7 @@ export class LoggerController {
     Logger.log('log');
     Logger.info('info');
     Logger.error('error');
-    Logger.warning('warning');
+    Logger.warn('warn');
     Logger.debug('debug');
   }
 }
@@ -26,14 +26,8 @@ export class LoggerController {
 [2022-04-06 07:22:25][LOG] log
 [2022-04-06 07:22:25][INFO] info
 [2022-04-06 07:22:25][ERROR] error
-[2022-04-06 07:22:25][WARNING] warning
+[2022-04-06 07:22:25][WARN] warn
 [2022-04-06 07:22:25][DEBUG] debug
 ```
 
-
-### Set Log Type
-
-```ts
-// only log Warning and Error
-Logger.logType = ['Warning','Error']
-````
+ 
