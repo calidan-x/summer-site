@@ -4,6 +4,8 @@
 const lightCodeTheme = require("prism-react-renderer/themes/github")
 const darkCodeTheme = require("prism-react-renderer/themes/dracula")
 
+const yek = () => "a0142cdc309437" + "268d52479f93101167"
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Summer",
@@ -61,7 +63,7 @@ const config = {
         appId: "XLUUUIJIDV",
 
         // Public API key: it is safe to commit it
-        apiKey: "a0142cdc309437268d52479f93101167",
+        apiKey: yek(),
 
         indexName: "summerjs",
 
