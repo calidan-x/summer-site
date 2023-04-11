@@ -17,7 +17,7 @@ To avoid developing controllers and restful APIs, summer provides a RPC module l
 | @RpcClient | Rpc Client | 
 
 
-### Server
+### Provider
 
 ```ts title="src/default.config.ts"
 export const RPC_CONFIG: RpcConfig = {

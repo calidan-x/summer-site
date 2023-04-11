@@ -8,7 +8,7 @@ Summer 提供了一种简单的远程调用 Service 的方法，RPC调用可以�
 
 ![](/img/rpc.svg)
 
-### 服务端
+### 提供者
 
 ```ts title="src/default.config.ts"
 export const RPC_CONFIG: RpcConfig = {
