@@ -9,7 +9,7 @@ const yek = () => "a0142cdc309437" + "268d52479f93101167"
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Summer",
-  tagline: "Efficient NodeJs Backend Framework",
+  tagline: "Simple / Powerful / Enterprise",
   url: "https://your-docusaurus-test-site.com",
   baseUrl: "/",
   onBrokenLinks: "throw",
