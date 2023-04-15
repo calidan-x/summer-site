@@ -1,9 +1,10 @@
 import React from "react"
 import clsx from "clsx"
+import { translate } from "@docusaurus/Translate"
+
 import styles from "./styles.module.css"
 
-const isChinese = location.href.includes("zh-CN")
-
+const isChinese = translate({ id: "homepage.Lang" }) === "zh-CN"
 const FeatureList = isChinese
   ? [
       {
