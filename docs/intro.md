@@ -5,6 +5,10 @@ sidebar_position: 1
 # Introduction
 Summer aims to provide a secure, high-quality, easy fast enterprise backend framework
 
+:::note
+Summer require Nodejs 16+
+:::
+
 ## Main Features
 
 - **Pleasure Programming**<br/>
@@ -42,6 +46,3 @@ npm install
 npm run serve
 ```
 
-:::note
-Summer require Nodejs 16+
-:::

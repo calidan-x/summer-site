@@ -6,6 +6,10 @@ sidebar_position: 1
 
 Summer 的目标是提供一个安全，高效，易于学习使用的高质量企业级框架。
 
+:::note
+Summer 需要 Nodejs 16+
+:::
+
 ## 主要特点
 
 - **愉快的编程体验**<br/>
@@ -40,6 +44,3 @@ npm install
 npm run serve
 ```
 
-:::note
-Summer 需要 Nodejs 16+
-:::
