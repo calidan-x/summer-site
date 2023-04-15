@@ -55,8 +55,6 @@ const FeatureList = isChinese
       }
     ]
 
-// translate({ id: "homepage.TagLine" })
-
 function Feature({ Svg, title, description }) {
   return (
     <div className={clsx("col col--4")}>
