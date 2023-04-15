@@ -30,6 +30,9 @@ Summer 需要 Nodejs 16+
 - **最佳 Swagger 集成**<br/>
   Summer Swagger 插件利用运行时的TypeScript类型生成文档 ( OpenAPI 3.0.x ), 您只需要编写一行代码即可生成一份完整的API文档. Swagger 插件与Summer核心代码联合工作，可以直接读取 @Max() Optional(?) 等注解信息和TypeORM的注释信息。
 
+- **丰富的扩展功能**<br/>
+  Summer 已经集成了大部分后端常用技术包括: Swagger (OpenAPI 3.0.3) / Redis / TypeORM (mysql + mangodb) / Graphql / ElasticSearch / Socket.IO
+
 ## 创建项目
 
 ```bash

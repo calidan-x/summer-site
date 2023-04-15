@@ -26,11 +26,12 @@ Summer require Nodejs 16+
 - **One Complied Code, Deploy Everywhere**<br/>
   Summer use esbuild to pack code into ONE runnable js file. This compiled code is compatible to deploy in Kubernetes cluster or Serverless without changing any configuration.
 
- 
-<!-- <img src="/img/swagger_logo.svg"  style={{marginLeft:"30px",marginBottom:"5px",marginTop:"20px"}} width="200"/><br/> -->
-
 - **Best Swagger Integration**<br/>
   Summer Swagger plugin utilizes runtime typescript to generate API documents ( OpenAPI 3.0.x ), a single line of code can generate a full document. The Swagger plugin works together with Summer core decorators that can read @Max() Optional(?) and database column comments in TypeORM.
+
+- **Rich Extensions**<br/>
+  Summer has commons backed tech extensions: Swagger (OpenAPI 3.0.3) / Redis / TypeORM (mysql + mangodb) / Graphql / ElasticSearch / Socket.IO
+ 
 
 ## Create a New Project
 
