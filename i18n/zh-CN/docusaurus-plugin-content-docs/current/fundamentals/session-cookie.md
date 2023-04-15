@@ -2,52 +2,127 @@
 sidebar_position: 72
 ---
 
-# Session & Cookie
+#  Cookie & Session
 
-用 `@Cookie` 获取 Cookie
+###  使用 `Cookie` 设置或读取 Cookie
 
-设置cookie或清除cookie
 
-```ts
-import { setCookie, clearCookie } from '@summer-js/summer'
+|  Method     |
+|  ----       |
+|  Cookie.set(key: string, value: string, options: CookieSerializeOptions) |
+|  Cookie.get(key: string) |
+|  Cookie.clear(key: string) |
+|  Cookie.getAll() |
 
-// 设值cookie
-setCookie({ name: 'my-cookie', value: 'val', httpOnly: true })
+```ts title="例子"
+import { Cookie } from '@summer-js/summer'
 
-// 清除cookie
-clearCookie('my-cookie')
+// set cookie
+Cookie.set('key','value',{ httpOnly: true })
+
+// clear cookie
+Cookie.clear('key')
 ```
 
 
-在default.config.ts 配置Session，expireIn 单位为秒
+### 配置 Session
 
 ```ts
 import { SessionConfig } from '@summer-js/summer'
 
 export const SESSION_CONFIG: SessionConfig = {
-  // 设值10分钟的session过期时间
-  expireIn: 60 * 10,
-  // 可选，修改session的cookie key值，默认为 SUMMER_SESSION
-  cookieName:"APP_SESSION"
+  // highlight-next-line
+  // set expire time to 60 seconds
+  // highlight-next-line
+  expireIn: 60
+
+  // mode?: 'Cookie' | 'Header'
+  // sessionName?: string
+  // cookieOptions?: CookieSerializeOptions
 }
 
 ```
 
-使用 `@Session` 获取session对象，然后给session设值，session对每个用户是独立的存储
+### 使用 `Session` 设置 session 值
 
-```ts
+|  Method     |
+|  ----       |
+|  Session.set(key: string, value: string) |
+|  Session.get(key: string) |
+|  Session.clear() |
+|  Session.getAll() |
+|  Session.setStorage({ storage: { <br/> &nbsp; &nbsp;save: (sessionId: string, key: string, value: any) => void <br/> &nbsp; &nbsp;load: (sessionId: string) => any <br/> &nbsp; &nbsp;clear: (sessionId: string) => any <br/> &nbsp; &nbsp;expire: (sessionId: string, expireIn: number) => void <br/> }}) |
 
-@Post('/session')
-addSession(@Session session: any) {
-  session.key = "value";
+
+```ts title="例子"
+import { Session } from '@summer-js/summer'
+
+@Post('/set-session')
+setSession() {
+  Session.set('key','value')
 }
 
 ```
 
 :::note
-Session配置中的过期时间是session一直不访问的时间，不是首次访问的时间，也就是说每次访问都会续期，直到长时间访问才会过期
+Session 在不断接收到请求的时候会自动延长时间，所以用户一直使用会永不过期
 :::
 
-:::caution
-当前的Session还不支持分布式服务器！
-:::
+### 自定义Session存储
+
+默认情况下，session 不支持分布式多台服务器部署。可以修改 session 的存储方法支持。 
+
+以下给出了使用 Redis 存储 session 数据的例子
+```ts
+import { Controller, Get, PostConstruct, Session } from '@summer-js/summer'
+import { RedisClient } from '@summer-js/redis'
+
+@Controller('/redis-session')
+export class RedisSessionController {
+  redisClient: RedisClient
+
+  @PostConstruct
+  init() {
+    // highlight-start
+    Session.setStorage({
+      save: async (sessionId, key, value) => {
+        const sessionData = JSON.parse((await this.redisClient.get(sessionId)) || '{}')
+        sessionData[key] = value
+        await this.redisClient.set(sessionId, JSON.stringify(sessionData))
+      },
+      load: async (sessionId) => {
+        const sessionData = await this.redisClient.get(sessionId)
+        if (sessionData) {
+          return JSON.parse(sessionData)
+        }
+        return {}
+      },
+      clear: async (sessionId) => {
+        await this.redisClient.del(sessionId)
+      },
+      expire: async (sessionId, expireIn) => {
+        await this.redisClient.expire(sessionId, expireIn)
+      }
+    })
+    // highlight-end
+  }
+
+  @Get('/set-session')
+  async setSession() {
+    await Session.set('id', 1)
+  }
+
+  @Get('/get-session')
+  async getSession() {
+    return await Session.get('id')
+  }
+}
+```
+
+
+### SessionId 与客户端通信
+
+默认的情况下，Summer 使用 Cookie 存储 session-id，Cookie 是一种简单的配置方法，但是存在跨域问题。让 Cookie 支持跨域，你需要打开在 **SERVER_CONFIG** 中打开 **cors**, 在 **SESSION_CONFIG** 中设置 **cookieOptions** 为 { httpOnly: true, sameSite: 'none', secure: true }
+
+或者你可以选择 **Header** 模式, 在 **SESSION_CONFIG** 设置 **mode** 为 **Header**，在 **SERVER_CONFIG** 中打开 **cors**, 客户度在请求头部接收到 header(SUMMER_SESSION) 时需要存储下来，在之后的请求头部将 SessionId 带上.
+ 
