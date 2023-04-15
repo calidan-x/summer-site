@@ -1,4 +1,6 @@
 {
+  "homepage.GettingStart": { "message": "开始" },
+  "homepage.TagLine": { "message": "简单 / 强大 / 企业级" },
   "theme.ErrorPageContent.title": {
     "message": "This page crashed.",
     "description": "The title of the fallback page when the page crashed"
