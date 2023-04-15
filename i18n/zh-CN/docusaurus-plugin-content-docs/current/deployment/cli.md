@@ -2,7 +2,7 @@
 sidebar_position: 100
 ---
 
-# Cli
+# 命令行
 
 本地启动服务
 

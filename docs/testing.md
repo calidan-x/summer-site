@@ -66,3 +66,20 @@ describe('Test Movie Controller', () => {
   })
 })
 ```
+
+
+### Print Debug Data
+
+```ts
+import { request } from '@summer-js/test'
+
+describe('Test Movie Controller', () => { 
+
+  test('should return movie list', async () => {
+    const response = await request.get('/movies')
+    // highlight-next-line
+    response.print()
+    expect(response.statusCode).toEqual(200)
+  })
+})
+```

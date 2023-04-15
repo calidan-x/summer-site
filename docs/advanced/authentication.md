@@ -2,13 +2,14 @@
 sidebar_position: 1
 ---
 
-# Auth
+# Authentication
 
-请求认证可以通过以下2种方式实现
+Authentication can be done in the following 2 ways.
 
-### 使用自定义Decorator处理
 
-```ts  
+### By Custom Decorator
+
+```ts title="Develop a @RequireLogin decorator"
 import { Controller, createClassAndMethodDecorator, Get, Put } from '@summer-js/summer'
 import jwt from 'jsonwebtoken'
 
@@ -47,13 +48,14 @@ export class LoginController2 {
 ```
 
 
-### 使用中间件拦截
+### By Middleware
 
 ```ts
 import { Middleware, Context } from '@summer-js/summer';
+import jwt from 'jsonwebtoken';
 
 @Middleware({ order: 0 })
-export class ErrorMiddleware {
+export class AuthMiddleware {
   async process(ctx: Context, next: any) {
   const token = ctx.request.headers['authentication'];
   try {
@@ -66,3 +68,6 @@ export class ErrorMiddleware {
 ```
 
 
+
+
+ 

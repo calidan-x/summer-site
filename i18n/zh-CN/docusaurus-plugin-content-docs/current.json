@@ -2,13 +2,16 @@
   "version.label": {
     "message": "Next"
   },
-  "sidebar.tutorialSidebar.category.Fundamentals": {
+  "sidebar.tutorialSidebar.category.Basics": {
     "message": "基础能力"
   },
-  "sidebar.tutorialSidebar.category.Security": {
-    "message": "安全与认证"
+  "sidebar.tutorialSidebar.category.Advanced": {
+    "message": "高级能力"
   },
-  "sidebar.tutorialSidebar.category.Technique": {
-    "message": "其他技术"
+  "sidebar.tutorialSidebar.category.Extensions": {
+    "message": "扩展能力"
+  },
+  "sidebar.tutorialSidebar.category.Deployment": {
+    "message": "部署"
   }
 }

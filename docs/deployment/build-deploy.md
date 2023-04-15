@@ -1,8 +1,8 @@
 ---
-sidebar_position: 90
+sidebar_position: 1
 ---
 
-# Deployment
+# Build & Deploy
 
 ### Change Server Config
 

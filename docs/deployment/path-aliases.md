@@ -24,7 +24,7 @@ To use path aliases, add paths config in tsconfig.json
 }
 ```
 
-Now you can import variable by:
+Now you can import:
 ```ts
 import { TodoService } from '@/service'
 ```

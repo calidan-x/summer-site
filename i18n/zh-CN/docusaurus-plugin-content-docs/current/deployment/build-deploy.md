@@ -1,8 +1,8 @@
 ---
-sidebar_position: 90
+sidebar_position: 1
 ---
 
-# 服务器部署
+# 服务器打包部署
 
 ### 修改服务器配置
 
