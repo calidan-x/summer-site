@@ -44,3 +44,37 @@ export class SerializationController {
 }
 ```
 
+### 使用 @Serialize() 序列化数据
+
+```ts
+import { Controller, Get, Serialize } from '@summer-js/summer'
+
+class User {
+  name: string
+  @Serialize((value: string) => value.replace(/.+/g, '*****'))
+  password: string
+  gender: Gender
+}
+
+@Controller
+export class SerializationController {
+
+  @Get('/user')
+  async propSerialize() {
+    const user = new User()
+    user.name = 'John'
+    user.password = 'my-password'
+    user.gender = Gender.Male
+    return user
+  }
+
+}
+```
+
+```json title="Output"
+{
+    "name": "John",
+    "password": "*****",
+    "gender": "Male"
+}
+```
