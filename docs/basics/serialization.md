@@ -8,7 +8,7 @@ Summer serializes response data automatically.
 
 A controller method returns an object will be serialized to JSON string with **application/json** in header context-type. String or other js primitive type will be converted to string with **text/html** in header context-type.
 
-Enum type in object will convert to Key string.
+### Enum type in object will convert to Key string by default.
 
 ```ts
 import { Controller, Get } from '@summer-js/summer'
@@ -49,6 +49,11 @@ export class SerializationController {
 ```ts
 import { Controller, Get, Serialize } from '@summer-js/summer'
 
+enum Gender {
+  Male,
+  Female
+}
+
 class User {
   name: string
   @Serialize((value: string) => value.replace(/.+/g, '*****'))
@@ -78,3 +83,4 @@ export class SerializationController {
     "gender": "Male"
 }
 ```
+
