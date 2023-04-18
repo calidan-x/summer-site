@@ -84,7 +84,7 @@ summer serve --env [环境名]
 
 ### 在程序中获取当前配置环境
 ```
-process.env.SUMMER_ENV
+SUMMER_ENV
 ```
 
 ### 调用方法获取配置

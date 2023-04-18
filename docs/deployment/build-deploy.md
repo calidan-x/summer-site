@@ -52,7 +52,7 @@ create folder **resource** and put the resource files into it.<br/>
 ### Get Build TimeStamp
 build timestamp can help to generate update time
 ```
-process.env.SUMMER_BUILD_TIME
+SUMMER_BUILD_TIMESTAMP
 ```
 
 ### Enable Cluster Mode

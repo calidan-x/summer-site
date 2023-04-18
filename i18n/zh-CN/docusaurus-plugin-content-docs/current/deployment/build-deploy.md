@@ -57,7 +57,7 @@ Summer生成的最终执行文件相当简洁，不再有node_modules目录让�
 ### 获取编译打包时间
 打包时间可以用于显示记录包的打包时间
 ```
-process.env.SUMMER_BUILD_TIME
+SUMMER_BUILD_TIMESTAMP
 ```
 
 ### 启用集群模式

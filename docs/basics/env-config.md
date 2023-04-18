@@ -80,7 +80,7 @@ Common ENV_NAME
 
 ### Get Current ENV_NAME
 ```
-process.env.SUMMER_ENV
+SUMMER_ENV
 ```
 
 
