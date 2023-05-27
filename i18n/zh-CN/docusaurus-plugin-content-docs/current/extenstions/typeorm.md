@@ -111,6 +111,46 @@ export class TodoService {
 }
 ```
 
+### 事务支持
+
+Summer 提供了事务相关的装饰器，以下代码数据将不会被存储，因为在事务操作时抛出了错误异常，数据被回滚到方法未执行前的状态。
+
+```ts title="src/service/TodoService.ts"
+import { Service } from '@summer-js/summer'
+import { Repository, Transaction, transaction} from '@summer-js/typeorm'
+
+import { Todo } from '../entity/Todo'
+
+@Service
+export class TodoService {
+  todoRepository: Repository<Todo>
+
+  // 使用装饰器
+  @Transaction
+  async addTodo1() {
+    let todo = new Todo()
+    todo.id = 1
+    todo.content = 'coding'
+    todo.isDone = false
+    await this.todoRepository.save(todo)
+    throw new Error('error')
+  }
+
+  // 也可以使用函数调用
+  async addTodo2() {
+    await transaction(async ()=>{
+      let todo = new Todo()
+      todo.id = 1
+      todo.content = 'coding'
+      todo.isDone = false
+      await this.todoRepository.save(todo)
+      throw new Error('error')
+    })
+  }
+
+}
+```
+
 
 ### 数据库版本迁移
 

@@ -111,6 +111,46 @@ export class TodoService {
 }
 ```
 
+### Transaction
+
+Summer provide Transaction decorator for DB transaction, the following code will not save todo data because there is an Error in Transaction scope.
+
+```ts title="src/service/TodoService.ts"
+import { Service } from '@summer-js/summer'
+import { Repository, Transaction, transaction} from '@summer-js/typeorm'
+
+import { Todo } from '../entity/Todo'
+
+@Service
+export class TodoService {
+  todoRepository: Repository<Todo>
+
+  // using decorator
+  @Transaction
+  async addTodo1() {
+    let todo = new Todo()
+    todo.id = 1
+    todo.content = 'coding'
+    todo.isDone = false
+    await this.todoRepository.save(todo)
+    throw new Error('error')
+  }
+
+  // you can also use transaction function
+  async addTodo2() {
+    await transaction(async ()=>{
+      let todo = new Todo()
+      todo.id = 1
+      todo.content = 'coding'
+      todo.isDone = false
+      await this.todoRepository.save(todo)
+      throw new Error('error')
+    })
+  }
+
+}
+```
+
 
 ### DB Migration
 
