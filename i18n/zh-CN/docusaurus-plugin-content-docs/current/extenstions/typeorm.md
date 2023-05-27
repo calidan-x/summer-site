@@ -117,6 +117,7 @@ Summer 提供了事务相关的装饰器，以下代码数据将不会被存储�
 
 ```ts title="src/service/TodoService.ts"
 import { Service } from '@summer-js/summer'
+//highlight-next-line
 import { Repository, Transaction, transaction} from '@summer-js/typeorm'
 
 import { Todo } from '../entity/Todo'
@@ -126,6 +127,7 @@ export class TodoService {
   todoRepository: Repository<Todo>
 
   // 使用装饰器
+  //highlight-next-line
   @Transaction
   async addTodo1() {
     let todo = new Todo()
@@ -138,6 +140,7 @@ export class TodoService {
 
   // 也可以使用函数调用
   async addTodo2() {
+    //highlight-next-line
     await transaction(async ()=>{
       let todo = new Todo()
       todo.id = 1
@@ -145,6 +148,7 @@ export class TodoService {
       todo.isDone = false
       await this.todoRepository.save(todo)
       throw new Error('error')
+    //highlight-next-line
     })
   }
 

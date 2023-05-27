@@ -117,6 +117,7 @@ Summer provide Transaction decorator for DB transaction, the following code will
 
 ```ts title="src/service/TodoService.ts"
 import { Service } from '@summer-js/summer'
+//highlight-next-line
 import { Repository, Transaction, transaction} from '@summer-js/typeorm'
 
 import { Todo } from '../entity/Todo'
@@ -126,6 +127,7 @@ export class TodoService {
   todoRepository: Repository<Todo>
 
   // using decorator
+  //highlight-next-line
   @Transaction
   async addTodo1() {
     let todo = new Todo()
@@ -138,6 +140,7 @@ export class TodoService {
 
   // you can also use transaction function
   async addTodo2() {
+    //highlight-next-line
     await transaction(async ()=>{
       let todo = new Todo()
       todo.id = 1
@@ -145,6 +148,7 @@ export class TodoService {
       todo.isDone = false
       await this.todoRepository.save(todo)
       throw new Error('error')
+    //highlight-next-line
     })
   }
 
