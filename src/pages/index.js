@@ -26,10 +26,23 @@ function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
-            style={{ borderRadius: "25px" }}
+            style={{
+              borderRadius: "25px",
+              marginRight: "10px",
+              width: "170px",
+              paddingLeft: "0",
+              paddingRight: "0"
+            }}
             to="/docs/intro"
           >
             <Translate id="homepage.GettingStart">Get Started</Translate>
+          </Link>
+          <Link
+            className="button button--secondary button--lg"
+            style={{ borderRadius: "25px", width: "170px" }}
+            to="https://stackblitz.com/edit/hello-summer?file=src%2Fcontroller%2FAppController.ts"
+          >
+            <Translate id="homepage.Try">Try</Translate>
           </Link>
         </div>
       </div>

@@ -1,5 +1,6 @@
 {
   "homepage.GettingStart": { "message": "开始" },
+  "homepage.Try": { "message": "试用" },
   "homepage.TagLine": { "message": "简单 / 强大 / 企业级" },
   "homepage.Lang": { "message": "zh-CN" },
   "theme.ErrorPageContent.title": {
