@@ -94,6 +94,7 @@ const config = {
             position: "left",
             label: "Docs"
           },
+          { to: "/examples", label: "Examples", position: "left" },
           { to: "/blog", label: "Blog", position: "left" },
           {
             type: "localeDropdown",

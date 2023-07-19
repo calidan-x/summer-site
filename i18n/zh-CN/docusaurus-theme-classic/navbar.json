@@ -8,6 +8,9 @@
   "item.label.Blog": {
     "message": "博客"
   },
+  "item.label.Examples": {
+    "message": "示例"
+  },
   "item.label.GitHub": {
     "message": "GitHub"
   }
