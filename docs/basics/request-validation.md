@@ -154,7 +154,7 @@ Searching Fiction Books...
 
 ### Date Validation
 
-Date validates the pass in param is a date/datetime string format like '2022-10-01' or '2022-10-01 12:00:00'<br/>
+Date validates the pass in param is a date/datetime string format like '2022-10-01' or '2022-10-01 12:00:00' or timestamp like 1355270400000 or '1355270400000'<br/>
 
 ```ts title="src/controller/BookController.ts"
 import { Controller, Get, Query } from '@summer-js/summer'

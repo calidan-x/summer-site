@@ -19,7 +19,7 @@ import { Context, Controller, Ctx, Get } from '@summer-js/summer'
 @Controller
 export class ContextController {
   @Get('/context')
-  context(@Ctx context: Context) {
+  context(@Context context: Context) {
     // or const context = getContext()
     console.log(context)
   }

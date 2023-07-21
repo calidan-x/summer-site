@@ -31,7 +31,7 @@ Most of NodeJS backend frameworks require to write parentheses "()" at the end o
 | @Queries  | get all query params|
 | @Body  | get request body |
 | @Header(key?: string)  | get header |
-| @Ctx  | get request context |
+| @Context  | get request context |
 | @RequestPath  | get request path |
 | @Cookie(key?: sting)  | get request cookie |
 | @Session  | get session object |

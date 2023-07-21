@@ -154,7 +154,7 @@ Searching Fiction Books...
 
 ### 日期验证
 
-日期验证传入的格式是否为日期格式例如 '2022-10-01' or '2022-10-01 12:00:00'<br/>
+日期验证传入的格式是否为日期格式例如 '2022-10-01' 或 '2022-10-01 12:00:00'，亦可以使用时间戳 '1355270400000' 或 1355270400000<br/>
 
 ```ts title="src/controller/BookController.ts"
 import { Controller, Get, Query } from '@summer-js/summer'

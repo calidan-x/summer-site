@@ -31,7 +31,7 @@ sidebar_position: 10
 | @Queries  | 获取所有查询参数 |
 | @Body  | 获取请求 Body |
 | @Header(key?: string)  | 获取 Header 参数 |
-| @Ctx  | 获取请求上下文 |
+| @Context  | 获取请求上下文 |
 | @RequestPath  | 获取请求路径 |
 | @Cookie(key?: sting)  | 获取 Cookie |
 | @Session  | 获取 Session 对象 |
