@@ -40,7 +40,6 @@ The request DTO must be a class.
 | @Email(message?: string \| (val) => string)  |  use in string email format |
 | @Pattern(regexp :RegExp, message?: string \| (val) => string)  | use in string match RegExp |
 | @Validate(func: (val: any) => boolean \| string )  | custom validation,<br/> pass in value and return true \| "Error Message"<br/> to determine validation result |
-| @IgnoreUnknownProperties | allow undefined property in request DTO |
  
 
 

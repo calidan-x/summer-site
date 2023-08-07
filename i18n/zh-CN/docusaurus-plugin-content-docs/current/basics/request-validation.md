@@ -40,7 +40,6 @@ Summer支持运行时校验TypeScript类型，所以请求DTO只需要按正常�
 | @Email(message?: string \| (val) => string)  |  使用在 string 限定必须是电子邮件格式 |
 | @Pattern(regexp :RegExp, message?: string \| (val) => string)  | 使用在 string 匹配正则 |
 | @Validate(func: (val: any) => boolean \| string )  | 自定义验证，验证函数返回 true 时代表验证通过，<br/>返回字符串 "错误信息" 表示验证失败。|
-| @IgnoreUnknownProperties | 允许接口发来额外不在请求中定义的字段 |
  
 
 
