@@ -4,7 +4,7 @@ sidebar_position: 60
 
 # Socket.IO
 
-### Install
+### 安装
 
 ```shell
 npm install socket.io
@@ -12,7 +12,7 @@ npm install @summer-js/socket.io
 ```
 
 
-### Config
+### 配置
 
 ```ts title="default.config.ts"
 import { SocketIOConfig } from '@summer-js/socket.io'

@@ -4,7 +4,7 @@ sidebar_position: 70
 
 # Elasticsearch
 
-### Install
+### 安装
 
 ```shell
 npm install @elastic/elasticsearch
@@ -12,7 +12,7 @@ npm install @summer-js/elasticsearch
 ```
 
 
-### Config
+### 配置
 
 ```ts title="default.config.ts"
 import { ElasticSearchConfig } from '@summer-js/elasticsearch'
@@ -22,7 +22,7 @@ export const ELASTICSEARCH_CONFIG: ElasticSearchConfig = {
 }
 ```
 
-### Implement
+### 使用
 
 ```ts
 import { Controller, Get } from '@summer-js/summer'
@@ -30,7 +30,7 @@ import { ESClient } from '@summer-js/elasticsearch'
 
 @Controller('/es')
 export class ESController {
-  // auto-injection
+  // 自动注入
   esClient: ESClient
 
   @Get('/search')
@@ -59,10 +59,10 @@ export class ESController {
       }
     })
 
-    // here we are forcing an index refresh, otherwise
+    // 刷新数据
     await this.esClient.indices.refresh({ index: 'game-of-thrones' })
 
-    // Let's search!
+    // 查询
     const result = await this.esClient.search({
       index: 'game-of-thrones',
       query: {
