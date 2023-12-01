@@ -78,3 +78,47 @@ export class SerializationController {
     "gender": "Male"
 }
 ```
+
+
+### 使用 @Ignore 隐藏字段
+
+:::info 提醒
+也可以使用 @Serialize() 返回 undefined 隐藏字段
+:::
+
+```ts
+import { Controller, Get, Ignore } from '@summer-js/summer'
+
+enum Gender {
+  Male,
+  Female
+}
+
+class User {
+  name: string
+  @Ignore
+  password: string
+  gender: Gender
+}
+
+@Controller
+export class SerializationController {
+
+  @Get('/user')
+  async propSerialize() {
+    const user = new User()
+    user.name = 'John'
+    user.password = 'my-password'
+    user.gender = Gender.Male
+    return user
+  }
+
+}
+```
+
+```json title="Output"
+{
+    "name": "John",
+    "gender": "Male"
+}
+```

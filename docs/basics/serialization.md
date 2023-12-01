@@ -84,3 +84,46 @@ export class SerializationController {
 }
 ```
 
+### Use @Ignore to hide property
+
+:::info Notice
+Hide property can also be done by using @Serialize() and return undefined
+:::
+
+```ts
+import { Controller, Get, Ignore } from '@summer-js/summer'
+
+enum Gender {
+  Male,
+  Female
+}
+
+class User {
+  name: string
+  @Ignore
+  password: string
+  gender: Gender
+}
+
+@Controller
+export class SerializationController {
+
+  @Get('/user')
+  async propSerialize() {
+    const user = new User()
+    user.name = 'John'
+    user.password = 'my-password'
+    user.gender = Gender.Male
+    return user
+  }
+
+}
+```
+
+```json title="Output"
+{
+    "name": "John",
+    "gender": "Male"
+}
+```
+

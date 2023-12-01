@@ -40,3 +40,20 @@ export class RedisController {
 }
 ```
   
+### Multi Clients
+```ts 
+import { Controller, Get } from '@summer-js/summer'
+import { RedisClient } from '@summer-js/redis'
+
+@Controller('/redis')
+export class RedisController {
+ 
+  redisClient: RedisClient
+  redisClient2: RedisClient<'Client2'>
+
+  @Get('/redis-set')
+  async setKey() {
+    this.redisClient2.set('key', 'value')
+  }
+}
+```
