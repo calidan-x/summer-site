@@ -18,7 +18,9 @@ npm install @summer-js/elasticsearch
 import { ElasticSearchConfig } from '@summer-js/elasticsearch'
 
 export const ELASTICSEARCH_CONFIG: ElasticSearchConfig = {
-  node: 'http://localhost:9200'
+  DataSource:{
+    node: 'http://localhost:9200'
+  }
 }
 ```
 
