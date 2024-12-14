@@ -281,6 +281,29 @@ addBooks(@Query keyword?: string, @Query pageNumber = 1){
 }
 ```
 
+## 部分更新
+
+```ts title="src/dto/request/book.ts"
+export class Book {
+  title: string;
+  author: Person;
+}
+```
+
+```ts title="src/controller/BookController.ts"
+import { Controller, Patch, Body } from '@summer-js/summer';
+import { Book } from '../dto/request/book'
+
+@Controller
+export class BookController {
+  @Patch('/books/:id')
+  // highlight-next-line
+  updateBook(@Body book: Partial<Book>) {
+    console.log(book);
+  }
+}
+```
+
 
 ## 对象体验证
 
